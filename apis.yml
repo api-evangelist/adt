@@ -1,7 +1,12 @@
 aid: adt
-url: https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/apis.yml
 modified: '2026-03-23'
 apis: []
 common:
   - type: Website
     url: https://www.adt.com
+description: >-
+  ADT is a provider of monitored security, interactive home and business automation,
+  and related monitoring services for residential and small business customers across
+  the United States and Canada.
