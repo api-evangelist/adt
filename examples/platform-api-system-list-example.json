@@ -1,0 +1,12 @@
+{
+  "systems": [
+    {
+      "id": "sys-001",
+      "name": "Main House Security System",
+      "status": "disarmed",
+      "address": "123 Main St, Anytown, CA 90210",
+      "type": "residential",
+      "lastModified": "2025-03-15T14:30:00Z"
+    }
+  ]
+}

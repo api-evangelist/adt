@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-structure/platform-api-event-list-structure.json",
+  "name": "EventList",
+  "description": "Paginated list of security events.",
+  "type": "object",
+  "properties": {
+    "events": {
+      "type": "array",
+      "description": "Array of security events.",
+      "items": {
+        "type": "object",
+        "description": "A security event or alarm history entry.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the event.",
+            "example": "evt-001"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of security event.",
+            "enum": [
+              "alarm",
+              "arm",
+              "disarm",
+              "sensor_open",
+              "sensor_close",
+              "motion",
+              "video",
+              "panic"
+            ],
+            "example": "alarm"
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of the event.",
+            "example": "Motion detected at front door"
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "ID of the device that triggered the event.",
+            "example": "dev-001"
+          },
+          "timestamp": {
+            "type": "datetime",
+            "description": "Timestamp when the event occurred.",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user associated with the event.",
+            "example": "usr-001"
+          }
+        }
+      }
+    },
+    "total": {
+      "type": "int32",
+      "description": "Total number of events matching the query.",
+      "example": 150
+    }
+  }
+}

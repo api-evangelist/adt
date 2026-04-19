@@ -1,0 +1,8 @@
+{
+  "id": "sys-001",
+  "cameraId": "sys-001",
+  "startTime": "2025-03-15T14:30:00Z",
+  "endTime": "2025-03-15T14:30:00Z",
+  "trigger": "motion",
+  "downloadUrl": "https://media.adt.com/example"
+}

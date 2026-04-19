@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-structure/business-api-user-structure.json",
+  "name": "User",
+  "description": "A user with access to a business site.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique user ID.",
+      "example": "usr-001"
+    },
+    "name": {
+      "type": "string",
+      "description": "Full name of the user.",
+      "example": "Jane Smith"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address.",
+      "example": "jsmith@example.com"
+    },
+    "role": {
+      "type": "string",
+      "description": "User role.",
+      "enum": [
+        "admin",
+        "manager",
+        "employee",
+        "contractor"
+      ],
+      "example": "employee"
+    }
+  }
+}

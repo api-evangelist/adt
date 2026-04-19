@@ -1,0 +1,8 @@
+{
+  "id": "sys-001",
+  "type": "alarm",
+  "description": "example",
+  "deviceId": "sys-001",
+  "timestamp": "2025-03-15T14:30:00Z",
+  "userId": "sys-001"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "sys-001",
+  "name": "Main House Security System",
+  "trigger": "schedule",
+  "enabled": true,
+  "actions": [
+    {}
+  ]
+}

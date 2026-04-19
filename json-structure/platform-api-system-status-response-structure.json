@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-structure/platform-api-system-status-response-structure.json",
+  "name": "SystemStatusResponse",
+  "description": "Response to an arm or disarm command.",
+  "type": "object",
+  "properties": {
+    "systemId": {
+      "type": "string",
+      "description": "ID of the system.",
+      "example": "sys-001"
+    },
+    "status": {
+      "type": "string",
+      "description": "New system status after command.",
+      "example": "armed_away"
+    },
+    "timestamp": {
+      "type": "datetime",
+      "description": "Timestamp of the status change.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "adt": "https://api.adt.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ArmRequest": "adt:ArmRequest",
+    "System": "adt:System",
+    "DeviceList": "adt:DeviceList",
+    "AccessCode": "adt:AccessCode",
+    "VideoClipList": "adt:VideoClipList",
+    "AutomationList": "adt:AutomationList",
+    "Event": "adt:Event",
+    "EventList": "adt:EventList",
+    "VideoClip": "adt:VideoClip",
+    "AccessCodeList": "adt:AccessCodeList",
+    "Device": "adt:Device",
+    "Automation": "adt:Automation",
+    "SystemList": "adt:SystemList",
+    "DisarmRequest": "adt:DisarmRequest",
+    "SystemStatusResponse": "adt:SystemStatusResponse",
+    "AccessCodeInput": "adt:AccessCodeInput",
+    "mode": {
+      "@id": "adt:mode",
+      "@type": "xsd:string"
+    },
+    "accessCode": {
+      "@id": "adt:accessCode",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "adt:id",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "status": {
+      "@id": "adt:status",
+      "@type": "xsd:string"
+    },
+    "address": "schema:address",
+    "type": {
+      "@id": "adt:type",
+      "@type": "xsd:string"
+    },
+    "lastModified": {
+      "@id": "adt:lastModified",
+      "@type": "xsd:dateTime"
+    },
+    "devices": {
+      "@id": "adt:devices",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "expiresAt": {
+      "@id": "adt:expiresAt",
+      "@type": "xsd:dateTime"
+    },
+    "permissions": {
+      "@id": "adt:permissions",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "clips": {
+      "@id": "adt:clips",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "automations": {
+      "@id": "adt:automations",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "description": "schema:description",
+    "deviceId": {
+      "@id": "adt:deviceId",
+      "@type": "xsd:string"
+    },
+    "timestamp": {
+      "@id": "adt:timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "userId": {
+      "@id": "adt:userId",
+      "@type": "xsd:string"
+    },
+    "events": {
+      "@id": "adt:events",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "total": {
+      "@id": "adt:total",
+      "@type": "xsd:integer"
+    },
+    "cameraId": {
+      "@id": "adt:cameraId",
+      "@type": "xsd:string"
+    },
+    "startTime": {
+      "@id": "adt:startTime",
+      "@type": "xsd:dateTime"
+    },
+    "endTime": {
+      "@id": "adt:endTime",
+      "@type": "xsd:dateTime"
+    },
+    "trigger": {
+      "@id": "adt:trigger",
+      "@type": "xsd:string"
+    },
+    "downloadUrl": {
+      "@id": "adt:downloadUrl",
+      "@type": "@id"
+    },
+    "thumbnailUrl": {
+      "@id": "adt:thumbnailUrl",
+      "@type": "@id"
+    },
+    "accessCodes": {
+      "@id": "adt:accessCodes",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "zone": {
+      "@id": "adt:zone",
+      "@type": "xsd:string"
+    },
+    "batteryLevel": {
+      "@id": "adt:batteryLevel",
+      "@type": "xsd:integer"
+    },
+    "lastActivity": {
+      "@id": "adt:lastActivity",
+      "@type": "xsd:dateTime"
+    },
+    "enabled": {
+      "@id": "adt:enabled",
+      "@type": "xsd:boolean"
+    },
+    "actions": {
+      "@id": "adt:actions",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "systems": {
+      "@id": "adt:systems",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "systemId": {
+      "@id": "adt:systemId",
+      "@type": "xsd:string"
+    },
+    "code": {
+      "@id": "adt:code",
+      "@type": "xsd:string"
+    }
+  }
+}

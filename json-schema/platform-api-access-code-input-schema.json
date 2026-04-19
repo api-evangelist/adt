@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-schema/platform-api-access-code-input-schema.json",
+  "title": "AccessCodeInput",
+  "description": "Request to create an access code.",
+  "type": "object",
+  "required": [
+    "name",
+    "code",
+    "type"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the access code.",
+      "example": "Contractor Code"
+    },
+    "code": {
+      "type": "string",
+      "description": "The numeric access code (4-8 digits).",
+      "example": "5678"
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of access code.",
+      "enum": [
+        "standard",
+        "temporary"
+      ],
+      "example": "temporary"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Expiration time for temporary codes.",
+      "example": "2025-03-20T23:59:59Z"
+    }
+  }
+}

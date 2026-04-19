@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-schema/platform-api-system-schema.json",
+  "title": "System",
+  "description": "An ADT security system.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the system.",
+      "example": "sys-001"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the system.",
+      "example": "Main House"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current arming status.",
+      "enum": [
+        "disarmed",
+        "armed_away",
+        "armed_stay",
+        "alarm",
+        "arming"
+      ],
+      "example": "armed_away"
+    },
+    "address": {
+      "type": "string",
+      "description": "Physical address of the protected property.",
+      "example": "123 Main St, Anytown, CA 90210"
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of security system.",
+      "enum": [
+        "residential",
+        "commercial"
+      ],
+      "example": "residential"
+    },
+    "lastModified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of last status change.",
+      "example": "2025-03-15T14:30:00Z"
+    }
+  }
+}

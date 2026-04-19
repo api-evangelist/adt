@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-schema/platform-api-automation-list-schema.json",
+  "title": "AutomationList",
+  "description": "List of automation rules.",
+  "type": "object",
+  "properties": {
+    "automations": {
+      "type": "array",
+      "description": "Array of automation rules.",
+      "items": {
+        "type": "object",
+        "description": "An automation rule or smart home scene.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the automation.",
+            "example": "auto-001"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the automation.",
+            "example": "Arm Away at Night"
+          },
+          "trigger": {
+            "type": "string",
+            "description": "What triggers this automation.",
+            "enum": [
+              "schedule",
+              "alarm",
+              "sensor",
+              "geofence",
+              "manual"
+            ],
+            "example": "schedule"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Whether the automation is currently active.",
+            "example": true
+          },
+          "actions": {
+            "type": "array",
+            "description": "List of actions performed by this automation.",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    }
+  }
+}

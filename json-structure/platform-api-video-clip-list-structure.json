@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-structure/platform-api-video-clip-list-structure.json",
+  "name": "VideoClipList",
+  "description": "List of video clips.",
+  "type": "object",
+  "properties": {
+    "clips": {
+      "type": "array",
+      "description": "Array of video clips.",
+      "items": {
+        "type": "object",
+        "description": "A recorded video clip from a security camera.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the video clip.",
+            "example": "clip-001"
+          },
+          "cameraId": {
+            "type": "string",
+            "description": "ID of the camera that recorded the clip.",
+            "example": "dev-cam-001"
+          },
+          "startTime": {
+            "type": "datetime",
+            "description": "Start timestamp of the recording.",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "endTime": {
+            "type": "datetime",
+            "description": "End timestamp of the recording.",
+            "example": "2025-03-15T14:31:00Z"
+          },
+          "trigger": {
+            "type": "string",
+            "description": "What triggered the recording.",
+            "enum": [
+              "motion",
+              "alarm",
+              "manual",
+              "schedule"
+            ],
+            "example": "motion"
+          },
+          "downloadUrl": {
+            "type": "uri",
+            "description": "Pre-signed URL to download the video clip.",
+            "example": "https://media.adt.com/clips/clip-001.mp4"
+          },
+          "thumbnailUrl": {
+            "type": "uri",
+            "description": "URL of the clip thumbnail image.",
+            "example": "https://media.adt.com/thumbnails/clip-001.jpg"
+          }
+        }
+      }
+    }
+  }
+}

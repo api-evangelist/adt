@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-schema/business-api-event-report-schema.json",
+  "title": "EventReport",
+  "description": "A security event report for a business site.",
+  "type": "object",
+  "properties": {
+    "siteId": {
+      "type": "string",
+      "description": "Site ID.",
+      "example": "site-001"
+    },
+    "period": {
+      "type": "object",
+      "description": "Report time period.",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "description": "Summary statistics.",
+      "properties": {
+        "totalAlarms": {
+          "type": "integer",
+          "description": "Total alarm events.",
+          "example": 2
+        },
+        "totalAccessEvents": {
+          "type": "integer",
+          "description": "Total access control events.",
+          "example": 150
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "description": "List of events in the period.",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

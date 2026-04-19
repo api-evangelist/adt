@@ -1,0 +1,263 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "ADT"
+  description: "Vocabulary for ADT security platform APIs covering home and business security systems, devices, access control, video surveillance, and automation."
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - name: "ADT Platform API"
+      namespace: adt-platform
+      version: "1"
+      baseUrl: https://api.adt.com/v1
+      status: active
+    - name: "ADT Business API"
+      namespace: adt-business
+      version: "1"
+      baseUrl: https://api.adt.com/business/v1
+      status: active
+
+  resources:
+    - name: systems
+      api: adt-platform
+      actions: [list, get, arm, disarm]
+    - name: devices
+      api: adt-platform
+      actions: [list, get]
+    - name: events
+      api: adt-platform
+      actions: [list]
+    - name: access-codes
+      api: adt-platform
+      actions: [list, create, delete]
+    - name: video-clips
+      api: adt-platform
+      actions: [list]
+    - name: automations
+      api: adt-platform
+      actions: [list]
+    - name: sites
+      api: adt-business
+      actions: [list, get]
+    - name: credentials
+      api: adt-business
+      actions: [list, create]
+    - name: users
+      api: adt-business
+      actions: [list]
+    - name: reports
+      api: adt-business
+      actions: [get]
+
+  actions:
+    - name: list
+      method: GET
+      pattern: read
+    - name: get
+      method: GET
+      pattern: read
+    - name: create
+      method: POST
+      pattern: write
+    - name: delete
+      method: DELETE
+      pattern: destructive
+    - name: arm
+      method: POST
+      pattern: write
+    - name: disarm
+      method: POST
+      pattern: write
+
+  schemas:
+    security:
+      - System
+      - Device
+      - AccessCode
+      - Automation
+    monitoring:
+      - Event
+      - VideoClip
+    business:
+      - Site
+      - Credential
+      - User
+      - EventReport
+
+  parameters:
+    identifiers:
+      - systemId
+      - deviceId
+      - siteId
+      - cameraId
+    filters:
+      - type
+      - startDate
+      - endDate
+    pagination:
+      - limit
+      - offset
+
+  enums:
+    armModes:
+      - away
+      - stay
+      - night
+    systemStatus:
+      - armed
+      - disarmed
+      - alarm
+      - fault
+    deviceTypes:
+      - sensor
+      - camera
+      - lock
+      - panel
+    credentialTypes:
+      - badge
+      - pin
+      - biometric
+      - mobile
+    accessCodeTypes:
+      - permanent
+      - temporary
+      - scheduled
+    userRoles:
+      - admin
+      - manager
+      - employee
+      - contractor
+
+  authentication:
+    schemes:
+      - name: bearerAuth
+        type: bearer
+        apis: [adt-platform]
+      - name: oauth2
+        type: oauth2
+        flow: clientCredentials
+        tokenUrl: https://auth.adt.com/oauth/token
+        apis: [adt-business]
+    scopes:
+      - name: business:read
+        description: Read business site data
+      - name: business:write
+        description: Manage business security systems
+      - name: access-control:manage
+        description: Manage access control
+      - name: reports:read
+        description: Generate security reports
+
+capability:
+  workflows:
+    - name: home-security-management
+      file: capabilities/home-security-management.yaml
+      description: Unified workflow for managing ADT smart home security
+      apis: [adt-platform]
+      toolCount: 10
+      personas: [homeowner, property-manager]
+      domains: [Home Security, Access Control, Video Surveillance]
+
+  personas:
+    - id: homeowner
+      name: Homeowner
+      description: Residential customer managing their home security system
+      workflows: [home-security-management]
+    - id: property-manager
+      name: Property Manager
+      description: Manager overseeing multiple residential properties
+      workflows: [home-security-management]
+    - id: security-admin
+      name: Security Administrator
+      description: Business security administrator managing multi-site deployments
+      workflows: []
+
+  domains:
+    - name: Home Security
+      resources: [systems, devices, events]
+    - name: Access Control
+      resources: [access-codes, credentials]
+    - name: Video Surveillance
+      resources: [video-clips]
+    - name: Business Security
+      resources: [sites, users, reports]
+
+  namespaces:
+    consumed:
+      - name: adt-platform
+        type: http
+        baseUri: https://api.adt.com/v1
+      - name: adt-business
+        type: http
+        baseUri: https://api.adt.com/business/v1
+    rest:
+      - namespace: home-security-api
+        port: 8080
+      - namespace: adt-platform-rest
+        port: 8100
+    mcp:
+      - namespace: home-security-mcp
+        port: 9090
+      - namespace: adt-platform-mcp
+        port: 9100
+
+  binds:
+    - name: ADT_ACCESS_TOKEN
+      description: Bearer token for ADT Platform API authentication
+
+crossReference:
+  - resource: systems
+    operations:
+      - operationId: getSystems
+        method: GET
+        path: /systems
+      - operationId: getSystem
+        method: GET
+        path: /systems/{systemId}
+      - operationId: armSystem
+        method: POST
+        path: /systems/{systemId}/arm
+      - operationId: disarmSystem
+        method: POST
+        path: /systems/{systemId}/disarm
+    workflows: [home-security-management]
+    personas: [homeowner, property-manager]
+  - resource: devices
+    operations:
+      - operationId: getDevices
+        method: GET
+        path: /systems/{systemId}/devices
+      - operationId: getDevice
+        method: GET
+        path: /systems/{systemId}/devices/{deviceId}
+    workflows: [home-security-management]
+    personas: [homeowner, property-manager]
+  - resource: events
+    operations:
+      - operationId: getEvents
+        method: GET
+        path: /systems/{systemId}/events
+    workflows: [home-security-management]
+    personas: [homeowner, property-manager]
+  - resource: access-codes
+    operations:
+      - operationId: getAccessCodes
+        method: GET
+        path: /systems/{systemId}/access-codes
+      - operationId: createAccessCode
+        method: POST
+        path: /systems/{systemId}/access-codes
+      - operationId: deleteAccessCode
+        method: DELETE
+        path: /systems/{systemId}/access-codes/{codeId}
+    workflows: [home-security-management]
+    personas: [homeowner, property-manager]
+  - resource: video-clips
+    operations:
+      - operationId: getVideoClips
+        method: GET
+        path: /systems/{systemId}/cameras/{cameraId}/clips
+    workflows: [home-security-management]
+    personas: [homeowner, property-manager]

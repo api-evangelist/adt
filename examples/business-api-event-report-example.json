@@ -1,0 +1,14 @@
+{
+  "siteId": "sys-001",
+  "period": {
+    "startDate": "2025-03-15T14:30:00Z",
+    "endDate": "2025-03-15T14:30:00Z"
+  },
+  "summary": {
+    "totalAlarms": 5,
+    "totalAccessEvents": 5
+  },
+  "events": [
+    {}
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-schema/platform-api-device-list-schema.json",
+  "title": "DeviceList",
+  "description": "List of security devices.",
+  "type": "object",
+  "properties": {
+    "devices": {
+      "type": "array",
+      "description": "Array of devices.",
+      "items": {
+        "type": "object",
+        "description": "A security device (sensor, camera, lock, or smart home device).",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the device.",
+            "example": "dev-001"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the device.",
+            "example": "Front Door Sensor"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of device.",
+            "enum": [
+              "sensor",
+              "camera",
+              "lock",
+              "thermostat",
+              "light",
+              "doorbell",
+              "smoke_detector",
+              "flood_sensor"
+            ],
+            "example": "sensor"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the device.",
+            "example": "closed"
+          },
+          "zone": {
+            "type": "string",
+            "description": "Security zone the device belongs to.",
+            "example": "Zone 1 - Entry"
+          },
+          "batteryLevel": {
+            "type": "integer",
+            "description": "Battery level percentage (0-100) for battery-powered devices.",
+            "example": 85
+          },
+          "lastActivity": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of last device activity.",
+            "example": "2025-03-15T14:30:00Z"
+          }
+        }
+      }
+    }
+  }
+}

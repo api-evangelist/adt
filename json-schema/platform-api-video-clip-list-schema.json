@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-schema/platform-api-video-clip-list-schema.json",
+  "title": "VideoClipList",
+  "description": "List of video clips.",
+  "type": "object",
+  "properties": {
+    "clips": {
+      "type": "array",
+      "description": "Array of video clips.",
+      "items": {
+        "type": "object",
+        "description": "A recorded video clip from a security camera.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the video clip.",
+            "example": "clip-001"
+          },
+          "cameraId": {
+            "type": "string",
+            "description": "ID of the camera that recorded the clip.",
+            "example": "dev-cam-001"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start timestamp of the recording.",
+            "example": "2025-03-15T14:30:00Z"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "End timestamp of the recording.",
+            "example": "2025-03-15T14:31:00Z"
+          },
+          "trigger": {
+            "type": "string",
+            "description": "What triggered the recording.",
+            "enum": [
+              "motion",
+              "alarm",
+              "manual",
+              "schedule"
+            ],
+            "example": "motion"
+          },
+          "downloadUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Pre-signed URL to download the video clip.",
+            "example": "https://media.adt.com/clips/clip-001.mp4"
+          },
+          "thumbnailUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the clip thumbnail image.",
+            "example": "https://media.adt.com/thumbnails/clip-001.jpg"
+          }
+        }
+      }
+    }
+  }
+}

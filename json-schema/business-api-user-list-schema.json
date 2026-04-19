@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-schema/business-api-user-list-schema.json",
+  "title": "UserList",
+  "description": "List of site users.",
+  "type": "object",
+  "properties": {
+    "users": {
+      "type": "array",
+      "description": "Array of users.",
+      "items": {
+        "type": "object",
+        "description": "A user with access to a business site.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique user ID.",
+            "example": "usr-001"
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name of the user.",
+            "example": "Jane Smith"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address.",
+            "example": "jsmith@example.com"
+          },
+          "role": {
+            "type": "string",
+            "description": "User role.",
+            "enum": [
+              "admin",
+              "manager",
+              "employee",
+              "contractor"
+            ],
+            "example": "employee"
+          }
+        }
+      }
+    }
+  }
+}

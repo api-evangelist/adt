@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-structure/platform-api-disarm-request-structure.json",
+  "name": "DisarmRequest",
+  "description": "Request to disarm a security system.",
+  "type": "object",
+  "required": [
+    "accessCode"
+  ],
+  "properties": {
+    "accessCode": {
+      "type": "string",
+      "description": "Valid access code to authorize disarming.",
+      "example": "1234"
+    }
+  }
+}

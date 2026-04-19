@@ -1,0 +1,92 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "adt": "https://api.adt.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "User": "adt:User",
+    "UserList": "adt:UserList",
+    "CredentialList": "adt:CredentialList",
+    "Credential": "adt:Credential",
+    "EventReport": "adt:EventReport",
+    "SiteList": "adt:SiteList",
+    "Site": "adt:Site",
+    "CredentialInput": "adt:CredentialInput",
+    "id": {
+      "@id": "adt:id",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "email": "schema:email",
+    "role": {
+      "@id": "adt:role",
+      "@type": "xsd:string"
+    },
+    "users": {
+      "@id": "adt:users",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "credentials": {
+      "@id": "adt:credentials",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "userId": {
+      "@id": "adt:userId",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "adt:type",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "adt:status",
+      "@type": "xsd:string"
+    },
+    "validFrom": {
+      "@id": "adt:validFrom",
+      "@type": "xsd:dateTime"
+    },
+    "validTo": {
+      "@id": "adt:validTo",
+      "@type": "xsd:dateTime"
+    },
+    "siteId": {
+      "@id": "adt:siteId",
+      "@type": "xsd:string"
+    },
+    "period": {
+      "@id": "adt:period",
+      "@type": "@id"
+    },
+    "summary": {
+      "@id": "adt:summary",
+      "@type": "@id"
+    },
+    "events": {
+      "@id": "adt:events",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "sites": {
+      "@id": "adt:sites",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "total": {
+      "@id": "adt:total",
+      "@type": "xsd:integer"
+    },
+    "address": "schema:address",
+    "systemCount": {
+      "@id": "adt:systemCount",
+      "@type": "xsd:integer"
+    },
+    "cardNumber": {
+      "@id": "adt:cardNumber",
+      "@type": "xsd:string"
+    }
+  }
+}

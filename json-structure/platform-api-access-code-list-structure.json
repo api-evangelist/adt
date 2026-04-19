@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-structure/platform-api-access-code-list-structure.json",
+  "name": "AccessCodeList",
+  "description": "List of access codes.",
+  "type": "object",
+  "properties": {
+    "accessCodes": {
+      "type": "array",
+      "description": "Array of access codes.",
+      "items": {
+        "type": "object",
+        "description": "An access code for a security system.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the access code.",
+            "example": "code-001"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name for the access code.",
+            "example": "Master Code"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of access code.",
+            "enum": [
+              "master",
+              "standard",
+              "temporary",
+              "duress"
+            ],
+            "example": "standard"
+          },
+          "expiresAt": {
+            "type": "datetime",
+            "description": "Expiration timestamp for temporary codes.",
+            "example": "2025-03-20T23:59:59Z"
+          },
+          "permissions": {
+            "type": "array",
+            "description": "List of permissions granted by this code.",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

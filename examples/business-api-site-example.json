@@ -1,0 +1,7 @@
+{
+  "id": "sys-001",
+  "name": "Main House Security System",
+  "address": "123 Main St, Anytown, CA 90210",
+  "status": "armed",
+  "systemCount": 5
+}

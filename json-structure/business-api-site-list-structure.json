@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/json-structure/business-api-site-list-structure.json",
+  "name": "SiteList",
+  "description": "List of business sites.",
+  "type": "object",
+  "properties": {
+    "sites": {
+      "type": "array",
+      "description": "Array of business sites.",
+      "items": {
+        "type": "object",
+        "description": "A business site with ADT security systems.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier of the site.",
+            "example": "site-001"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the business site.",
+            "example": "Downtown Office"
+          },
+          "address": {
+            "type": "string",
+            "description": "Physical address.",
+            "example": "456 Business Ave, Citytown, CA 90210"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current security status.",
+            "enum": [
+              "armed",
+              "disarmed",
+              "alarm"
+            ],
+            "example": "armed"
+          },
+          "systemCount": {
+            "type": "int32",
+            "description": "Number of security systems at this site.",
+            "example": 3
+          }
+        }
+      }
+    },
+    "total": {
+      "type": "int32",
+      "description": "Total number of sites.",
+      "example": 5
+    }
+  }
+}

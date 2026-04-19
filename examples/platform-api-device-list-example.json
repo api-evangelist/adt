@@ -1,0 +1,12 @@
+{
+  "devices": [
+    {
+      "id": "sys-001",
+      "name": "Main House Security System",
+      "type": "sensor",
+      "status": "armed_away",
+      "zone": "example",
+      "batteryLevel": 5
+    }
+  ]
+}
