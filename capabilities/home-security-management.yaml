@@ -1,250 +1,434 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "ADT Home Security Management"
-  description: "Unified workflow capability for managing ADT smart home security systems, monitoring alarm events, controlling devices, managing access codes, and retrieving video clips. Designed for homeowners, property managers, and smart home integration developers."
+  label: ADT Home Security Management
+  description: Unified workflow capability for managing ADT smart home security systems, monitoring alarm events, controlling
+    devices, managing access codes, and retrieving video clips. Designed for homeowners, property managers, and smart home
+    integration developers.
   tags:
-    - ADT
-    - Home Security
-    - Smart Home
-    - IoT
-    - Monitoring
-    - Access Control
-  created: "2026-04-19"
-  modified: "2026-04-19"
-
+  - ADT
+  - Home Security
+  - Smart Home
+  - IoT
+  - Monitoring
+  - Access Control
+  created: '2026-04-19'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      ADT_ACCESS_TOKEN: ADT_ACCESS_TOKEN
-
+- namespace: env
+  keys:
+    ADT_ACCESS_TOKEN: ADT_ACCESS_TOKEN
 capability:
   consumes:
-    - import: adt-platform
-      location: ./shared/platform-api.yaml
-
+  - type: http
+    namespace: adt-platform
+    baseUri: https://api.adt.com/v1
+    description: ADT+ Platform REST API for security system management.
+    authentication:
+      type: bearer
+      token: '{{ADT_ACCESS_TOKEN}}'
+    resources:
+    - name: systems
+      path: /systems
+      description: Security systems management.
+      operations:
+      - name: list-systems
+        method: GET
+        description: List all security systems for the account.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-system
+        method: GET
+        description: Get details of a specific security system.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          required: true
+          description: Security system ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: arm-system
+        method: POST
+        description: Arm a security system in away or stay mode.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          required: true
+          description: Security system ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            mode: '{{tools.mode}}'
+            accessCode: '{{tools.accessCode}}'
+      - name: disarm-system
+        method: POST
+        description: Disarm a security system.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          required: true
+          description: Security system ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            accessCode: '{{tools.accessCode}}'
+    - name: devices
+      path: /systems/{systemId}/devices
+      description: Security devices and sensors.
+      operations:
+      - name: list-devices
+        method: GET
+        description: List all devices in a security system.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          required: true
+          description: Security system ID.
+        - name: type
+          in: query
+          type: string
+          required: false
+          description: Filter by device type.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: events
+      path: /systems/{systemId}/events
+      description: Security events and alarm history.
+      operations:
+      - name: list-events
+        method: GET
+        description: List security events for a system.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          required: true
+          description: Security system ID.
+        - name: startDate
+          in: query
+          type: string
+          required: false
+          description: Start date filter.
+        - name: endDate
+          in: query
+          type: string
+          required: false
+          description: End date filter.
+        - name: type
+          in: query
+          type: string
+          required: false
+          description: Event type filter.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: access-codes
+      path: /systems/{systemId}/access-codes
+      description: Access code management.
+      operations:
+      - name: list-access-codes
+        method: GET
+        description: List all access codes.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          required: true
+          description: Security system ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-access-code
+        method: POST
+        description: Create a new access code.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          required: true
+          description: Security system ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            code: '{{tools.code}}'
+            type: '{{tools.type}}'
+    - name: video-clips
+      path: /systems/{systemId}/cameras/{cameraId}/clips
+      description: Video clip retrieval.
+      operations:
+      - name: list-video-clips
+        method: GET
+        description: List recorded video clips from a camera.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          required: true
+          description: Security system ID.
+        - name: cameraId
+          in: path
+          type: string
+          required: true
+          description: Camera ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: home-security-api
-      description: "Unified REST API for ADT smart home security management — systems, devices, events, access codes, and video."
-      resources:
-        - path: /v1/systems
-          name: systems
-          description: "Security system management."
-          operations:
-            - method: GET
-              name: list-systems
-              description: "List all security systems."
-              call: "adt-platform.list-systems"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/systems/{systemId}/arm
-          name: arm-system
-          description: "Arm a security system."
-          operations:
-            - method: POST
-              name: arm-system
-              description: "Arm a security system."
-              call: "adt-platform.arm-system"
-              with:
-                systemId: "rest.systemId"
-                mode: "rest.mode"
-                accessCode: "rest.accessCode"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/systems/{systemId}/disarm
-          name: disarm-system
-          description: "Disarm a security system."
-          operations:
-            - method: POST
-              name: disarm-system
-              description: "Disarm a security system."
-              call: "adt-platform.disarm-system"
-              with:
-                systemId: "rest.systemId"
-                accessCode: "rest.accessCode"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/systems/{systemId}/devices
-          name: devices
-          description: "Security devices."
-          operations:
-            - method: GET
-              name: list-devices
-              description: "List devices in a system."
-              call: "adt-platform.list-devices"
-              with:
-                systemId: "rest.systemId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/systems/{systemId}/events
-          name: events
-          description: "Security events."
-          operations:
-            - method: GET
-              name: list-events
-              description: "List security events."
-              call: "adt-platform.list-events"
-              with:
-                systemId: "rest.systemId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/systems/{systemId}/access-codes
-          name: access-codes
-          description: "Access code management."
-          operations:
-            - method: GET
-              name: list-access-codes
-              description: "List access codes."
-              call: "adt-platform.list-access-codes"
-              with:
-                systemId: "rest.systemId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-access-code
-              description: "Create an access code."
-              call: "adt-platform.create-access-code"
-              with:
-                systemId: "rest.systemId"
-                name: "rest.name"
-                code: "rest.code"
-                type: "rest.type"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: home-security-mcp
-      transport: http
-      description: "MCP server for AI-assisted ADT home security management — monitor status, control arming, manage access, and review events."
-      tools:
-        - name: list-security-systems
-          description: "List all ADT security systems associated with the account."
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "adt-platform.list-systems"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-system-status
-          description: "Check the current arming status of an ADT security system."
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "adt-platform.get-system"
-          with:
-            systemId: "tools.systemId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: arm-away
-          description: "Arm an ADT security system in away mode (all zones active)."
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: true
-          call: "adt-platform.arm-system"
-          with:
-            systemId: "tools.systemId"
-            mode: "away"
-            accessCode: "tools.accessCode"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: arm-stay
-          description: "Arm an ADT security system in stay mode (perimeter zones only)."
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: true
-          call: "adt-platform.arm-system"
-          with:
-            systemId: "tools.systemId"
-            mode: "stay"
-            accessCode: "tools.accessCode"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: disarm-system
-          description: "Disarm an ADT security system."
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: true
-          call: "adt-platform.disarm-system"
-          with:
-            systemId: "tools.systemId"
-            accessCode: "tools.accessCode"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-devices
-          description: "List all security devices (sensors, cameras, locks) in an ADT system."
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "adt-platform.list-devices"
-          with:
-            systemId: "tools.systemId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-security-events
-          description: "Retrieve recent security events, alarm history, and activity log."
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "adt-platform.list-events"
-          with:
-            systemId: "tools.systemId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-access-codes
-          description: "List all access codes configured for an ADT security system."
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "adt-platform.list-access-codes"
-          with:
-            systemId: "tools.systemId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-temporary-access-code
-          description: "Create a temporary access code for contractors or guests with optional expiry time."
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "adt-platform.create-access-code"
-          with:
-            systemId: "tools.systemId"
-            name: "tools.name"
-            code: "tools.code"
-            type: "temporary"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-video-clips
-          description: "List recorded video clips from an ADT camera."
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "adt-platform.list-video-clips"
-          with:
-            systemId: "tools.systemId"
-            cameraId: "tools.cameraId"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: home-security-api
+    description: Unified REST API for ADT smart home security management — systems, devices, events, access codes, and video.
+    resources:
+    - path: /v1/systems
+      name: systems
+      description: Security system management.
+      operations:
+      - method: GET
+        name: list-systems
+        description: List all security systems.
+        call: adt-platform.list-systems
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/systems/{systemId}/arm
+      name: arm-system
+      description: Arm a security system.
+      operations:
+      - method: POST
+        name: arm-system
+        description: Arm a security system.
+        call: adt-platform.arm-system
+        with:
+          systemId: rest.systemId
+          mode: rest.mode
+          accessCode: rest.accessCode
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/systems/{systemId}/disarm
+      name: disarm-system
+      description: Disarm a security system.
+      operations:
+      - method: POST
+        name: disarm-system
+        description: Disarm a security system.
+        call: adt-platform.disarm-system
+        with:
+          systemId: rest.systemId
+          accessCode: rest.accessCode
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/systems/{systemId}/devices
+      name: devices
+      description: Security devices.
+      operations:
+      - method: GET
+        name: list-devices
+        description: List devices in a system.
+        call: adt-platform.list-devices
+        with:
+          systemId: rest.systemId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/systems/{systemId}/events
+      name: events
+      description: Security events.
+      operations:
+      - method: GET
+        name: list-events
+        description: List security events.
+        call: adt-platform.list-events
+        with:
+          systemId: rest.systemId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/systems/{systemId}/access-codes
+      name: access-codes
+      description: Access code management.
+      operations:
+      - method: GET
+        name: list-access-codes
+        description: List access codes.
+        call: adt-platform.list-access-codes
+        with:
+          systemId: rest.systemId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-access-code
+        description: Create an access code.
+        call: adt-platform.create-access-code
+        with:
+          systemId: rest.systemId
+          name: rest.name
+          code: rest.code
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: home-security-mcp
+    transport: http
+    description: MCP server for AI-assisted ADT home security management — monitor status, control arming, manage access,
+      and review events.
+    tools:
+    - name: list-security-systems
+      description: List all ADT security systems associated with the account.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: adt-platform.list-systems
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-system-status
+      description: Check the current arming status of an ADT security system.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: adt-platform.get-system
+      with:
+        systemId: tools.systemId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: arm-away
+      description: Arm an ADT security system in away mode (all zones active).
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: adt-platform.arm-system
+      with:
+        systemId: tools.systemId
+        mode: away
+        accessCode: tools.accessCode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: arm-stay
+      description: Arm an ADT security system in stay mode (perimeter zones only).
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: adt-platform.arm-system
+      with:
+        systemId: tools.systemId
+        mode: stay
+        accessCode: tools.accessCode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: disarm-system
+      description: Disarm an ADT security system.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: adt-platform.disarm-system
+      with:
+        systemId: tools.systemId
+        accessCode: tools.accessCode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-devices
+      description: List all security devices (sensors, cameras, locks) in an ADT system.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: adt-platform.list-devices
+      with:
+        systemId: tools.systemId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-security-events
+      description: Retrieve recent security events, alarm history, and activity log.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: adt-platform.list-events
+      with:
+        systemId: tools.systemId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-access-codes
+      description: List all access codes configured for an ADT security system.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: adt-platform.list-access-codes
+      with:
+        systemId: tools.systemId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-temporary-access-code
+      description: Create a temporary access code for contractors or guests with optional expiry time.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: adt-platform.create-access-code
+      with:
+        systemId: tools.systemId
+        name: tools.name
+        code: tools.code
+        type: temporary
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-video-clips
+      description: List recorded video clips from an ADT camera.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: adt-platform.list-video-clips
+      with:
+        systemId: tools.systemId
+        cameraId: tools.cameraId
+      outputParameters:
+      - type: object
+        mapping: $.
