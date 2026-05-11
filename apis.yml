@@ -119,6 +119,8 @@ common:
     description: Integration with Ring video doorbells and cameras as complementary security devices.
   - name: Lutron
     description: Smart lighting control integration with Lutron Caseta and RadioRA systems.
+- type: Integrations
+  url: https://www.adt.com/apps
 description: >-
   ADT is a provider of monitored security, interactive home and business automation, and related monitoring services for residential and small business customers across the United States and Canada. ADT
   offers smart home security systems, professional monitoring, video surveillance, access control, and automation integrations with Google Nest, Amazon Alexa, and Z-Wave smart home devices through the ADT+
@@ -136,6 +138,30 @@ tags:
 - Monitoring
 - Security
 - Smart Home
+integrations:
+  - name: Call
+  - name: ADT
+  - name: customer
+  - name: cart
+  - name: Security Starter
+  - name: Life Safety
+  - name: Video Essentials
+  - name: Front view of Google Nest Camera
+  - name: Smoke and Carbon Monoxide Detector
+  - name: Front view of Google Nest Thermostat
+  - name: Quick Link
+  - name: Back Button left arrow
+  - name: Product
+  - name: Quote
+  - name: n/a
+  - name: ADT expert with headset
+  - name: Shop online for home security
+  - name: Follow ADT on FaceBook
+  - name: Follow ADT on X
+  - name: Follow ADT on Pinterest
+  - name: Follow ADT on Instagram
+  - name: Follow ADT on Youtube
+  - name: Privacy Feedback Powered By TRUSTe
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
