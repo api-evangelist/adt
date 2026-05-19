@@ -1,0 +1,127 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ADT Business API — Sites
+  description: 'ADT Business API — Sites. 2 operations. Lead operation: ADT List Business Sites. Self-contained Naftiko capability
+    covering one Adt business surface.'
+  tags:
+  - Adt
+  - Sites
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ADT_API_KEY: ADT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: business-sites
+    baseUri: https://api.adt.com/business/v1
+    description: ADT Business API — Sites business capability. Self-contained, no shared references.
+    resources:
+    - name: sites
+      path: /sites
+      operations:
+      - name: getsites
+        method: GET
+        description: ADT List Business Sites
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of sites to return.
+        - name: offset
+          in: query
+          type: integer
+          description: Pagination offset.
+    - name: sites-siteId
+      path: /sites/{siteId}
+      operations:
+      - name: getsite
+        method: GET
+        description: ADT Get a Business Site
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: siteId
+          in: path
+          type: string
+          description: Unique identifier of the business site.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.ADT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: business-sites-rest
+    port: 8080
+    description: REST adapter for ADT Business API — Sites. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/sites
+      name: sites
+      description: REST surface for sites.
+      operations:
+      - method: GET
+        name: getsites
+        description: ADT List Business Sites
+        call: business-sites.getsites
+        with:
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/sites/{siteid}
+      name: sites-siteid
+      description: REST surface for sites-siteId.
+      operations:
+      - method: GET
+        name: getsite
+        description: ADT Get a Business Site
+        call: business-sites.getsite
+        with:
+          siteId: rest.siteId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: business-sites-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ADT Business API — Sites. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: adt-list-business-sites
+      description: ADT List Business Sites
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: business-sites.getsites
+      with:
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adt-get-business-site
+      description: ADT Get a Business Site
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: business-sites.getsite
+      with:
+        siteId: tools.siteId
+      outputParameters:
+      - type: object
+        mapping: $.

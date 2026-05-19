@@ -55,6 +55,8 @@ apis:
   - type: Vocabulary
     url: vocabulary/adt-vocabulary.yaml
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/adt
 - type: Website
   url: https://www.adt.com
 - type: Portal

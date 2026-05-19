@@ -1,0 +1,104 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ADT+ Platform API — Events
+  description: 'ADT+ Platform API — Events. 1 operations. Lead operation: ADT List Security Events. Self-contained Naftiko
+    capability covering one Adt business surface.'
+  tags:
+  - Adt
+  - Events
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ADT_API_KEY: ADT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-events
+    baseUri: https://api.adt.com/v1
+    description: ADT+ Platform API — Events business capability. Self-contained, no shared references.
+    resources:
+    - name: systems-systemId-events
+      path: /systems/{systemId}/events
+      operations:
+      - name: getevents
+        method: GET
+        description: ADT List Security Events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          description: Security system ID.
+          required: true
+        - name: startDate
+          in: query
+          type: string
+          description: Start date for event history filter (ISO 8601).
+        - name: endDate
+          in: query
+          type: string
+          description: End date for event history filter (ISO 8601).
+        - name: type
+          in: query
+          type: string
+          description: Filter events by type.
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of events to return.
+    authentication:
+      type: bearer
+      token: '{{env.ADT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-events-rest
+    port: 8080
+    description: REST adapter for ADT+ Platform API — Events. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/systems/{systemid}/events
+      name: systems-systemid-events
+      description: REST surface for systems-systemId-events.
+      operations:
+      - method: GET
+        name: getevents
+        description: ADT List Security Events
+        call: platform-events.getevents
+        with:
+          systemId: rest.systemId
+          startDate: rest.startDate
+          endDate: rest.endDate
+          type: rest.type
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ADT+ Platform API — Events. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: adt-list-security-events
+      description: ADT List Security Events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-events.getevents
+      with:
+        systemId: tools.systemId
+        startDate: tools.startDate
+        endDate: tools.endDate
+        type: tools.type
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.

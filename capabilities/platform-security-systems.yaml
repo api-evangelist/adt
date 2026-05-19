@@ -1,0 +1,210 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ADT+ Platform API — Security Systems
+  description: 'ADT+ Platform API — Security Systems. 4 operations. Lead operation: ADT List Security Systems. Self-contained
+    Naftiko capability covering one Adt business surface.'
+  tags:
+  - Adt
+  - Security Systems
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ADT_API_KEY: ADT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-security-systems
+    baseUri: https://api.adt.com/v1
+    description: ADT+ Platform API — Security Systems business capability. Self-contained, no shared references.
+    resources:
+    - name: systems
+      path: /systems
+      operations:
+      - name: getsystems
+        method: GET
+        description: ADT List Security Systems
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: systems-systemId
+      path: /systems/{systemId}
+      operations:
+      - name: getsystem
+        method: GET
+        description: ADT Get a Security System
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          description: Unique identifier of the security system.
+          required: true
+    - name: systems-systemId-arm
+      path: /systems/{systemId}/arm
+      operations:
+      - name: armsystem
+        method: POST
+        description: ADT Arm a Security System
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          description: Unique identifier of the security system.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: systems-systemId-disarm
+      path: /systems/{systemId}/disarm
+      operations:
+      - name: disarmsystem
+        method: POST
+        description: ADT Disarm a Security System
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          description: Unique identifier of the security system.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.ADT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-security-systems-rest
+    port: 8080
+    description: REST adapter for ADT+ Platform API — Security Systems. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/systems
+      name: systems
+      description: REST surface for systems.
+      operations:
+      - method: GET
+        name: getsystems
+        description: ADT List Security Systems
+        call: platform-security-systems.getsystems
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/systems/{systemid}
+      name: systems-systemid
+      description: REST surface for systems-systemId.
+      operations:
+      - method: GET
+        name: getsystem
+        description: ADT Get a Security System
+        call: platform-security-systems.getsystem
+        with:
+          systemId: rest.systemId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/systems/{systemid}/arm
+      name: systems-systemid-arm
+      description: REST surface for systems-systemId-arm.
+      operations:
+      - method: POST
+        name: armsystem
+        description: ADT Arm a Security System
+        call: platform-security-systems.armsystem
+        with:
+          systemId: rest.systemId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/systems/{systemid}/disarm
+      name: systems-systemid-disarm
+      description: REST surface for systems-systemId-disarm.
+      operations:
+      - method: POST
+        name: disarmsystem
+        description: ADT Disarm a Security System
+        call: platform-security-systems.disarmsystem
+        with:
+          systemId: rest.systemId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-security-systems-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ADT+ Platform API — Security Systems. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: adt-list-security-systems
+      description: ADT List Security Systems
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-security-systems.getsystems
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adt-get-security-system
+      description: ADT Get a Security System
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-security-systems.getsystem
+      with:
+        systemId: tools.systemId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adt-arm-security-system
+      description: ADT Arm a Security System
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: platform-security-systems.armsystem
+      with:
+        systemId: tools.systemId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adt-disarm-security-system
+      description: ADT Disarm a Security System
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: platform-security-systems.disarmsystem
+      with:
+        systemId: tools.systemId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

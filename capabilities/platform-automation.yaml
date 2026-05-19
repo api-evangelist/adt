@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ADT+ Platform API — Automation
+  description: 'ADT+ Platform API — Automation. 1 operations. Lead operation: ADT List Automation Rules. Self-contained Naftiko
+    capability covering one Adt business surface.'
+  tags:
+  - Adt
+  - Automation
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ADT_API_KEY: ADT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-automation
+    baseUri: https://api.adt.com/v1
+    description: ADT+ Platform API — Automation business capability. Self-contained, no shared references.
+    resources:
+    - name: systems-systemId-automations
+      path: /systems/{systemId}/automations
+      operations:
+      - name: getautomations
+        method: GET
+        description: ADT List Automation Rules
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          description: Security system ID.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.ADT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-automation-rest
+    port: 8080
+    description: REST adapter for ADT+ Platform API — Automation. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/systems/{systemid}/automations
+      name: systems-systemid-automations
+      description: REST surface for systems-systemId-automations.
+      operations:
+      - method: GET
+        name: getautomations
+        description: ADT List Automation Rules
+        call: platform-automation.getautomations
+        with:
+          systemId: rest.systemId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-automation-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ADT+ Platform API — Automation. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: adt-list-automation-rules
+      description: ADT List Automation Rules
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-automation.getautomations
+      with:
+        systemId: tools.systemId
+      outputParameters:
+      - type: object
+        mapping: $.

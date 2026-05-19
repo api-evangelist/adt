@@ -1,0 +1,99 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ADT+ Platform API — Video
+  description: 'ADT+ Platform API — Video. 1 operations. Lead operation: ADT List Video Clips. Self-contained Naftiko capability
+    covering one Adt business surface.'
+  tags:
+  - Adt
+  - Video
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ADT_API_KEY: ADT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: platform-video
+    baseUri: https://api.adt.com/v1
+    description: ADT+ Platform API — Video business capability. Self-contained, no shared references.
+    resources:
+    - name: systems-systemId-cameras-cameraId-clips
+      path: /systems/{systemId}/cameras/{cameraId}/clips
+      operations:
+      - name: getvideoclips
+        method: GET
+        description: ADT List Video Clips
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: systemId
+          in: path
+          type: string
+          description: Security system ID.
+          required: true
+        - name: cameraId
+          in: path
+          type: string
+          description: Camera device ID.
+          required: true
+        - name: startDate
+          in: query
+          type: string
+          description: Start date filter for clips (ISO 8601).
+        - name: endDate
+          in: query
+          type: string
+          description: End date filter for clips (ISO 8601).
+    authentication:
+      type: bearer
+      token: '{{env.ADT_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: platform-video-rest
+    port: 8080
+    description: REST adapter for ADT+ Platform API — Video. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/systems/{systemid}/cameras/{cameraid}/clips
+      name: systems-systemid-cameras-cameraid-clips
+      description: REST surface for systems-systemId-cameras-cameraId-clips.
+      operations:
+      - method: GET
+        name: getvideoclips
+        description: ADT List Video Clips
+        call: platform-video.getvideoclips
+        with:
+          systemId: rest.systemId
+          cameraId: rest.cameraId
+          startDate: rest.startDate
+          endDate: rest.endDate
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: platform-video-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ADT+ Platform API — Video. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: adt-list-video-clips
+      description: ADT List Video Clips
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: platform-video.getvideoclips
+      with:
+        systemId: tools.systemId
+        cameraId: tools.cameraId
+        startDate: tools.startDate
+        endDate: tools.endDate
+      outputParameters:
+      - type: object
+        mapping: $.
