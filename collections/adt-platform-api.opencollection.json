@@ -1,0 +1,362 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ADT+ Platform API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.adt.com/oauth/authorize",
+      "accessTokenUrl": "https://auth.adt.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Security Systems",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ADT List Security Systems",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/v1/systems"
+          },
+          "docs": "Retrieve all security systems associated with the authenticated account."
+        },
+        {
+          "info": {
+            "name": "ADT Get a Security System",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/v1/systems/:systemId",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the security system."
+              }
+            ]
+          },
+          "docs": "Retrieve details of a specific security system including current status and zone information."
+        },
+        {
+          "info": {
+            "name": "ADT Arm a Security System",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.adt.com/v1/systems/:systemId/arm",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the security system."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Arm a security system in away or stay mode."
+        },
+        {
+          "info": {
+            "name": "ADT Disarm a Security System",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.adt.com/v1/systems/:systemId/disarm",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the security system."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Disarm a security system using a valid access code."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ADT List Security Devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/v1/systems/:systemId/devices",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the security system."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter devices by type."
+              }
+            ]
+          },
+          "docs": "Retrieve all security devices associated with a security system including sensors, cameras, locks, and smart home devices."
+        },
+        {
+          "info": {
+            "name": "ADT Get a Security Device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/v1/systems/:systemId/devices/:deviceId",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Security system ID."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path",
+                "description": "Device ID."
+              }
+            ]
+          },
+          "docs": "Retrieve current status and details of a specific security device."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ADT List Security Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/v1/systems/:systemId/events",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Security system ID."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for event history filter (ISO 8601)."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for event history filter (ISO 8601)."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter events by type."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of events to return."
+              }
+            ]
+          },
+          "docs": "Retrieve security events and alarm history for a security system with optional date filtering."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Access Codes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ADT List Access Codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/v1/systems/:systemId/access-codes",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Security system ID."
+              }
+            ]
+          },
+          "docs": "Retrieve all access codes configured for a security system."
+        },
+        {
+          "info": {
+            "name": "ADT Create an Access Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.adt.com/v1/systems/:systemId/access-codes",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Security system ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new access code for a security system with optional schedule and permission restrictions."
+        },
+        {
+          "info": {
+            "name": "ADT Delete an Access Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.adt.com/v1/systems/:systemId/access-codes/:codeId",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Security system ID."
+              },
+              {
+                "name": "codeId",
+                "value": "",
+                "type": "path",
+                "description": "Access code ID."
+              }
+            ]
+          },
+          "docs": "Delete an access code from a security system."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Video",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ADT List Video Clips",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/v1/systems/:systemId/cameras/:cameraId/clips",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Security system ID."
+              },
+              {
+                "name": "cameraId",
+                "value": "",
+                "type": "path",
+                "description": "Camera device ID."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date filter for clips (ISO 8601)."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date filter for clips (ISO 8601)."
+              }
+            ]
+          },
+          "docs": "Retrieve recorded video clips from a camera with optional date and trigger filtering."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Automation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ADT List Automation Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/v1/systems/:systemId/automations",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Security system ID."
+              }
+            ]
+          },
+          "docs": "Retrieve automation rules and smart home scenes configured for the security system."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
