@@ -73,7 +73,7 @@ common:
     url: https://www.adt.com/privacy-policy
   - type: Login
     url: https://www.adt.com/login
-  - type: SignUp
+  - type: Signup
     url: https://www.adt.com/get-a-quote
   - type: Features
     data:

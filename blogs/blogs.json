@@ -4,12 +4,17 @@
     {
       "source": "https://www.adt.com/about-adt/news",
       "feed_url": "",
-      "title": "",
       "saved": 0,
-      "method": "none",
-      "note": "Source page and all feed-path variants (/feed/, /feed, /rss, /feed.xml, /index.xml, /rss.xml, /atom.xml) returned HTTP 404; HTML scrape of news page also 404."
+      "error": "listing url 404; used newsroom.adt.com"
+    },
+    {
+      "source": "https://newsroom.adt.com/",
+      "feed_url": "",
+      "saved": 1,
+      "method": "agent-scrape"
     }
   ],
-  "fetched": "2026-06-21T17:00:00Z",
-  "post_count": 5
+  "fetched": "2026-06-27T12:20:57Z",
+  "post_count": 6,
+  "agent_pulled": "2026-06-27"
 }
