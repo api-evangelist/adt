@@ -57,6 +57,10 @@ apis:
       - type: Vocabulary
         url: vocabulary/adt-vocabulary.yaml
 common:
+  - type: DomainSecurity
+    url: security/adt-domain-security.yml
+  - type: Authentication
+    url: authentication/adt-authentication.yml
   - type: OAuthScopes
     url: scopes/adt-scopes.yml
   - type: LinkedIn
