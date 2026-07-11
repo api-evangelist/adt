@@ -57,6 +57,8 @@ apis:
       - type: Vocabulary
         url: vocabulary/adt-vocabulary.yaml
 common:
+  - type: OAuthScopes
+    url: scopes/adt-scopes.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/adt
   - type: Website

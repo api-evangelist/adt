@@ -1,0 +1,76 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/adt-business-api-openapi.yml, openapi/adt-platform-api-openapi.yml
+schemes:
+- name: oauth2
+  source: openapi/adt-business-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.adt.com/oauth/token
+- name: oauth2
+  source: openapi/adt-platform-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.adt.com/oauth/authorize
+    tokenUrl: https://auth.adt.com/oauth/token
+scopes:
+- scope: access-codes:manage
+  description: Manage access codes
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/adt-platform-api-openapi.yml
+- scope: access-control:manage
+  description: Manage access control
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/adt-business-api-openapi.yml
+- scope: business:read
+  description: Read business site data
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/adt-business-api-openapi.yml
+- scope: business:write
+  description: Manage business security systems
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/adt-business-api-openapi.yml
+- scope: devices:read
+  description: Read device status
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/adt-platform-api-openapi.yml
+- scope: devices:write
+  description: Control smart home devices
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/adt-platform-api-openapi.yml
+- scope: reports:read
+  description: Generate security reports
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/adt-business-api-openapi.yml
+- scope: security:read
+  description: Read security system status and events
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/adt-platform-api-openapi.yml
+- scope: security:write
+  description: Arm, disarm, and control security systems
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/adt-platform-api-openapi.yml
+- scope: video:read
+  description: Access video clips and live streams
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/adt-platform-api-openapi.yml
