@@ -57,6 +57,8 @@ apis:
       - type: Vocabulary
         url: vocabulary/adt-vocabulary.yaml
 common:
+  - type: AgenticAccess
+    url: agentic-access/adt-agentic-access.yml
   - type: DomainSecurity
     url: security/adt-domain-security.yml
   - type: Authentication
