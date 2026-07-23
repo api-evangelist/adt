@@ -1,0 +1,238 @@
+openapi: 3.0.3
+info:
+  title: ADT Business Access Codes API
+  description: The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.
+  version: '1'
+  contact:
+    name: ADT Business Support
+    url: https://www.adt.com/business
+  termsOfService: https://www.adt.com/terms-of-service
+  license:
+    name: ADT Terms of Service
+    url: https://www.adt.com/terms-of-service
+  x-generated-from: documentation
+servers:
+- url: https://api.adt.com/business/v1
+  description: ADT Business API Production
+security:
+- oauth2: []
+tags:
+- name: Access Codes
+  description: Manage access codes and user permissions
+paths:
+  /systems/{systemId}/access-codes:
+    get:
+      operationId: getAccessCodes
+      summary: ADT List Access Codes
+      description: Retrieve all access codes configured for a security system.
+      tags:
+      - Access Codes
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        description: Security system ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of access codes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessCodeList'
+              examples:
+                getAccessCodes200Example:
+                  summary: Default getAccessCodes 200 response
+                  x-microcks-default: true
+                  value:
+                    accessCodes:
+                    - id: code-001
+                      name: Master Code
+                      type: master
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createAccessCode
+      summary: ADT Create an Access Code
+      description: Create a new access code for a security system with optional schedule and permission restrictions.
+      tags:
+      - Access Codes
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        description: Security system ID.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: Access code creation request.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessCodeInput'
+            examples:
+              createAccessCodeRequestExample:
+                summary: Default createAccessCode request
+                x-microcks-default: true
+                value:
+                  name: Contractor Code
+                  code: '5678'
+                  type: temporary
+                  expiresAt: '2025-03-20T23:59:59Z'
+      responses:
+        '201':
+          description: Access code created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessCode'
+              examples:
+                createAccessCode201Example:
+                  summary: Default createAccessCode 201 response
+                  x-microcks-default: true
+                  value:
+                    id: code-002
+                    name: Contractor Code
+                    type: temporary
+                    expiresAt: '2025-03-20T23:59:59Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/access-codes/{codeId}:
+    delete:
+      operationId: deleteAccessCode
+      summary: ADT Delete an Access Code
+      description: Delete an access code from a security system.
+      tags:
+      - Access Codes
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        description: Security system ID.
+        schema:
+          type: string
+      - name: codeId
+        in: path
+        required: true
+        description: Access code ID.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Access code deleted.
+        '404':
+          description: Access code not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                deleteAccessCode404Example:
+                  summary: Default deleteAccessCode 404 response
+                  x-microcks-default: true
+                  value:
+                    code: NOT_FOUND
+                    message: Access code not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    AccessCodeList:
+      type: object
+      description: List of access codes.
+      properties:
+        accessCodes:
+          type: array
+          description: Array of access codes.
+          items:
+            $ref: '#/components/schemas/AccessCode'
+    AccessCode:
+      type: object
+      description: An access code for a security system.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the access code.
+          example: code-001
+        name:
+          type: string
+          description: Display name for the access code.
+          example: Master Code
+        type:
+          type: string
+          description: Type of access code.
+          enum:
+          - master
+          - standard
+          - temporary
+          - duress
+          example: standard
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration timestamp for temporary codes.
+          example: '2025-03-20T23:59:59Z'
+        permissions:
+          type: array
+          description: List of permissions granted by this code.
+          items:
+            type: string
+    AccessCodeInput:
+      type: object
+      description: Request to create an access code.
+      required:
+      - name
+      - code
+      - type
+      properties:
+        name:
+          type: string
+          description: Display name for the access code.
+          example: Contractor Code
+        code:
+          type: string
+          description: The numeric access code (4-8 digits).
+          example: '5678'
+        type:
+          type: string
+          description: Type of access code.
+          enum:
+          - standard
+          - temporary
+          example: temporary
+        expiresAt:
+          type: string
+          format: date-time
+          description: Expiration time for temporary codes.
+          example: '2025-03-20T23:59:59Z'
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: NOT_FOUND
+        message:
+          type: string
+          description: Human-readable error message.
+          example: The requested resource was not found.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.adt.com/oauth/token
+          scopes:
+            business:read: Read business site data
+            business:write: Manage business security systems
+            access-control:manage: Manage access control
+            reports:read: Generate security reports
+externalDocs:
+  description: ADT Business Security Documentation
+  url: https://www.adt.com/business

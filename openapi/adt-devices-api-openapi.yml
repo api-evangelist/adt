@@ -1,0 +1,199 @@
+openapi: 3.0.3
+info:
+  title: ADT Business Access Codes Devices API
+  description: The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.
+  version: '1'
+  contact:
+    name: ADT Business Support
+    url: https://www.adt.com/business
+  termsOfService: https://www.adt.com/terms-of-service
+  license:
+    name: ADT Terms of Service
+    url: https://www.adt.com/terms-of-service
+  x-generated-from: documentation
+servers:
+- url: https://api.adt.com/business/v1
+  description: ADT Business API Production
+security:
+- oauth2: []
+tags:
+- name: Devices
+  description: Manage sensors, cameras, and smart home devices
+paths:
+  /systems/{systemId}/devices:
+    get:
+      operationId: getDevices
+      summary: ADT List Security Devices
+      description: Retrieve all security devices associated with a security system including sensors, cameras, locks, and smart home devices.
+      tags:
+      - Devices
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        description: Unique identifier of the security system.
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: Filter devices by type.
+        schema:
+          type: string
+          enum:
+          - sensor
+          - camera
+          - lock
+          - thermostat
+          - light
+          - doorbell
+      responses:
+        '200':
+          description: List of security devices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceList'
+              examples:
+                getDevices200Example:
+                  summary: Default getDevices 200 response
+                  x-microcks-default: true
+                  value:
+                    devices:
+                    - id: dev-001
+                      name: Front Door Sensor
+                      type: sensor
+                      status: closed
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/devices/{deviceId}:
+    get:
+      operationId: getDevice
+      summary: ADT Get a Security Device
+      description: Retrieve current status and details of a specific security device.
+      tags:
+      - Devices
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        description: Security system ID.
+        schema:
+          type: string
+      - name: deviceId
+        in: path
+        required: true
+        description: Device ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Device details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+              examples:
+                getDevice200Example:
+                  summary: Default getDevice 200 response
+                  x-microcks-default: true
+                  value:
+                    id: dev-001
+                    name: Front Door Sensor
+                    type: sensor
+                    status: closed
+        '404':
+          description: Device not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getDevice404Example:
+                  summary: Default getDevice 404 response
+                  x-microcks-default: true
+                  value:
+                    code: NOT_FOUND
+                    message: Device not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Device:
+      type: object
+      description: A security device (sensor, camera, lock, or smart home device).
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the device.
+          example: dev-001
+        name:
+          type: string
+          description: Display name of the device.
+          example: Front Door Sensor
+        type:
+          type: string
+          description: Type of device.
+          enum:
+          - sensor
+          - camera
+          - lock
+          - thermostat
+          - light
+          - doorbell
+          - smoke_detector
+          - flood_sensor
+          example: sensor
+        status:
+          type: string
+          description: Current status of the device.
+          example: closed
+        zone:
+          type: string
+          description: Security zone the device belongs to.
+          example: Zone 1 - Entry
+        batteryLevel:
+          type: integer
+          description: Battery level percentage (0-100) for battery-powered devices.
+          example: 85
+        lastActivity:
+          type: string
+          format: date-time
+          description: Timestamp of last device activity.
+          example: '2025-03-15T14:30:00Z'
+    DeviceList:
+      type: object
+      description: List of security devices.
+      properties:
+        devices:
+          type: array
+          description: Array of devices.
+          items:
+            $ref: '#/components/schemas/Device'
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: NOT_FOUND
+        message:
+          type: string
+          description: Human-readable error message.
+          example: The requested resource was not found.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.adt.com/oauth/token
+          scopes:
+            business:read: Read business site data
+            business:write: Manage business security systems
+            access-control:manage: Manage access control
+            reports:read: Generate security reports
+externalDocs:
+  description: ADT Business Security Documentation
+  url: https://www.adt.com/business

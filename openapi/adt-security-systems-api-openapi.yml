@@ -1,0 +1,332 @@
+openapi: 3.0.3
+info:
+  title: ADT Business Access Codes Security Systems API
+  description: The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.
+  version: '1'
+  contact:
+    name: ADT Business Support
+    url: https://www.adt.com/business
+  termsOfService: https://www.adt.com/terms-of-service
+  license:
+    name: ADT Terms of Service
+    url: https://www.adt.com/terms-of-service
+  x-generated-from: documentation
+servers:
+- url: https://api.adt.com/business/v1
+  description: ADT Business API Production
+security:
+- oauth2: []
+tags:
+- name: Security Systems
+  description: Manage security systems and arming states
+paths:
+  /systems:
+    get:
+      operationId: getSystems
+      summary: ADT List Security Systems
+      description: Retrieve all security systems associated with the authenticated account.
+      tags:
+      - Security Systems
+      responses:
+        '200':
+          description: List of security systems.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemList'
+              examples:
+                getSystems200Example:
+                  summary: Default getSystems 200 response
+                  x-microcks-default: true
+                  value:
+                    systems:
+                    - id: sys-001
+                      name: Main House
+                      status: armed_away
+                      address: 123 Main St
+        '401':
+          description: Unauthorized - invalid credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getSystems401Example:
+                  summary: Default getSystems 401 response
+                  x-microcks-default: true
+                  value:
+                    code: UNAUTHORIZED
+                    message: Invalid or expired access token
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}:
+    get:
+      operationId: getSystem
+      summary: ADT Get a Security System
+      description: Retrieve details of a specific security system including current status and zone information.
+      tags:
+      - Security Systems
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        description: Unique identifier of the security system.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Security system details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/System'
+              examples:
+                getSystem200Example:
+                  summary: Default getSystem 200 response
+                  x-microcks-default: true
+                  value:
+                    id: sys-001
+                    name: Main House
+                    status: armed_away
+                    address: 123 Main St
+        '404':
+          description: System not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getSystem404Example:
+                  summary: Default getSystem 404 response
+                  x-microcks-default: true
+                  value:
+                    code: NOT_FOUND
+                    message: System not found
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/arm:
+    post:
+      operationId: armSystem
+      summary: ADT Arm a Security System
+      description: Arm a security system in away or stay mode.
+      tags:
+      - Security Systems
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        description: Unique identifier of the security system.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: Arm command request.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArmRequest'
+            examples:
+              armSystemRequestExample:
+                summary: Default armSystem request
+                x-microcks-default: true
+                value:
+                  mode: away
+                  accessCode: '1234'
+      responses:
+        '200':
+          description: System armed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStatusResponse'
+              examples:
+                armSystem200Example:
+                  summary: Default armSystem 200 response
+                  x-microcks-default: true
+                  value:
+                    systemId: sys-001
+                    status: armed_away
+                    timestamp: '2025-03-15T14:30:00Z'
+        '400':
+          description: Invalid arm request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                armSystem400Example:
+                  summary: Default armSystem 400 response
+                  x-microcks-default: true
+                  value:
+                    code: INVALID_REQUEST
+                    message: Invalid access code
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/disarm:
+    post:
+      operationId: disarmSystem
+      summary: ADT Disarm a Security System
+      description: Disarm a security system using a valid access code.
+      tags:
+      - Security Systems
+      parameters:
+      - name: systemId
+        in: path
+        required: true
+        description: Unique identifier of the security system.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: Disarm command request.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisarmRequest'
+            examples:
+              disarmSystemRequestExample:
+                summary: Default disarmSystem request
+                x-microcks-default: true
+                value:
+                  accessCode: '1234'
+      responses:
+        '200':
+          description: System disarmed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStatusResponse'
+              examples:
+                disarmSystem200Example:
+                  summary: Default disarmSystem 200 response
+                  x-microcks-default: true
+                  value:
+                    systemId: sys-001
+                    status: disarmed
+                    timestamp: '2025-03-15T14:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    SystemStatusResponse:
+      type: object
+      description: Response to an arm or disarm command.
+      properties:
+        systemId:
+          type: string
+          description: ID of the system.
+          example: sys-001
+        status:
+          type: string
+          description: New system status after command.
+          example: armed_away
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the status change.
+          example: '2025-03-15T14:30:00Z'
+    System:
+      type: object
+      description: An ADT security system.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the system.
+          example: sys-001
+        name:
+          type: string
+          description: Display name of the system.
+          example: Main House
+        status:
+          type: string
+          description: Current arming status.
+          enum:
+          - disarmed
+          - armed_away
+          - armed_stay
+          - alarm
+          - arming
+          example: armed_away
+        address:
+          type: string
+          description: Physical address of the protected property.
+          example: 123 Main St, Anytown, CA 90210
+        type:
+          type: string
+          description: Type of security system.
+          enum:
+          - residential
+          - commercial
+          example: residential
+        lastModified:
+          type: string
+          format: date-time
+          description: Timestamp of last status change.
+          example: '2025-03-15T14:30:00Z'
+    SystemList:
+      type: object
+      description: List of ADT security systems.
+      properties:
+        systems:
+          type: array
+          description: Array of security systems.
+          items:
+            $ref: '#/components/schemas/System'
+    ArmRequest:
+      type: object
+      description: Request to arm a security system.
+      required:
+      - mode
+      - accessCode
+      properties:
+        mode:
+          type: string
+          description: Arming mode.
+          enum:
+          - away
+          - stay
+          example: away
+        accessCode:
+          type: string
+          description: Valid access code to authorize arming.
+          example: '1234'
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: NOT_FOUND
+        message:
+          type: string
+          description: Human-readable error message.
+          example: The requested resource was not found.
+    DisarmRequest:
+      type: object
+      description: Request to disarm a security system.
+      required:
+      - accessCode
+      properties:
+        accessCode:
+          type: string
+          description: Valid access code to authorize disarming.
+          example: '1234'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.adt.com/oauth/token
+          scopes:
+            business:read: Read business site data
+            business:write: Manage business security systems
+            access-control:manage: Manage access control
+            reports:read: Generate security reports
+externalDocs:
+  description: ADT Business Security Documentation
+  url: https://www.adt.com/business
