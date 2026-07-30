@@ -1,61 +1,280 @@
 aid: adt
 url: https://raw.githubusercontent.com/api-evangelist/adt/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 modified: '2026-04-19'
 apis:
-  - name: ADT+ Platform API
-    description: >-
-      The ADT+ Platform API provides programmatic access to ADT's smart home security platform, enabling management of
-      security devices, sensors, cameras, locks, and automation rules. Supports real-time status monitoring, arming and
-      disarming, video clip retrieval, and alert management for residential and commercial security systems.
-    humanURL: https://www.adt.com/smart-home
-    baseURL: https://api.adt.com/v1
-    tags:
-      - Automation
-      - Monitoring
-      - Security
-      - Smart Home
-    properties:
-      - type: Documentation
-        url: https://www.adt.com/smart-home
-      - type: OpenAPI
-        url: openapi/adt-platform-api-openapi.yml
-      - type: JSONSchema
-        url: json-schema/
-      - type: JSONStructure
-        url: json-structure/
-      - type: JSONLD
-        url: json-ld/adt-platform-api-context.jsonld
-      - type: SpectralRules
-        url: rules/adt-spectral-rules.yml
-      - type: Vocabulary
-        url: vocabulary/adt-vocabulary.yaml
-  - name: ADT Business API
-    description: >-
-      The ADT Business API provides commercial security management capabilities including multi-site access control,
-      commercial alarm management, video surveillance integration, and security event monitoring for small to enterprise
-      business customers.
-    humanURL: https://www.adt.com/business
-    baseURL: https://api.adt.com/business/v1
-    tags:
-      - Access Control
-      - Business Security
-      - Commercial
-      - Video Surveillance
-    properties:
-      - type: Documentation
-        url: https://www.adt.com/business
-      - type: OpenAPI
-        url: openapi/adt-business-api-openapi.yml
-      - type: JSONSchema
-        url: json-schema/
-      - type: JSONStructure
-        url: json-structure/
-      - type: JSONLD
-        url: json-ld/adt-business-api-context.jsonld
-      - type: SpectralRules
-        url: rules/adt-spectral-rules.yml
-      - type: Vocabulary
-        url: vocabulary/adt-vocabulary.yaml
+- aid: adt:adt-access-codes-api
+  name: ADT Access Codes API
+  description: Manage access codes and user permissions
+  humanURL: https://www.adt.com/smart-home
+  baseURL: https://api.adt.com/v1
+  tags:
+  - Access Codes
+  properties:
+  - type: OpenAPI
+    url: openapi/adt-access-codes-api-openapi.yml
+  - type: Documentation
+    url: https://www.adt.com/smart-home
+  - type: JSONSchema
+    url: json-schema/
+  - type: JSONStructure
+    url: json-structure/
+  - type: JSONLD
+    url: json-ld/adt-platform-api-context.jsonld
+  - type: SpectralRules
+    url: rules/adt-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/adt-vocabulary.yaml
+  - type: Documentation
+    url: https://www.adt.com/business
+  - type: JSONLD
+    url: json-ld/adt-business-api-context.jsonld
+- aid: adt:adt-access-control-api
+  name: ADT Access Control API
+  description: Manage access control panels, credentials, and schedules
+  humanURL: https://www.adt.com/smart-home
+  baseURL: https://api.adt.com/v1
+  tags:
+  - Access Control
+  properties:
+  - type: OpenAPI
+    url: openapi/adt-access-control-api-openapi.yml
+  - type: Documentation
+    url: https://www.adt.com/smart-home
+  - type: JSONSchema
+    url: json-schema/
+  - type: JSONStructure
+    url: json-structure/
+  - type: JSONLD
+    url: json-ld/adt-platform-api-context.jsonld
+  - type: SpectralRules
+    url: rules/adt-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/adt-vocabulary.yaml
+  - type: Documentation
+    url: https://www.adt.com/business
+  - type: JSONLD
+    url: json-ld/adt-business-api-context.jsonld
+- aid: adt:adt-automation-api
+  name: ADT Automation API
+  description: Manage automation rules and smart home scenes
+  humanURL: https://www.adt.com/smart-home
+  baseURL: https://api.adt.com/v1
+  tags:
+  - Automation
+  properties:
+  - type: OpenAPI
+    url: openapi/adt-automation-api-openapi.yml
+  - type: Documentation
+    url: https://www.adt.com/smart-home
+  - type: JSONSchema
+    url: json-schema/
+  - type: JSONStructure
+    url: json-structure/
+  - type: JSONLD
+    url: json-ld/adt-platform-api-context.jsonld
+  - type: SpectralRules
+    url: rules/adt-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/adt-vocabulary.yaml
+  - type: Documentation
+    url: https://www.adt.com/business
+  - type: JSONLD
+    url: json-ld/adt-business-api-context.jsonld
+- aid: adt:adt-devices-api
+  name: ADT Devices API
+  description: Manage sensors, cameras, and smart home devices
+  humanURL: https://www.adt.com/smart-home
+  baseURL: https://api.adt.com/v1
+  tags:
+  - Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/adt-devices-api-openapi.yml
+  - type: Documentation
+    url: https://www.adt.com/smart-home
+  - type: JSONSchema
+    url: json-schema/
+  - type: JSONStructure
+    url: json-structure/
+  - type: JSONLD
+    url: json-ld/adt-platform-api-context.jsonld
+  - type: SpectralRules
+    url: rules/adt-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/adt-vocabulary.yaml
+  - type: Documentation
+    url: https://www.adt.com/business
+  - type: JSONLD
+    url: json-ld/adt-business-api-context.jsonld
+- aid: adt:adt-events-api
+  name: ADT Events API
+  description: Retrieve security events and alarm history
+  humanURL: https://www.adt.com/smart-home
+  baseURL: https://api.adt.com/v1
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/adt-events-api-openapi.yml
+  - type: Documentation
+    url: https://www.adt.com/smart-home
+  - type: JSONSchema
+    url: json-schema/
+  - type: JSONStructure
+    url: json-structure/
+  - type: JSONLD
+    url: json-ld/adt-platform-api-context.jsonld
+  - type: SpectralRules
+    url: rules/adt-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/adt-vocabulary.yaml
+  - type: Documentation
+    url: https://www.adt.com/business
+  - type: JSONLD
+    url: json-ld/adt-business-api-context.jsonld
+- aid: adt:adt-reports-api
+  name: ADT Reports API
+  description: Generate security and compliance reports
+  humanURL: https://www.adt.com/smart-home
+  baseURL: https://api.adt.com/v1
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/adt-reports-api-openapi.yml
+  - type: Documentation
+    url: https://www.adt.com/smart-home
+  - type: JSONSchema
+    url: json-schema/
+  - type: JSONStructure
+    url: json-structure/
+  - type: JSONLD
+    url: json-ld/adt-platform-api-context.jsonld
+  - type: SpectralRules
+    url: rules/adt-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/adt-vocabulary.yaml
+  - type: Documentation
+    url: https://www.adt.com/business
+  - type: JSONLD
+    url: json-ld/adt-business-api-context.jsonld
+- aid: adt:adt-security-systems-api
+  name: ADT Security Systems API
+  description: Manage security systems and arming states
+  humanURL: https://www.adt.com/smart-home
+  baseURL: https://api.adt.com/v1
+  tags:
+  - Security Systems
+  properties:
+  - type: OpenAPI
+    url: openapi/adt-security-systems-api-openapi.yml
+  - type: Documentation
+    url: https://www.adt.com/smart-home
+  - type: JSONSchema
+    url: json-schema/
+  - type: JSONStructure
+    url: json-structure/
+  - type: JSONLD
+    url: json-ld/adt-platform-api-context.jsonld
+  - type: SpectralRules
+    url: rules/adt-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/adt-vocabulary.yaml
+  - type: Documentation
+    url: https://www.adt.com/business
+  - type: JSONLD
+    url: json-ld/adt-business-api-context.jsonld
+- aid: adt:adt-sites-api
+  name: ADT Sites API
+  description: Manage business site security systems
+  humanURL: https://www.adt.com/smart-home
+  baseURL: https://api.adt.com/v1
+  tags:
+  - Sites
+  properties:
+  - type: OpenAPI
+    url: openapi/adt-sites-api-openapi.yml
+  - type: Documentation
+    url: https://www.adt.com/smart-home
+  - type: JSONSchema
+    url: json-schema/
+  - type: JSONStructure
+    url: json-structure/
+  - type: JSONLD
+    url: json-ld/adt-platform-api-context.jsonld
+  - type: SpectralRules
+    url: rules/adt-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/adt-vocabulary.yaml
+  - type: Documentation
+    url: https://www.adt.com/business
+  - type: JSONLD
+    url: json-ld/adt-business-api-context.jsonld
+- aid: adt:adt-users-api
+  name: ADT Users API
+  description: Manage security system users and permissions
+  humanURL: https://www.adt.com/smart-home
+  baseURL: https://api.adt.com/v1
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/adt-users-api-openapi.yml
+  - type: Documentation
+    url: https://www.adt.com/smart-home
+  - type: JSONSchema
+    url: json-schema/
+  - type: JSONStructure
+    url: json-structure/
+  - type: JSONLD
+    url: json-ld/adt-platform-api-context.jsonld
+  - type: SpectralRules
+    url: rules/adt-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/adt-vocabulary.yaml
+  - type: Documentation
+    url: https://www.adt.com/business
+  - type: JSONLD
+    url: json-ld/adt-business-api-context.jsonld
+- aid: adt:adt-video-api
+  name: ADT Video API
+  description: Manage camera recordings and live video
+  humanURL: https://www.adt.com/smart-home
+  baseURL: https://api.adt.com/v1
+  tags:
+  - Video
+  properties:
+  - type: OpenAPI
+    url: openapi/adt-video-api-openapi.yml
+  - type: Documentation
+    url: https://www.adt.com/smart-home
+  - type: JSONSchema
+    url: json-schema/
+  - type: JSONStructure
+    url: json-structure/
+  - type: JSONLD
+    url: json-ld/adt-platform-api-context.jsonld
+  - type: SpectralRules
+    url: rules/adt-spectral-rules.yml
+  - type: Vocabulary
+    url: vocabulary/adt-vocabulary.yaml
+  - type: Documentation
+    url: https://www.adt.com/business
+  - type: JSONLD
+    url: json-ld/adt-business-api-context.jsonld
 common:
   - type: AgenticAccess
     url: agentic-access/adt-agentic-access.yml
@@ -145,7 +364,7 @@ description: >-
   professional monitoring, video surveillance, access control, and automation integrations with Google Nest, Amazon
   Alexa, and Z-Wave smart home devices through the ADT+ platform.
 name: ADT
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/adt.png
 type: Index
 created: '2024-01-01'
 specificationVersion: '0.19'
