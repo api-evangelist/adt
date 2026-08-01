@@ -1,0 +1,32 @@
+{
+  "provider": "adt",
+  "sources": [
+    "adt-access-codes-api-openapi.yml",
+    "adt-access-control-api-openapi.yml",
+    "adt-automation-api-openapi.yml",
+    "adt-devices-api-openapi.yml",
+    "adt-events-api-openapi.yml",
+    "adt-reports-api-openapi.yml",
+    "adt-security-systems-api-openapi.yml",
+    "adt-sites-api-openapi.yml",
+    "adt-users-api-openapi.yml",
+    "adt-video-api-openapi.yml"
+  ],
+  "outputs": [
+    "adt-access-codes-api-openapi.yml",
+    "adt-access-control-api-openapi.yml",
+    "adt-automation-api-openapi.yml",
+    "adt-devices-api-openapi.yml",
+    "adt-events-api-openapi.yml",
+    "adt-reports-api-openapi.yml",
+    "adt-security-systems-api-openapi.yml",
+    "adt-sites-api-openapi.yml",
+    "adt-users-api-openapi.yml",
+    "adt-video-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

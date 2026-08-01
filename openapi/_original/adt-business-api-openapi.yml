@@ -1,0 +1,506 @@
+openapi: 3.0.3
+info:
+  title: ADT Business API
+  description: >-
+    The ADT Business API provides commercial security management capabilities for
+    managing multi-site security systems, access control, video surveillance, alarm
+    monitoring, and security personnel management for small to enterprise business customers.
+  version: "1"
+  contact:
+    name: ADT Business Support
+    url: https://www.adt.com/business
+  termsOfService: https://www.adt.com/terms-of-service
+  license:
+    name: ADT Terms of Service
+    url: https://www.adt.com/terms-of-service
+  x-generated-from: documentation
+externalDocs:
+  description: ADT Business Security Documentation
+  url: https://www.adt.com/business
+servers:
+  - url: https://api.adt.com/business/v1
+    description: ADT Business API Production
+tags:
+  - name: Sites
+    description: Manage business site security systems
+  - name: Access Control
+    description: Manage access control panels, credentials, and schedules
+  - name: Users
+    description: Manage security system users and permissions
+  - name: Reports
+    description: Generate security and compliance reports
+security:
+  - oauth2: []
+paths:
+  /sites:
+    get:
+      operationId: getSites
+      summary: ADT List Business Sites
+      description: "Retrieve all business sites with security systems for the authenticated account."
+      tags:
+        - Sites
+      parameters:
+        - name: limit
+          in: query
+          description: "Maximum number of sites to return."
+          schema:
+            type: integer
+            default: 50
+        - name: offset
+          in: query
+          description: "Pagination offset."
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: "List of business sites."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteList'
+              examples:
+                getSites200Example:
+                  summary: Default getSites 200 response
+                  x-microcks-default: true
+                  value:
+                    sites:
+                      - id: "site-001"
+                        name: "Downtown Office"
+                        address: "456 Business Ave"
+                        status: "armed"
+        '401':
+          description: "Unauthorized."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getSites401Example:
+                  summary: Default getSites 401 response
+                  x-microcks-default: true
+                  value:
+                    code: "UNAUTHORIZED"
+                    message: "Invalid credentials"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /sites/{siteId}:
+    get:
+      operationId: getSite
+      summary: ADT Get a Business Site
+      description: "Retrieve details of a specific business site including security status and device inventory."
+      tags:
+        - Sites
+      parameters:
+        - name: siteId
+          in: path
+          required: true
+          description: "Unique identifier of the business site."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Site details."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+              examples:
+                getSite200Example:
+                  summary: Default getSite 200 response
+                  x-microcks-default: true
+                  value:
+                    id: "site-001"
+                    name: "Downtown Office"
+                    address: "456 Business Ave"
+                    status: "armed"
+        '404':
+          description: "Site not found."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getSite404Example:
+                  summary: Default getSite 404 response
+                  x-microcks-default: true
+                  value:
+                    code: "NOT_FOUND"
+                    message: "Site not found"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /sites/{siteId}/access-control/credentials:
+    get:
+      operationId: getCredentials
+      summary: ADT List Access Control Credentials
+      description: "Retrieve all access control credentials (badges, PINs, biometric) assigned at a business site."
+      tags:
+        - Access Control
+      parameters:
+        - name: siteId
+          in: path
+          required: true
+          description: "Business site ID."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "List of access credentials."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialList'
+              examples:
+                getCredentials200Example:
+                  summary: Default getCredentials 200 response
+                  x-microcks-default: true
+                  value:
+                    credentials:
+                      - id: "cred-001"
+                        userId: "usr-001"
+                        type: "badge"
+                        status: "active"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createCredential
+      summary: ADT Create an Access Credential
+      description: "Create a new access credential for a user at a business site."
+      tags:
+        - Access Control
+      parameters:
+        - name: siteId
+          in: path
+          required: true
+          description: "Business site ID."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: "Credential creation request."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialInput'
+            examples:
+              createCredentialRequestExample:
+                summary: Default createCredential request
+                x-microcks-default: true
+                value:
+                  userId: "usr-001"
+                  type: "badge"
+                  cardNumber: "1234567890"
+      responses:
+        '201':
+          description: "Credential created."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+              examples:
+                createCredential201Example:
+                  summary: Default createCredential 201 response
+                  x-microcks-default: true
+                  value:
+                    id: "cred-002"
+                    userId: "usr-001"
+                    type: "badge"
+                    status: "active"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /sites/{siteId}/users:
+    get:
+      operationId: getSiteUsers
+      summary: ADT List Site Users
+      description: "Retrieve all users with access to a business site."
+      tags:
+        - Users
+      parameters:
+        - name: siteId
+          in: path
+          required: true
+          description: "Business site ID."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "List of site users."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+              examples:
+                getSiteUsers200Example:
+                  summary: Default getSiteUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    users:
+                      - id: "usr-001"
+                        name: "Jane Smith"
+                        email: "jsmith@example.com"
+                        role: "employee"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /sites/{siteId}/reports/events:
+    get:
+      operationId: getSiteEventReport
+      summary: ADT Generate Site Security Event Report
+      description: "Generate a security event report for a business site including alarms, access events, and activity summaries."
+      tags:
+        - Reports
+      parameters:
+        - name: siteId
+          in: path
+          required: true
+          description: "Business site ID."
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          required: true
+          description: "Report start date (ISO 8601)."
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          required: true
+          description: "Report end date (ISO 8601)."
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: "Security event report."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventReport'
+              examples:
+                getSiteEventReport200Example:
+                  summary: Default getSiteEventReport 200 response
+                  x-microcks-default: true
+                  value:
+                    siteId: "site-001"
+                    period:
+                      startDate: "2025-03-01T00:00:00Z"
+                      endDate: "2025-03-31T23:59:59Z"
+                    summary:
+                      totalAlarms: 2
+                      totalAccessEvents: 150
+                    events:
+                      - id: "evt-001"
+                        type: "alarm"
+                        timestamp: "2025-03-15T14:30:00Z"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.adt.com/oauth/token
+          scopes:
+            business:read: "Read business site data"
+            business:write: "Manage business security systems"
+            access-control:manage: "Manage access control"
+            reports:read: "Generate security reports"
+  schemas:
+    Site:
+      type: object
+      description: "A business site with ADT security systems."
+      properties:
+        id:
+          type: string
+          description: "Unique identifier of the site."
+          example: "site-001"
+        name:
+          type: string
+          description: "Name of the business site."
+          example: "Downtown Office"
+        address:
+          type: string
+          description: "Physical address."
+          example: "456 Business Ave, Citytown, CA 90210"
+        status:
+          type: string
+          description: "Current security status."
+          enum:
+            - armed
+            - disarmed
+            - alarm
+          example: "armed"
+        systemCount:
+          type: integer
+          description: "Number of security systems at this site."
+          example: 3
+    SiteList:
+      type: object
+      description: "List of business sites."
+      properties:
+        sites:
+          type: array
+          description: "Array of business sites."
+          items:
+            $ref: '#/components/schemas/Site'
+        total:
+          type: integer
+          description: "Total number of sites."
+          example: 5
+    Credential:
+      type: object
+      description: "An access control credential."
+      properties:
+        id:
+          type: string
+          description: "Unique identifier of the credential."
+          example: "cred-001"
+        userId:
+          type: string
+          description: "ID of the user this credential belongs to."
+          example: "usr-001"
+        type:
+          type: string
+          description: "Type of credential."
+          enum:
+            - badge
+            - pin
+            - biometric
+            - mobile
+          example: "badge"
+        status:
+          type: string
+          description: "Credential status."
+          enum:
+            - active
+            - suspended
+            - expired
+          example: "active"
+        validFrom:
+          type: string
+          format: date-time
+          description: "Start of credential validity period."
+        validTo:
+          type: string
+          format: date-time
+          description: "End of credential validity period."
+    CredentialInput:
+      type: object
+      description: "Request to create an access credential."
+      required:
+        - userId
+        - type
+      properties:
+        userId:
+          type: string
+          description: "ID of the user."
+          example: "usr-001"
+        type:
+          type: string
+          description: "Credential type."
+          enum:
+            - badge
+            - pin
+            - mobile
+        cardNumber:
+          type: string
+          description: "Card number for badge credentials."
+          example: "1234567890"
+    CredentialList:
+      type: object
+      description: "List of access credentials."
+      properties:
+        credentials:
+          type: array
+          description: "Array of credentials."
+          items:
+            $ref: '#/components/schemas/Credential'
+    User:
+      type: object
+      description: "A user with access to a business site."
+      properties:
+        id:
+          type: string
+          description: "Unique user ID."
+          example: "usr-001"
+        name:
+          type: string
+          description: "Full name of the user."
+          example: "Jane Smith"
+        email:
+          type: string
+          format: email
+          description: "Email address."
+          example: "jsmith@example.com"
+        role:
+          type: string
+          description: "User role."
+          enum:
+            - admin
+            - manager
+            - employee
+            - contractor
+          example: "employee"
+    UserList:
+      type: object
+      description: "List of site users."
+      properties:
+        users:
+          type: array
+          description: "Array of users."
+          items:
+            $ref: '#/components/schemas/User'
+    EventReport:
+      type: object
+      description: "A security event report for a business site."
+      properties:
+        siteId:
+          type: string
+          description: "Site ID."
+          example: "site-001"
+        period:
+          type: object
+          description: "Report time period."
+          properties:
+            startDate:
+              type: string
+              format: date-time
+            endDate:
+              type: string
+              format: date-time
+        summary:
+          type: object
+          description: "Summary statistics."
+          properties:
+            totalAlarms:
+              type: integer
+              description: "Total alarm events."
+              example: 2
+            totalAccessEvents:
+              type: integer
+              description: "Total access control events."
+              example: 150
+        events:
+          type: array
+          description: "List of events in the period."
+          items:
+            type: object
+    ErrorResponse:
+      type: object
+      description: "API error response."
+      properties:
+        code:
+          type: string
+          description: "Error code."
+          example: "NOT_FOUND"
+        message:
+          type: string
+          description: "Error message."
+          example: "The requested resource was not found."

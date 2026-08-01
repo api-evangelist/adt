@@ -1,0 +1,982 @@
+openapi: 3.0.3
+info:
+  title: ADT+ Platform API
+  description: >-
+    The ADT+ Platform API provides programmatic access to ADT's smart home security
+    platform for managing security systems, devices, sensors, cameras, locks, and
+    automation rules. Supports remote arming/disarming, real-time device status monitoring,
+    video clip retrieval, access code management, and security event notifications for
+    residential and small business ADT customers.
+  version: "1"
+  contact:
+    name: ADT Customer Support
+    url: https://www.adt.com/support
+  termsOfService: https://www.adt.com/terms-of-service
+  license:
+    name: ADT Terms of Service
+    url: https://www.adt.com/terms-of-service
+  x-generated-from: documentation
+externalDocs:
+  description: ADT Smart Home Documentation
+  url: https://www.adt.com/smart-home
+servers:
+  - url: https://api.adt.com/v1
+    description: ADT Platform API Production
+tags:
+  - name: Security Systems
+    description: Manage security systems and arming states
+  - name: Devices
+    description: Manage sensors, cameras, and smart home devices
+  - name: Events
+    description: Retrieve security events and alarm history
+  - name: Access Codes
+    description: Manage access codes and user permissions
+  - name: Automation
+    description: Manage automation rules and smart home scenes
+  - name: Video
+    description: Manage camera recordings and live video
+security:
+  - oauth2: []
+paths:
+  /systems:
+    get:
+      operationId: getSystems
+      summary: ADT List Security Systems
+      description: "Retrieve all security systems associated with the authenticated account."
+      tags:
+        - Security Systems
+      responses:
+        '200':
+          description: "List of security systems."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemList'
+              examples:
+                getSystems200Example:
+                  summary: Default getSystems 200 response
+                  x-microcks-default: true
+                  value:
+                    systems:
+                      - id: "sys-001"
+                        name: "Main House"
+                        status: "armed_away"
+                        address: "123 Main St"
+        '401':
+          description: "Unauthorized - invalid credentials."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getSystems401Example:
+                  summary: Default getSystems 401 response
+                  x-microcks-default: true
+                  value:
+                    code: "UNAUTHORIZED"
+                    message: "Invalid or expired access token"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}:
+    get:
+      operationId: getSystem
+      summary: ADT Get a Security System
+      description: "Retrieve details of a specific security system including current status and zone information."
+      tags:
+        - Security Systems
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: "Unique identifier of the security system."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Security system details."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/System'
+              examples:
+                getSystem200Example:
+                  summary: Default getSystem 200 response
+                  x-microcks-default: true
+                  value:
+                    id: "sys-001"
+                    name: "Main House"
+                    status: "armed_away"
+                    address: "123 Main St"
+        '404':
+          description: "System not found."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getSystem404Example:
+                  summary: Default getSystem 404 response
+                  x-microcks-default: true
+                  value:
+                    code: "NOT_FOUND"
+                    message: "System not found"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/arm:
+    post:
+      operationId: armSystem
+      summary: ADT Arm a Security System
+      description: "Arm a security system in away or stay mode."
+      tags:
+        - Security Systems
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: "Unique identifier of the security system."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: "Arm command request."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArmRequest'
+            examples:
+              armSystemRequestExample:
+                summary: Default armSystem request
+                x-microcks-default: true
+                value:
+                  mode: "away"
+                  accessCode: "1234"
+      responses:
+        '200':
+          description: "System armed successfully."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStatusResponse'
+              examples:
+                armSystem200Example:
+                  summary: Default armSystem 200 response
+                  x-microcks-default: true
+                  value:
+                    systemId: "sys-001"
+                    status: "armed_away"
+                    timestamp: "2025-03-15T14:30:00Z"
+        '400':
+          description: "Invalid arm request."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                armSystem400Example:
+                  summary: Default armSystem 400 response
+                  x-microcks-default: true
+                  value:
+                    code: "INVALID_REQUEST"
+                    message: "Invalid access code"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/disarm:
+    post:
+      operationId: disarmSystem
+      summary: ADT Disarm a Security System
+      description: "Disarm a security system using a valid access code."
+      tags:
+        - Security Systems
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: "Unique identifier of the security system."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: "Disarm command request."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisarmRequest'
+            examples:
+              disarmSystemRequestExample:
+                summary: Default disarmSystem request
+                x-microcks-default: true
+                value:
+                  accessCode: "1234"
+      responses:
+        '200':
+          description: "System disarmed successfully."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStatusResponse'
+              examples:
+                disarmSystem200Example:
+                  summary: Default disarmSystem 200 response
+                  x-microcks-default: true
+                  value:
+                    systemId: "sys-001"
+                    status: "disarmed"
+                    timestamp: "2025-03-15T14:30:00Z"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/devices:
+    get:
+      operationId: getDevices
+      summary: ADT List Security Devices
+      description: "Retrieve all security devices associated with a security system including sensors, cameras, locks, and smart home devices."
+      tags:
+        - Devices
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: "Unique identifier of the security system."
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: "Filter devices by type."
+          schema:
+            type: string
+            enum:
+              - sensor
+              - camera
+              - lock
+              - thermostat
+              - light
+              - doorbell
+      responses:
+        '200':
+          description: "List of security devices."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceList'
+              examples:
+                getDevices200Example:
+                  summary: Default getDevices 200 response
+                  x-microcks-default: true
+                  value:
+                    devices:
+                      - id: "dev-001"
+                        name: "Front Door Sensor"
+                        type: "sensor"
+                        status: "closed"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/devices/{deviceId}:
+    get:
+      operationId: getDevice
+      summary: ADT Get a Security Device
+      description: "Retrieve current status and details of a specific security device."
+      tags:
+        - Devices
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: "Security system ID."
+          schema:
+            type: string
+        - name: deviceId
+          in: path
+          required: true
+          description: "Device ID."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Device details."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+              examples:
+                getDevice200Example:
+                  summary: Default getDevice 200 response
+                  x-microcks-default: true
+                  value:
+                    id: "dev-001"
+                    name: "Front Door Sensor"
+                    type: "sensor"
+                    status: "closed"
+        '404':
+          description: "Device not found."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                getDevice404Example:
+                  summary: Default getDevice 404 response
+                  x-microcks-default: true
+                  value:
+                    code: "NOT_FOUND"
+                    message: "Device not found"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/events:
+    get:
+      operationId: getEvents
+      summary: ADT List Security Events
+      description: "Retrieve security events and alarm history for a security system with optional date filtering."
+      tags:
+        - Events
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: "Security system ID."
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          description: "Start date for event history filter (ISO 8601)."
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: "End date for event history filter (ISO 8601)."
+          schema:
+            type: string
+            format: date-time
+        - name: type
+          in: query
+          description: "Filter events by type."
+          schema:
+            type: string
+            enum:
+              - alarm
+              - arm
+              - disarm
+              - sensor_open
+              - sensor_close
+              - motion
+              - video
+        - name: limit
+          in: query
+          description: "Maximum number of events to return."
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: "List of security events."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventList'
+              examples:
+                getEvents200Example:
+                  summary: Default getEvents 200 response
+                  x-microcks-default: true
+                  value:
+                    events:
+                      - id: "evt-001"
+                        type: "alarm"
+                        description: "Motion detected"
+                        timestamp: "2025-03-15T14:30:00Z"
+                    total: 1
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/access-codes:
+    get:
+      operationId: getAccessCodes
+      summary: ADT List Access Codes
+      description: "Retrieve all access codes configured for a security system."
+      tags:
+        - Access Codes
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: "Security system ID."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "List of access codes."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessCodeList'
+              examples:
+                getAccessCodes200Example:
+                  summary: Default getAccessCodes 200 response
+                  x-microcks-default: true
+                  value:
+                    accessCodes:
+                      - id: "code-001"
+                        name: "Master Code"
+                        type: "master"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createAccessCode
+      summary: ADT Create an Access Code
+      description: "Create a new access code for a security system with optional schedule and permission restrictions."
+      tags:
+        - Access Codes
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: "Security system ID."
+          schema:
+            type: string
+      requestBody:
+        required: true
+        description: "Access code creation request."
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessCodeInput'
+            examples:
+              createAccessCodeRequestExample:
+                summary: Default createAccessCode request
+                x-microcks-default: true
+                value:
+                  name: "Contractor Code"
+                  code: "5678"
+                  type: "temporary"
+                  expiresAt: "2025-03-20T23:59:59Z"
+      responses:
+        '201':
+          description: "Access code created."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessCode'
+              examples:
+                createAccessCode201Example:
+                  summary: Default createAccessCode 201 response
+                  x-microcks-default: true
+                  value:
+                    id: "code-002"
+                    name: "Contractor Code"
+                    type: "temporary"
+                    expiresAt: "2025-03-20T23:59:59Z"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/access-codes/{codeId}:
+    delete:
+      operationId: deleteAccessCode
+      summary: ADT Delete an Access Code
+      description: "Delete an access code from a security system."
+      tags:
+        - Access Codes
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: "Security system ID."
+          schema:
+            type: string
+        - name: codeId
+          in: path
+          required: true
+          description: "Access code ID."
+          schema:
+            type: string
+      responses:
+        '204':
+          description: "Access code deleted."
+        '404':
+          description: "Access code not found."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                deleteAccessCode404Example:
+                  summary: Default deleteAccessCode 404 response
+                  x-microcks-default: true
+                  value:
+                    code: "NOT_FOUND"
+                    message: "Access code not found"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/cameras/{cameraId}/clips:
+    get:
+      operationId: getVideoClips
+      summary: ADT List Video Clips
+      description: "Retrieve recorded video clips from a camera with optional date and trigger filtering."
+      tags:
+        - Video
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: "Security system ID."
+          schema:
+            type: string
+        - name: cameraId
+          in: path
+          required: true
+          description: "Camera device ID."
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          description: "Start date filter for clips (ISO 8601)."
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: "End date filter for clips (ISO 8601)."
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: "List of video clips."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoClipList'
+              examples:
+                getVideoClips200Example:
+                  summary: Default getVideoClips 200 response
+                  x-microcks-default: true
+                  value:
+                    clips:
+                      - id: "clip-001"
+                        cameraId: "dev-cam-001"
+                        startTime: "2025-03-15T14:30:00Z"
+                        endTime: "2025-03-15T14:31:00Z"
+                        trigger: "motion"
+                        downloadUrl: "https://media.adt.com/clips/clip-001.mp4"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /systems/{systemId}/automations:
+    get:
+      operationId: getAutomations
+      summary: ADT List Automation Rules
+      description: "Retrieve automation rules and smart home scenes configured for the security system."
+      tags:
+        - Automation
+      parameters:
+        - name: systemId
+          in: path
+          required: true
+          description: "Security system ID."
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "List of automation rules."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationList'
+              examples:
+                getAutomations200Example:
+                  summary: Default getAutomations 200 response
+                  x-microcks-default: true
+                  value:
+                    automations:
+                      - id: "auto-001"
+                        name: "Arm Away at Night"
+                        trigger: "schedule"
+                        enabled: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.adt.com/oauth/authorize
+          tokenUrl: https://auth.adt.com/oauth/token
+          scopes:
+            security:read: "Read security system status and events"
+            security:write: "Arm, disarm, and control security systems"
+            devices:read: "Read device status"
+            devices:write: "Control smart home devices"
+            video:read: "Access video clips and live streams"
+            access-codes:manage: "Manage access codes"
+  schemas:
+    System:
+      type: object
+      description: "An ADT security system."
+      properties:
+        id:
+          type: string
+          description: "Unique identifier of the system."
+          example: "sys-001"
+        name:
+          type: string
+          description: "Display name of the system."
+          example: "Main House"
+        status:
+          type: string
+          description: "Current arming status."
+          enum:
+            - disarmed
+            - armed_away
+            - armed_stay
+            - alarm
+            - arming
+          example: "armed_away"
+        address:
+          type: string
+          description: "Physical address of the protected property."
+          example: "123 Main St, Anytown, CA 90210"
+        type:
+          type: string
+          description: "Type of security system."
+          enum:
+            - residential
+            - commercial
+          example: "residential"
+        lastModified:
+          type: string
+          format: date-time
+          description: "Timestamp of last status change."
+          example: "2025-03-15T14:30:00Z"
+    SystemList:
+      type: object
+      description: "List of ADT security systems."
+      properties:
+        systems:
+          type: array
+          description: "Array of security systems."
+          items:
+            $ref: '#/components/schemas/System'
+    SystemStatusResponse:
+      type: object
+      description: "Response to an arm or disarm command."
+      properties:
+        systemId:
+          type: string
+          description: "ID of the system."
+          example: "sys-001"
+        status:
+          type: string
+          description: "New system status after command."
+          example: "armed_away"
+        timestamp:
+          type: string
+          format: date-time
+          description: "Timestamp of the status change."
+          example: "2025-03-15T14:30:00Z"
+    ArmRequest:
+      type: object
+      description: "Request to arm a security system."
+      required:
+        - mode
+        - accessCode
+      properties:
+        mode:
+          type: string
+          description: "Arming mode."
+          enum:
+            - away
+            - stay
+          example: "away"
+        accessCode:
+          type: string
+          description: "Valid access code to authorize arming."
+          example: "1234"
+    DisarmRequest:
+      type: object
+      description: "Request to disarm a security system."
+      required:
+        - accessCode
+      properties:
+        accessCode:
+          type: string
+          description: "Valid access code to authorize disarming."
+          example: "1234"
+    Device:
+      type: object
+      description: "A security device (sensor, camera, lock, or smart home device)."
+      properties:
+        id:
+          type: string
+          description: "Unique identifier of the device."
+          example: "dev-001"
+        name:
+          type: string
+          description: "Display name of the device."
+          example: "Front Door Sensor"
+        type:
+          type: string
+          description: "Type of device."
+          enum:
+            - sensor
+            - camera
+            - lock
+            - thermostat
+            - light
+            - doorbell
+            - smoke_detector
+            - flood_sensor
+          example: "sensor"
+        status:
+          type: string
+          description: "Current status of the device."
+          example: "closed"
+        zone:
+          type: string
+          description: "Security zone the device belongs to."
+          example: "Zone 1 - Entry"
+        batteryLevel:
+          type: integer
+          description: "Battery level percentage (0-100) for battery-powered devices."
+          example: 85
+        lastActivity:
+          type: string
+          format: date-time
+          description: "Timestamp of last device activity."
+          example: "2025-03-15T14:30:00Z"
+    DeviceList:
+      type: object
+      description: "List of security devices."
+      properties:
+        devices:
+          type: array
+          description: "Array of devices."
+          items:
+            $ref: '#/components/schemas/Device'
+    Event:
+      type: object
+      description: "A security event or alarm history entry."
+      properties:
+        id:
+          type: string
+          description: "Unique identifier of the event."
+          example: "evt-001"
+        type:
+          type: string
+          description: "Type of security event."
+          enum:
+            - alarm
+            - arm
+            - disarm
+            - sensor_open
+            - sensor_close
+            - motion
+            - video
+            - panic
+          example: "alarm"
+        description:
+          type: string
+          description: "Human-readable description of the event."
+          example: "Motion detected at front door"
+        deviceId:
+          type: string
+          description: "ID of the device that triggered the event."
+          example: "dev-001"
+        timestamp:
+          type: string
+          format: date-time
+          description: "Timestamp when the event occurred."
+          example: "2025-03-15T14:30:00Z"
+        userId:
+          type: string
+          description: "ID of the user associated with the event."
+          example: "usr-001"
+    EventList:
+      type: object
+      description: "Paginated list of security events."
+      properties:
+        events:
+          type: array
+          description: "Array of security events."
+          items:
+            $ref: '#/components/schemas/Event'
+        total:
+          type: integer
+          description: "Total number of events matching the query."
+          example: 150
+    AccessCode:
+      type: object
+      description: "An access code for a security system."
+      properties:
+        id:
+          type: string
+          description: "Unique identifier of the access code."
+          example: "code-001"
+        name:
+          type: string
+          description: "Display name for the access code."
+          example: "Master Code"
+        type:
+          type: string
+          description: "Type of access code."
+          enum:
+            - master
+            - standard
+            - temporary
+            - duress
+          example: "standard"
+        expiresAt:
+          type: string
+          format: date-time
+          description: "Expiration timestamp for temporary codes."
+          example: "2025-03-20T23:59:59Z"
+        permissions:
+          type: array
+          description: "List of permissions granted by this code."
+          items:
+            type: string
+    AccessCodeInput:
+      type: object
+      description: "Request to create an access code."
+      required:
+        - name
+        - code
+        - type
+      properties:
+        name:
+          type: string
+          description: "Display name for the access code."
+          example: "Contractor Code"
+        code:
+          type: string
+          description: "The numeric access code (4-8 digits)."
+          example: "5678"
+        type:
+          type: string
+          description: "Type of access code."
+          enum:
+            - standard
+            - temporary
+          example: "temporary"
+        expiresAt:
+          type: string
+          format: date-time
+          description: "Expiration time for temporary codes."
+          example: "2025-03-20T23:59:59Z"
+    AccessCodeList:
+      type: object
+      description: "List of access codes."
+      properties:
+        accessCodes:
+          type: array
+          description: "Array of access codes."
+          items:
+            $ref: '#/components/schemas/AccessCode'
+    VideoClip:
+      type: object
+      description: "A recorded video clip from a security camera."
+      properties:
+        id:
+          type: string
+          description: "Unique identifier of the video clip."
+          example: "clip-001"
+        cameraId:
+          type: string
+          description: "ID of the camera that recorded the clip."
+          example: "dev-cam-001"
+        startTime:
+          type: string
+          format: date-time
+          description: "Start timestamp of the recording."
+          example: "2025-03-15T14:30:00Z"
+        endTime:
+          type: string
+          format: date-time
+          description: "End timestamp of the recording."
+          example: "2025-03-15T14:31:00Z"
+        trigger:
+          type: string
+          description: "What triggered the recording."
+          enum:
+            - motion
+            - alarm
+            - manual
+            - schedule
+          example: "motion"
+        downloadUrl:
+          type: string
+          format: uri
+          description: "Pre-signed URL to download the video clip."
+          example: "https://media.adt.com/clips/clip-001.mp4"
+        thumbnailUrl:
+          type: string
+          format: uri
+          description: "URL of the clip thumbnail image."
+          example: "https://media.adt.com/thumbnails/clip-001.jpg"
+    VideoClipList:
+      type: object
+      description: "List of video clips."
+      properties:
+        clips:
+          type: array
+          description: "Array of video clips."
+          items:
+            $ref: '#/components/schemas/VideoClip'
+    Automation:
+      type: object
+      description: "An automation rule or smart home scene."
+      properties:
+        id:
+          type: string
+          description: "Unique identifier of the automation."
+          example: "auto-001"
+        name:
+          type: string
+          description: "Display name of the automation."
+          example: "Arm Away at Night"
+        trigger:
+          type: string
+          description: "What triggers this automation."
+          enum:
+            - schedule
+            - alarm
+            - sensor
+            - geofence
+            - manual
+          example: "schedule"
+        enabled:
+          type: boolean
+          description: "Whether the automation is currently active."
+          example: true
+        actions:
+          type: array
+          description: "List of actions performed by this automation."
+          items:
+            type: object
+    AutomationList:
+      type: object
+      description: "List of automation rules."
+      properties:
+        automations:
+          type: array
+          description: "Array of automation rules."
+          items:
+            $ref: '#/components/schemas/Automation'
+    ErrorResponse:
+      type: object
+      description: "API error response."
+      properties:
+        code:
+          type: string
+          description: "Machine-readable error code."
+          example: "NOT_FOUND"
+        message:
+          type: string
+          description: "Human-readable error message."
+          example: "The requested resource was not found."
