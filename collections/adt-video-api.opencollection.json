@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ADT Business Access Codes Video API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.adt.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Video",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ADT List Video Clips",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/business/v1/systems/:systemId/cameras/:cameraId/clips",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Security system ID."
+              },
+              {
+                "name": "cameraId",
+                "value": "",
+                "type": "path",
+                "description": "Camera device ID."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date filter for clips (ISO 8601)."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date filter for clips (ISO 8601)."
+              }
+            ]
+          },
+          "docs": "Retrieve recorded video clips from a camera with optional date and trigger filtering."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

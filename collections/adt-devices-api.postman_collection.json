@@ -1,0 +1,334 @@
+{
+  "item": [
+    {
+      "id": "c18d41fa-60db-4074-8df7-f378d325579e",
+      "name": "Devices",
+      "description": {
+        "content": "Manage sensors, cameras, and smart home devices",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dda84f98-3cd0-4671-8b90-96a186ca6c80",
+          "name": "ADT List Security Devices",
+          "request": {
+            "name": "ADT List Security Devices",
+            "description": {
+              "content": "Retrieve all security devices associated with a security system including sensors, cameras, locks, and smart home devices.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "systems",
+                ":systemId",
+                "devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter devices by type."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) Unique identifier of the security system."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "20134368-4f84-4e53-8c80-64a8cc87a433",
+              "name": "List of security devices.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "systems",
+                    ":systemId",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Unique identifier of the security system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"devices\": [\n    {\n      \"id\": \"dev-001\",\n      \"name\": \"Front Door Sensor\",\n      \"type\": \"sensor\",\n      \"status\": \"closed\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "44412ce4-8745-4b26-8d26-fbc0eef5aee9",
+          "name": "ADT Get a Security Device",
+          "request": {
+            "name": "ADT Get a Security Device",
+            "description": {
+              "content": "Retrieve current status and details of a specific security device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "systems",
+                ":systemId",
+                "devices",
+                ":deviceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) Security system ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deviceId",
+                  "description": "(Required) Device ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b5fbf210-8533-4e98-a877-e5edb94b16f3",
+              "name": "Device details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "systems",
+                    ":systemId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Security system ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Device ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"dev-001\",\n  \"name\": \"Front Door Sensor\",\n  \"type\": \"sensor\",\n  \"status\": \"closed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe4c2cfd-cb63-47de-947c-daddc85f207c",
+              "name": "Device not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "systems",
+                    ":systemId",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Security system ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Device ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"Device not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.adt.com/business/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "business:read business:write access-control:manage reports:read"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.adt.com/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "75f29caa-b11c-472b-9cfc-f2bb31bffb7c",
+    "name": "ADT Business Access Codes Devices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.\n\nContact Support:\n Name: ADT Business Support",
+      "type": "text/plain"
+    }
+  }
+}

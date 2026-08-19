@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ADT Business Access Codes Users API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.adt.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ADT List Site Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/business/v1/sites/:siteId/users",
+            "params": [
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "path",
+                "description": "Business site ID."
+              }
+            ]
+          },
+          "docs": "Retrieve all users with access to a business site."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

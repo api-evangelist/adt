@@ -1,0 +1,617 @@
+{
+  "item": [
+    {
+      "id": "0e7da269-5e39-431f-b2a6-2e7675566dc6",
+      "name": "Security Systems",
+      "description": {
+        "content": "Manage security systems and arming states",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "68889f71-c095-43f0-acc8-6161d14433ec",
+          "name": "ADT List Security Systems",
+          "request": {
+            "name": "ADT List Security Systems",
+            "description": {
+              "content": "Retrieve all security systems associated with the authenticated account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "systems"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76f6fef3-aef5-4d9a-a948-db876f654db6",
+              "name": "List of security systems.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "systems"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"systems\": [\n    {\n      \"id\": \"sys-001\",\n      \"name\": \"Main House\",\n      \"status\": \"armed_away\",\n      \"address\": \"123 Main St\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c9da9d6-9082-4cfb-9138-66c51c15bd3c",
+              "name": "Unauthorized - invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "systems"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Invalid or expired access token\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "14069724-60ed-4337-b900-f9020009ea3c",
+          "name": "ADT Get a Security System",
+          "request": {
+            "name": "ADT Get a Security System",
+            "description": {
+              "content": "Retrieve details of a specific security system including current status and zone information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "systems",
+                ":systemId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) Unique identifier of the security system."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1c463a1f-f62a-4a8f-87bc-5f6285e3c0e3",
+              "name": "Security system details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "systems",
+                    ":systemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Unique identifier of the security system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"sys-001\",\n  \"name\": \"Main House\",\n  \"status\": \"armed_away\",\n  \"address\": \"123 Main St\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df964664-55d9-4250-a0f3-4d678fa3ff64",
+              "name": "System not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "systems",
+                    ":systemId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Unique identifier of the security system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"System not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b05945bc-5fcf-426f-9c2c-11370048a65c",
+          "name": "ADT Arm a Security System",
+          "request": {
+            "name": "ADT Arm a Security System",
+            "description": {
+              "content": "Arm a security system in away or stay mode.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "systems",
+                ":systemId",
+                "arm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) Unique identifier of the security system."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mode\": \"<string>\",\n  \"accessCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dd94e57a-0e0f-4a4a-bcae-d07503a76c8e",
+              "name": "System armed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "systems",
+                    ":systemId",
+                    "arm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Unique identifier of the security system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mode\": \"away\",\n  \"accessCode\": \"1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"systemId\": \"sys-001\",\n  \"status\": \"armed_away\",\n  \"timestamp\": \"2025-03-15T14:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b94944f1-3ef4-4cd2-9283-0385a5bfb6fa",
+              "name": "Invalid arm request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "systems",
+                    ":systemId",
+                    "arm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Unique identifier of the security system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mode\": \"away\",\n  \"accessCode\": \"1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"INVALID_REQUEST\",\n  \"message\": \"Invalid access code\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b402446d-6a4d-4ffa-b1f2-8fd5ded32359",
+          "name": "ADT Disarm a Security System",
+          "request": {
+            "name": "ADT Disarm a Security System",
+            "description": {
+              "content": "Disarm a security system using a valid access code.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "systems",
+                ":systemId",
+                "disarm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) Unique identifier of the security system."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessCode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d107c70b-2cbe-4f96-9917-5d54ee541cf6",
+              "name": "System disarmed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "systems",
+                    ":systemId",
+                    "disarm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Unique identifier of the security system."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessCode\": \"1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"systemId\": \"sys-001\",\n  \"status\": \"disarmed\",\n  \"timestamp\": \"2025-03-15T14:30:00Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.adt.com/business/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "business:read business:write access-control:manage reports:read"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.adt.com/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1089d86a-aa2d-4a12-8be4-8cc06bac3de1",
+    "name": "ADT Business Access Codes Security Systems API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.\n\nContact Support:\n Name: ADT Business Support",
+      "type": "text/plain"
+    }
+  }
+}

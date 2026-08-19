@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ADT Business Access Codes API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.adt.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Access Codes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ADT List Access Codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/business/v1/systems/:systemId/access-codes",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Security system ID."
+              }
+            ]
+          },
+          "docs": "Retrieve all access codes configured for a security system."
+        },
+        {
+          "info": {
+            "name": "ADT Create an Access Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.adt.com/business/v1/systems/:systemId/access-codes",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Security system ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new access code for a security system with optional schedule and permission restrictions."
+        },
+        {
+          "info": {
+            "name": "ADT Delete an Access Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.adt.com/business/v1/systems/:systemId/access-codes/:codeId",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Security system ID."
+              },
+              {
+                "name": "codeId",
+                "value": "",
+                "type": "path",
+                "description": "Access code ID."
+              }
+            ]
+          },
+          "docs": "Delete an access code from a security system."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

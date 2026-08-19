@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ADT Business Access Codes Devices API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://auth.adt.com/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ADT List Security Devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/business/v1/systems/:systemId/devices",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the security system."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter devices by type."
+              }
+            ]
+          },
+          "docs": "Retrieve all security devices associated with a security system including sensors, cameras, locks, and smart home devices."
+        },
+        {
+          "info": {
+            "name": "ADT Get a Security Device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.adt.com/business/v1/systems/:systemId/devices/:deviceId",
+            "params": [
+              {
+                "name": "systemId",
+                "value": "",
+                "type": "path",
+                "description": "Security system ID."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path",
+                "description": "Device ID."
+              }
+            ]
+          },
+          "docs": "Retrieve current status and details of a specific security device."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

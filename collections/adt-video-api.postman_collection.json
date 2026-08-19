@@ -1,0 +1,187 @@
+{
+  "item": [
+    {
+      "id": "a14abad8-b244-4871-bbbc-b8270eef2d65",
+      "name": "Video",
+      "description": {
+        "content": "Manage camera recordings and live video",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "56954ca1-baf4-48ab-8e07-0b4e961d777c",
+          "name": "ADT List Video Clips",
+          "request": {
+            "name": "ADT List Video Clips",
+            "description": {
+              "content": "Retrieve recorded video clips from a camera with optional date and trigger filtering.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "systems",
+                ":systemId",
+                "cameras",
+                ":cameraId",
+                "clips"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<dateTime>",
+                  "description": "Start date filter for clips (ISO 8601)."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<dateTime>",
+                  "description": "End date filter for clips (ISO 8601)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) Security system ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cameraId",
+                  "description": "(Required) Camera device ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fb86420f-e386-4fd9-92b1-ffd1a76d8968",
+              "name": "List of video clips.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "systems",
+                    ":systemId",
+                    "cameras",
+                    ":cameraId",
+                    "clips"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Security system ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cameraId",
+                      "description": "(Required) Camera device ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"clips\": [\n    {\n      \"id\": \"clip-001\",\n      \"cameraId\": \"dev-cam-001\",\n      \"startTime\": \"2025-03-15T14:30:00Z\",\n      \"endTime\": \"2025-03-15T14:31:00Z\",\n      \"trigger\": \"motion\",\n      \"downloadUrl\": \"https://media.adt.com/clips/clip-001.mp4\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.adt.com/business/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "business:read business:write access-control:manage reports:read"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.adt.com/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9dffc477-43e2-4915-ae93-8575e34b514d",
+    "name": "ADT Business Access Codes Video API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.\n\nContact Support:\n Name: ADT Business Support",
+      "type": "text/plain"
+    }
+  }
+}

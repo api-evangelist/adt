@@ -1,0 +1,147 @@
+{
+  "item": [
+    {
+      "id": "b131c401-4137-4b82-b4ee-faa3e79fa996",
+      "name": "Automation",
+      "description": {
+        "content": "Manage automation rules and smart home scenes",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "034d07c7-fda8-4167-b225-4fc007d204b3",
+          "name": "ADT List Automation Rules",
+          "request": {
+            "name": "ADT List Automation Rules",
+            "description": {
+              "content": "Retrieve automation rules and smart home scenes configured for the security system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "systems",
+                ":systemId",
+                "automations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "systemId",
+                  "description": "(Required) Security system ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c77aa8a-0e19-4258-add7-145df049fdd5",
+              "name": "List of automation rules.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "systems",
+                    ":systemId",
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "systemId",
+                      "description": "(Required) Security system ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"automations\": [\n    {\n      \"id\": \"auto-001\",\n      \"name\": \"Arm Away at Night\",\n      \"trigger\": \"schedule\",\n      \"enabled\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.adt.com/business/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "business:read business:write access-control:manage reports:read"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://auth.adt.com/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9c0c15b1-123e-4140-96a3-3a4bc8593c22",
+    "name": "ADT Business Access Codes Automation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.\n\nContact Support:\n Name: ADT Business Support",
+      "type": "text/plain"
+    }
+  }
+}
