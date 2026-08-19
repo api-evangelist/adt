@@ -367,7 +367,7 @@ name: ADT
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/adt.png
 type: Index
 created: '2024-01-01'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 tags:
   - Access Control
   - Automation
