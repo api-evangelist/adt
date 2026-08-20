@@ -125,6 +125,8 @@ apis:
   humanURL: https://www.adt.com/smart-home
   baseURL: https://api.adt.com/v1
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -229,6 +231,8 @@ apis:
   humanURL: https://www.adt.com/smart-home
   baseURL: https://api.adt.com/v1
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
