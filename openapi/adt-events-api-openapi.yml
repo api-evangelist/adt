@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: ADT Business Access Codes Events API
   description: The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.
@@ -88,19 +88,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    EventList:
-      type: object
-      description: Paginated list of security events.
-      properties:
-        events:
-          type: array
-          description: Array of security events.
-          items:
-            $ref: '#/components/schemas/Event'
-        total:
-          type: integer
-          description: Total number of events matching the query.
-          example: 150
     Event:
       type: object
       description: A security event or alarm history entry.
@@ -139,6 +126,19 @@ components:
           type: string
           description: ID of the user associated with the event.
           example: usr-001
+    EventList:
+      type: object
+      description: Paginated list of security events.
+      properties:
+        events:
+          type: array
+          description: Array of security events.
+          items:
+            $ref: '#/components/schemas/Event'
+        total:
+          type: integer
+          description: Total number of events matching the query.
+          example: 150
   securitySchemes:
     oauth2:
       type: oauth2

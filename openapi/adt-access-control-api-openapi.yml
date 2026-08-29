@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: ADT Business Access Codes Access Control API
   description: The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.
@@ -103,28 +103,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    CredentialInput:
-      type: object
-      description: Request to create an access credential.
-      required:
-      - userId
-      - type
-      properties:
-        userId:
-          type: string
-          description: ID of the user.
-          example: usr-001
-        type:
-          type: string
-          description: Credential type.
-          enum:
-          - badge
-          - pin
-          - mobile
-        cardNumber:
-          type: string
-          description: Card number for badge credentials.
-          example: '1234567890'
     CredentialList:
       type: object
       description: List of access credentials.
@@ -171,6 +149,28 @@ components:
           type: string
           format: date-time
           description: End of credential validity period.
+    CredentialInput:
+      type: object
+      description: Request to create an access credential.
+      required:
+      - userId
+      - type
+      properties:
+        userId:
+          type: string
+          description: ID of the user.
+          example: usr-001
+        type:
+          type: string
+          description: Credential type.
+          enum:
+          - badge
+          - pin
+          - mobile
+        cardNumber:
+          type: string
+          description: Card number for badge credentials.
+          example: '1234567890'
   securitySchemes:
     oauth2:
       type: oauth2
