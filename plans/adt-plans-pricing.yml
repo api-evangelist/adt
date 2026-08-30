@@ -4,41 +4,34 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: ADT
 providerId: adt
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
+modified: '2026-08-30'
+generated: '2026-08-30'
+method: searched
+source: >-
+  Searched for an ADT developer pricing or API plans page. None exists: developer.adt.com and
+  developers.adt.com do not resolve, and www.adt.com returns HTTP 403 to every automated
+  client including /robots.txt, so no pricing page on that host could be read either.
 reconciled: false
-notes: ADT does not publish a public API or developer pricing. Integrations are partner-driven
-  (e.g. ADT+ ecosystem) with terms negotiated via partnership agreement. Scaffold retained.
+plan_count: 0
+plans: []
+description: >-
+  ADT publishes no developer plans of any kind — no free tier, no paid tier, and no
+  "contact sales for API access" page that could be cited. ADT's published pricing is for
+  its consumer and commercial alarm-monitoring subscriptions, which are not API plans.
+  Integration access has historically been arranged as a named partnership.
+notes: >-
+  Supersedes the 2026-05-04 bulk-sweep scaffold, which asserted a single "Partner
+  Integration" plan with a "contact sales" price. No ADT page states that such a plan
+  exists; it was invented by the sweep. Corrected to an honest zero.
 tags:
   - Home Security
   - IoT
   - Monitoring
   - Smart Home
-description: ADT does not expose a publicly priced developer API. Its consumer service is sold
-  as a residential/commercial monitoring subscription, and ecosystem integrations are negotiated
-  through partner agreements rather than self-service developer plans.
 sources:
-  - https://www.adt.com/
-plans:
-  - id: adt-partner
-    name: Partner Integration
-    type: enterprise
-    description: Custom partner integration for the ADT+ smart-home ecosystem; access and pricing
-      negotiated per agreement.
-    entries:
-      - label: Partner contract
-        name: custom
-        type: subscription
-        metric: contract
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: contact sales
-        userMultiplied: false
-    elements:
-      - name: ADT+ ecosystem integration
-      - name: Custom SLA
-      - name: Partner support
+  - url: https://developer.adt.com/
+    status: 0
+    result: hostname does not resolve
+  - url: https://www.adt.com/
+    status: 403
+    result: Akamai "Access Denied" to all automated clients

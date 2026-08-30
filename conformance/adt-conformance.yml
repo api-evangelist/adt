@@ -1,0 +1,83 @@
+generated: '2026-08-30'
+method: probed
+source: >-
+  https://auth.adt.com/.well-known/openid-configuration (HTTP 200, fetched 2026-08-30,
+  saved verbatim to well-known/adt-openid-configuration.json). Every assertion below is
+  read out of that document; nothing is inferred from marketing prose.
+provider: ADT
+providerId: adt
+scope: >-
+  This file grades ADT's CUSTOMER IDENTITY surface (auth.adt.com), which is the only
+  machine-readable contract ADT serves anonymously. It does not grade an ADT developer
+  API, because none is published.
+standards:
+- id: oidc
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: >-
+    https://auth.adt.com/.well-known/openid-configuration returns 200 application/json with
+    issuer, authorization_endpoint, token_endpoint, userinfo_endpoint, jwks_uri,
+    response_types_supported, subject_types_supported and id_token_signing_alg_values_supported
+    (RS256) — the full required discovery set.
+- id: oauth2
+  name: OAuth 2.0 (RFC 6749)
+  conforms: true
+  evidence: >-
+    authorization_endpoint https://auth.adt.com/services/oauth2/authorize and token_endpoint
+    https://auth.adt.com/services/oauth2/token; response_types_supported [code, token,
+    token id_token]; token_endpoint_auth_methods_supported [client_secret_post,
+    client_secret_basic, private_key_jwt].
+- id: rfc7009-token-revocation
+  name: OAuth 2.0 Token Revocation
+  conforms: true
+  evidence: revocation_endpoint https://auth.adt.com/services/oauth2/revoke
+- id: rfc7662-token-introspection
+  name: OAuth 2.0 Token Introspection
+  conforms: true
+  evidence: introspection_endpoint https://auth.adt.com/services/oauth2/introspect
+- id: rfc7591-dynamic-client-registration
+  name: OAuth 2.0 Dynamic Client Registration
+  conforms: true
+  evidence: registration_endpoint https://auth.adt.com/services/oauth2/register
+- id: rfc9449-dpop
+  name: OAuth 2.0 Demonstrating Proof of Possession (DPoP)
+  conforms: true
+  evidence: >-
+    dpop_signing_alg_values_supported [RS256, RS384, RS512, ES256, ES384, ES512, EdDSA] —
+    sender-constrained tokens are advertised.
+- id: rfc7523-private-key-jwt
+  name: JWT client authentication
+  conforms: true
+  evidence: token_endpoint_auth_methods_supported includes private_key_jwt
+- id: openid-frontchannel-logout
+  name: OpenID Connect Front-Channel Logout 1.0
+  conforms: true
+  evidence: >-
+    frontchannel_logout_supported true, end_session_endpoint
+    https://auth.adt.com/services/auth/idp/oidc/logout
+- id: fapi
+  name: FAPI 1.0/2.0
+  conforms: false
+  evidence: >-
+    No FAPI profile is advertised; the discovery document declares no
+    request_object_signing_alg_values_supported and no PAR endpoint.
+- id: rfc9457
+  name: Problem Details for HTTP APIs
+  conforms: false
+  evidence: No public ADT API contract exists to declare application/problem+json.
+- id: scim
+  name: SCIM 2.0
+  conforms: false
+  evidence: No urn:ietf:params:scim:schemas URN appears anywhere in the discovery document.
+- id: odata
+  name: OData
+  conforms: false
+  evidence: No $metadata surface found on any ADT host.
+domain_standard:
+  declared: false
+  note: >-
+    ADT's market (residential and commercial alarm monitoring, access control, video) does
+    have candidate domain standards — SIA CP-01 false-alarm reduction, SIA OSDP for access
+    control readers, ONVIF for video — but ADT declares NONE of them in any machine-readable
+    contract it serves, because it serves no such contract. Recorded as absent rather than
+    invented. Reward-only check: no penalty applies.

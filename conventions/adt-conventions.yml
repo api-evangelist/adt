@@ -1,0 +1,68 @@
+generated: '2026-08-30'
+method: probed
+source: >-
+  Probes of api.adt.com, auth.adt.com, www.adt.com and help.adt.com, plus a search for an
+  ADT developer reference. No ADT API reference exists to read cross-cutting semantics from.
+provider: ADT
+providerId: adt
+applicability: >-
+  ADT publishes no developer API contract, so every runtime convention below is UNKNOWN
+  rather than absent. Nothing here is derived from openapi/, because those documents were
+  authored by API Evangelist (see openapi/_ae-authored/README.md) and their conventions are
+  ours, not ADT's — recording them here would present our design choices as ADT's behaviour.
+auth_style:
+  known: true
+  style: oauth2 / openIdConnect (customer identity only)
+  detail: >-
+    https://auth.adt.com/.well-known/openid-configuration — authorization code, DPoP-capable,
+    private_key_jwt permitted. This authenticates ADT customers into ADT's own portal; it is
+    not documented as a developer-API authorization server.
+  source: well-known/adt-openid-configuration.json
+idempotency:
+  known: false
+  supported: unknown
+  detail: No idempotency key header or retry semantics are documented by ADT.
+pagination:
+  known: false
+  style: unknown
+sparse_fields:
+  known: false
+  supported: unknown
+metadata:
+  known: false
+  supported: unknown
+request_id_tracing:
+  known: false
+  header: unknown
+versioning:
+  known: false
+  detail: See lifecycle/adt-lifecycle.yml — no versioning policy is published.
+error_envelope:
+  known: false
+  shape: unknown
+  rfc9457: unknown
+rate_limit_signaling:
+  known: false
+  headers: unknown
+  detail: See rate-limits/adt-rate-limits.yml — no published limits or headers.
+dry_run_mode:
+  known: false
+  supported: unknown
+reversibility:
+  grade: unknown
+  write_surface: unknown
+  reversal_operations: []
+  detail: >-
+    ADT's consumer product plainly has consequential write actions — arming and disarming a
+    security system, issuing and revoking access codes, unlocking a door — and reversibility
+    is exactly what an agent would need to know before taking one. But ADT publishes no API
+    contract, so no reversal operation and no reversal window can be cited. Deliberately
+    graded `unknown`, not `na` (the surface is not read-only) and not `documented` (nothing
+    is documented). NO window is asserted, because inventing one here could cost someone
+    their physical security.
+cross_links:
+- authentication/adt-authentication.yml
+- conformance/adt-conformance.yml
+- lifecycle/adt-lifecycle.yml
+- rate-limits/adt-rate-limits.yml
+- well-known/adt-well-known.yml

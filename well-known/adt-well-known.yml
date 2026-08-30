@@ -1,0 +1,85 @@
+generated: '2026-08-30'
+method: probed
+source: >-
+  Direct unauthenticated HTTPS probes of every host named in apis.yml (www.adt.com,
+  api.adt.com) plus ADT's customer identity host (auth.adt.com) and its newsroom host
+  (newsroom.adt.com). One attempt per URL; no retries.
+provider: ADT
+providerId: adt
+summary:
+  hits: 1
+  note: >-
+    One real document was served: an OpenID Connect discovery document at
+    https://auth.adt.com/.well-known/openid-configuration. auth.adt.com is ADT's own
+    customer-portal identity host (Salesforce Experience Cloud), and the document names
+    itself with issuer "https://auth.adt.com", so it belongs to ADT. It describes the
+    identity provider behind ADT's customer login, NOT a developer API. Every other
+    probed path missed. www.adt.com answers HTTP 403 "Access Denied" (Akamai) to every
+    non-browser client, including /robots.txt, so no path on the marketing host could be
+    read. api.adt.com completes a TLS handshake against a Sectigo OV certificate issued
+    to "ADT LLC" but returns zero bytes to any anonymous HTTP request.
+hosts:
+- host: auth.adt.com
+  note: >-
+    ADT customer identity host, Salesforce Experience Cloud. Serves a real OIDC discovery
+    document anonymously; every other /.well-known/ path answers 401 with a login redirect.
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: well-known/adt-openid-configuration.json
+    content_type: application/json;charset=UTF-8
+  - path: /.well-known/oauth-authorization-server
+    status: 401
+  - path: /.well-known/security.txt
+    status: 401
+  - path: /.well-known/api-catalog
+    status: 401
+  - path: /.well-known/ai-plugin.json
+    status: 401
+  - path: /.well-known/agent-card.json
+    status: 401
+  - path: /.well-known/agent.json
+    status: 401
+  - path: /.well-known/oauth-protected-resource
+    status: 401
+- host: www.adt.com
+  note: >-
+    Akamai edge returns 403 "Access Denied" to every automated client, including
+    /robots.txt. This is an edge bot policy, not evidence the paths are absent — nothing
+    on this host could be read either way.
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /.well-known/agent-card.json
+    status: 403
+- host: api.adt.com
+  note: >-
+    Resolves to F5 Distributed Cloud. TLS completes (TLSv1.3, Sectigo OV certificate,
+    subject CN=api.adt.com, O=ADT LLC, valid 2026-06-25 to 2027-01-09) but the origin
+    sends no HTTP response to an anonymous request; every probe timed out with zero bytes
+    received. Recorded as no-response, not as 404.
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 0
+    result: no response (TLS ok, HTTP timeout, 0 bytes)
+  - path: /.well-known/security.txt
+    status: 0
+    result: no response (TLS ok, HTTP timeout, 0 bytes)
+  - path: /.well-known/agent-card.json
+    status: 0
+    result: no response (TLS ok, HTTP timeout, 0 bytes)
+- host: newsroom.adt.com
+  note: ADT newsroom (Next.js). Serves HTML 404 pages for every /.well-known/ path and for /robots.txt.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404

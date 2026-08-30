@@ -1,76 +1,129 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/adt-business-api-openapi.yml, openapi/adt-platform-api-openapi.yml
+generated: '2026-08-30'
+method: probed
+source: https://auth.adt.com/.well-known/openid-configuration (HTTP 200, fetched 2026-08-30; saved to
+  well-known/adt-openid-configuration.json)
+provider: ADT
+providerId: adt
+note: These are the scopes ADT's own OpenID Connect issuer (https://auth.adt.com) advertises in scopes_supported.
+  They are the Salesforce Experience Cloud platform scope catalog as exposed by ADT's tenant, not scopes
+  ADT designed for a developer API — ADT publishes no developer API. Recorded because they are what ADT
+  actually serves. This supersedes the 2026-07-11 file, whose scopes were derived from OpenAPI documents
+  API Evangelist authored (openapi/_ae-authored/) and which ADT never published.
 schemes:
-- name: oauth2
-  source: openapi/adt-business-api-openapi.yml
-  flows:
-  - flow: clientCredentials
-    tokenUrl: https://auth.adt.com/oauth/token
-- name: oauth2
-  source: openapi/adt-platform-api-openapi.yml
+- name: openIdConnect
+  issuer: https://auth.adt.com
+  source: well-known/adt-openid-configuration.json
   flows:
   - flow: authorizationCode
-    authorizationUrl: https://auth.adt.com/oauth/authorize
-    tokenUrl: https://auth.adt.com/oauth/token
+    authorizationUrl: https://auth.adt.com/services/oauth2/authorize
+    tokenUrl: https://auth.adt.com/services/oauth2/token
+scope_count: 36
 scopes:
-- scope: access-codes:manage
-  description: Manage access codes
-  flows:
-  - authorizationCode
+- scope: address
   sources:
-  - openapi/adt-platform-api-openapi.yml
-- scope: access-control:manage
-  description: Manage access control
-  flows:
-  - clientCredentials
+  - well-known/adt-openid-configuration.json
+- scope: api
   sources:
-  - openapi/adt-business-api-openapi.yml
-- scope: business:read
-  description: Read business site data
-  flows:
-  - clientCredentials
+  - well-known/adt-openid-configuration.json
+- scope: cdp_api
   sources:
-  - openapi/adt-business-api-openapi.yml
-- scope: business:write
-  description: Manage business security systems
-  flows:
-  - clientCredentials
+  - well-known/adt-openid-configuration.json
+- scope: cdp_calculated_insight_api
   sources:
-  - openapi/adt-business-api-openapi.yml
-- scope: devices:read
-  description: Read device status
-  flows:
-  - authorizationCode
+  - well-known/adt-openid-configuration.json
+- scope: cdp_identityresolution_api
   sources:
-  - openapi/adt-platform-api-openapi.yml
-- scope: devices:write
-  description: Control smart home devices
-  flows:
-  - authorizationCode
+  - well-known/adt-openid-configuration.json
+- scope: cdp_ingest_api
   sources:
-  - openapi/adt-platform-api-openapi.yml
-- scope: reports:read
-  description: Generate security reports
-  flows:
-  - clientCredentials
+  - well-known/adt-openid-configuration.json
+- scope: cdp_profile_api
   sources:
-  - openapi/adt-business-api-openapi.yml
-- scope: security:read
-  description: Read security system status and events
-  flows:
-  - authorizationCode
+  - well-known/adt-openid-configuration.json
+- scope: cdp_query_api
   sources:
-  - openapi/adt-platform-api-openapi.yml
-- scope: security:write
-  description: Arm, disarm, and control security systems
-  flows:
-  - authorizationCode
+  - well-known/adt-openid-configuration.json
+- scope: cdp_segment_api
   sources:
-  - openapi/adt-platform-api-openapi.yml
-- scope: video:read
-  description: Access video clips and live streams
-  flows:
-  - authorizationCode
+  - well-known/adt-openid-configuration.json
+- scope: chatbot_api
   sources:
-  - openapi/adt-platform-api-openapi.yml
+  - well-known/adt-openid-configuration.json
+- scope: chatter_api
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: content
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: custom_permissions
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: data_cloud_user_claims
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: eclair_api
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: einstein_gpt_api
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: email
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: forgot_password
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: full
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: id
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: interaction_api
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: lightning
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: mcp_api
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: offline_access
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: openid
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: pardot_api
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: phone
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: profile
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: pwdless_login_api
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: refresh_token
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: scrt_api
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: sfap_api
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: user_registration_api
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: visualforce
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: wave_api
+  sources:
+  - well-known/adt-openid-configuration.json
+- scope: web
+  sources:
+  - well-known/adt-openid-configuration.json

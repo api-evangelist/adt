@@ -25,7 +25,7 @@ accessModel:
   - authentication
   generated: '2026-07-22'
   method: derived
-modified: '2026-04-19'
+modified: '2026-08-30'
 apis:
 - aid: adt:adt-access-codes-api
   name: ADT Access Codes API
@@ -374,6 +374,18 @@ common:
         description: Smart lighting control integration with Lutron Caseta and RadioRA systems.
   - type: Integrations
     url: https://www.adt.com/apps
+  - type: WellKnown
+    url: well-known/adt-well-known.yml
+  - type: Conformance
+    url: conformance/adt-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/adt-lifecycle.yml
+  - type: Conventions
+    url: conventions/adt-conventions.yml
+  - type: Packages
+    url: packages/adt-packages.yml
+  - type: HelpCenter
+    url: https://help.adt.com/
 description: >-
   ADT is a provider of monitored security, interactive home and business automation, and related monitoring services for
   residential and small business customers across the United States and Canada. ADT offers smart home security systems,
@@ -421,3 +433,29 @@ maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
     url: https://apievangelist.com
+x-enrichment:
+  date: '2026-08-30'
+  status: minimal
+  artifacts_added: 8
+  pass: local-v1
+x-coverage:
+  state: gated
+  reason: partner-login
+  detail: >-
+    ADT runs a live, actively maintained API host — api.adt.com presents a Sectigo OV
+    certificate whose subject is CN=api.adt.com, O=ADT LLC, reissued 2026-06-25 — but the
+    origin completes the TLS handshake and then returns zero bytes to any anonymous HTTP
+    request, and ADT publishes no developer reference anywhere: developer.adt.com and
+    developers.adt.com do not resolve, while partners.adt.com does. ADT's integration APIs
+    (Pulse, Canopy) have only ever been offered to named integration partners, so the
+    contract is reachable only through a partnership, never as a published document.
+  evidence:
+    - url: https://api.adt.com/
+      status: 0
+    - url: https://developer.adt.com/
+      status: 0
+    - url: https://partners.adt.com/
+      status: 403
+    - url: https://auth.adt.com/.well-known/openid-configuration
+      status: 200
+  checked: '2026-08-30'

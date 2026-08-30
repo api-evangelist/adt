@@ -1,0 +1,28 @@
+generated: '2026-08-30'
+method: searched
+source: >-
+  Web search for an ADT-published MCP server; direct probes of api.adt.com, auth.adt.com,
+  www.adt.com and help.adt.com. No ADT MCP server exists, hosted or packaged.
+provider: ADT
+providerId: adt
+status: none-found
+deployment:
+  mode: none
+  auth: unknown
+  verified: searched
+servers: []
+tools: []
+findings:
+- >-
+  No hosted/remote MCP endpoint is published by ADT on any host, and no ADT MCP package
+  exists on npm or PyPI.
+- >-
+  ADT's OpenID Connect discovery document advertises an "mcp_api" scope. That is the
+  stock Salesforce Experience Cloud platform scope catalog exposed by ADT's tenant — it
+  is NOT evidence that ADT operates an MCP server, and no endpoint was found behind it.
+no_candidate_derived: >-
+  A candidate tool list was deliberately NOT derived from openapi/. Every OpenAPI document
+  in this repo was authored by API Evangelist, not published by ADT (see
+  openapi/_ae-authored/README.md). Deriving MCP tools from them would manufacture an agent
+  surface for operations ADT has never shipped, which is the exact failure this pipeline
+  forbids. When ADT publishes a real contract, derive then.

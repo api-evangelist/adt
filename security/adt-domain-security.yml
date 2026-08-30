@@ -1,4 +1,4 @@
-generated: '2026-07-11'
+generated: '2026-08-30'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
@@ -8,6 +8,12 @@ hosts:
   cert_expires: Dec 27 23:59:59 2026 GMT
   hsts: true
   hsts_max_age: 31536000
+  hsts_include_subdomains: true
+  hsts_note: >-
+    Read from the response headers of an HTTP/2 403 (www.adt.com's Akamai edge denies every
+    automated client, including /robots.txt). The header is served:
+    "strict-transport-security: max-age=31536000 ; includeSubDomains". probe-domain-security.py
+    recorded null on 2026-08-30 because it only reads HSTS off a 2xx; corrected by hand.
 - host: api.adt.com
   https: true
   tls_version: TLSv1.3

@@ -1,0 +1,55 @@
+generated: '2026-08-30'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org/pypi/<pkg>/json, plus a web search for an ADT developer
+  portal or first-party SDK. No first-party ADT client library was found in any registry.
+provider: ADT
+providerId: adt
+summary:
+  official_count: 0
+  community_count: 2
+  note: >-
+    ADT LLC publishes no first-party client library on npm, PyPI, Maven Central, NuGet,
+    pkg.go.dev, RubyGems, Packagist or crates.io, and there is no ADT developer portal to
+    link SDK downloads from (developer.adt.com and developers.adt.com do not resolve). The
+    only packages that exist are community reverse-engineerings of the legacy ADT Pulse
+    customer web portal. They are recorded here as ecosystem evidence, NOT as ADT SDKs, and
+    no SDKs pointer is emitted in apis.yml on their account.
+packages:
+- name: pyadtpulse
+  registry: pypi
+  url: https://pypi.org/project/pyadtpulse/
+  language: python
+  official: false
+  version: 1.2.14
+  published: '2026-03-06'
+  author: Ryan Snodgrass
+  description: >-
+    Community Python interface to the ADT Pulse customer portal. Scrapes/drives the
+    consumer web session; not built on a published ADT API contract.
+- name: adt-pulse
+  registry: npm
+  url: https://www.npmjs.com/package/adt-pulse
+  language: javascript
+  official: false
+  version: 0.1.0
+  published: '2016-12-24'
+  repository: https://github.com/kevinmhickey/adt-pulse
+  description: >-
+    Community Node client for the ADT Pulse portal. Last published 2016-12-24 — nearly a
+    decade stale, and the only JavaScript option, which is itself the finding.
+searched_registries:
+- registry: npm
+  result: no first-party package (queried adt, adt-api, node-adt, adt-pulse)
+- registry: pypi
+  result: no first-party package (queried adt, adt-pulse, pyadtpulse)
+- registry: maven-central
+  result: not searchable to a first-party ADT artifact; no ADT developer portal names one
+- registry: nuget
+  result: no first-party package found
+- registry: rubygems
+  result: no first-party package found
+- registry: crates.io
+  result: no first-party package found
+- registry: pkg.go.dev
+  result: no first-party package found

@@ -4,31 +4,33 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: ADT
 providerId: adt
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
+modified: '2026-08-30'
+generated: '2026-08-30'
+method: searched
+source: >-
+  Searched for published ADT API rate limits and probed api.adt.com for runtime rate-limit
+  response headers. Neither could be obtained.
 reconciled: false
-notes: ADT does not publish public rate-limit documentation. Limits, if any, are enforced
-  per-partner under negotiated terms.
+limit_count: 0
+limits: []
+description: >-
+  ADT publishes no rate-limit documentation, and no runtime signal could be observed:
+  api.adt.com completes a TLS handshake but returns zero bytes to any anonymous HTTP
+  request, so no X-RateLimit-*, RateLimit-* or Retry-After header could be read from a live
+  response. An honest zero.
+notes: >-
+  Supersedes the 2026-05-04 bulk-sweep scaffold, which asserted a "Partner-scoped limit"
+  and throttled/serviceUnavailable response codes of 429/503. Those codes were assumed, not
+  observed on any ADT response, and are removed.
+headers_observed: []
 tags:
   - Rate Limiting
   - Home Security
   - IoT
-description: No public rate-limit information is published for ADT integrations. Partner agreements
-  govern any documented thresholds.
 sources:
-  - https://www.adt.com/
-responseCodes:
-  throttled: 429
-  serviceUnavailable: 503
-limits:
-  - name: Partner-scoped limit
-    scope: account
-    metric: varies
-    limit: see ADT partner agreement
-policies:
-  - name: Partner-scoped
-    description: Limits, if any, are enforced under the partner integration contract.
-  - name: Backoff
-    description: Implement exponential backoff with jitter on 429/503.
+  - url: https://api.adt.com/
+    status: 0
+    result: TLS ok (Sectigo OV, O=ADT LLC), HTTP timeout with 0 bytes received
+  - url: https://www.adt.com/
+    status: 403
+    result: Akamai "Access Denied" to all automated clients

@@ -1,27 +1,75 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/adt-business-api-openapi.yml, openapi/adt-platform-api-openapi.yml
+generated: '2026-08-30'
+method: probed
+source: >-
+  https://auth.adt.com/.well-known/openid-configuration (HTTP 200, fetched 2026-08-30,
+  saved verbatim to well-known/adt-openid-configuration.json). Supersedes the 2026-07-11
+  profile, which was derived from OpenAPI documents API Evangelist authored (now in
+  openapi/_ae-authored/) rather than from anything ADT published.
+provider: ADT
+providerId: adt
 summary:
   types:
   - oauth2
+  - openIdConnect
   oauth2_flows:
   - authorizationCode
-  - clientCredentials
+  - implicit
+  - refresh_token
+  discovery: https://auth.adt.com/.well-known/openid-configuration
+  note: >-
+    The only authentication surface ADT serves anonymously is the OpenID Connect provider
+    behind its CUSTOMER portal (auth.adt.com, Salesforce Experience Cloud, issuer
+    "https://auth.adt.com"). It authenticates ADT customers into ADT's own web
+    application. It is not a developer-API authorization server, and no ADT developer
+    program exists to issue client credentials against it.
 schemes:
-- name: oauth2
-  type: oauth2
-  flows:
-  - flow: clientCredentials
-    tokenUrl: https://auth.adt.com/oauth/token
-    scopes: 4
+- name: openIdConnect
+  type: openIdConnect
+  openIdConnectUrl: https://auth.adt.com/.well-known/openid-configuration
+  issuer: https://auth.adt.com
+  authorizationUrl: https://auth.adt.com/services/oauth2/authorize
+  tokenUrl: https://auth.adt.com/services/oauth2/token
+  userinfoUrl: https://auth.adt.com/services/oauth2/userinfo
+  revocationUrl: https://auth.adt.com/services/oauth2/revoke
+  introspectionUrl: https://auth.adt.com/services/oauth2/introspect
+  registrationUrl: https://auth.adt.com/services/oauth2/register
+  jwksUri: https://auth.adt.com/id/keys
+  endSessionUrl: https://auth.adt.com/services/auth/idp/oidc/logout
+  response_types:
+  - code
+  - token
+  - token id_token
+  token_endpoint_auth_methods:
+  - client_secret_post
+  - client_secret_basic
+  - private_key_jwt
+  id_token_signing_algs:
+  - RS256
+  dpop_signing_algs:
+  - RS256
+  - RS384
+  - RS512
+  - ES256
+  - ES384
+  - ES512
+  - EdDSA
+  scopes_supported: 36
   sources:
-  - openapi/adt-business-api-openapi.yml
-- name: oauth2
-  type: oauth2
-  flows:
-  - flow: authorizationCode
-    authorizationUrl: https://auth.adt.com/oauth/authorize
-    tokenUrl: https://auth.adt.com/oauth/token
-    scopes: 6
-  sources:
-  - openapi/adt-platform-api-openapi.yml
+  - well-known/adt-openid-configuration.json
+corrections:
+  - claim: >-
+      The 2026-07-11 profile recorded tokenUrl https://auth.adt.com/oauth/token and
+      authorizationUrl https://auth.adt.com/oauth/authorize, with clientCredentials and
+      authorizationCode flows.
+    finding: >-
+      Those URLs do not exist. They came from OpenAPI documents API Evangelist wrote, not
+      from ADT. ADT's real, published discovery document names
+      /services/oauth2/authorize and /services/oauth2/token, and advertises no
+      client_credentials grant. Corrected here.
+unverified:
+  - surface: https://api.adt.com/
+    finding: >-
+      api.adt.com is a live ADT host — TLS completes against a Sectigo OV certificate whose
+      subject is CN=api.adt.com, O=ADT LLC, valid 2026-06-25 to 2027-01-09, so ADT LLC
+      actively maintains it — but the origin returns zero bytes to any anonymous HTTP
+      request. Its authentication scheme is therefore unknown and is NOT asserted here.

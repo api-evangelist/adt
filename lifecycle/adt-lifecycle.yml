@@ -1,0 +1,40 @@
+generated: '2026-08-30'
+method: probed
+source: >-
+  Direct probes for a status page and a developer/versioning policy on every ADT host, plus
+  a web search for an ADT API deprecation or versioning policy. Nothing was found.
+provider: ADT
+providerId: adt
+versioning:
+  scheme: unknown
+  published: false
+  note: >-
+    ADT publishes no API versioning policy. The "/v1" in the baseURL recorded in apis.yml
+    comes from OpenAPI documents API Evangelist authored, not from ADT.
+deprecation:
+  policy_published: false
+  sunset_header: unknown
+  deprecation_header: unknown
+  rfc8594: false
+  note: >-
+    No deprecation or sunset policy is published, and no ADT endpoint could be observed
+    anonymously to check for Deprecation/Sunset response headers — api.adt.com returns zero
+    bytes to unauthenticated requests.
+status_page:
+  published: false
+  probes:
+  - url: https://status.adt.com/
+    status: 0
+    result: does not resolve
+  note: >-
+    ADT operates no public API status page. Consumer service outages are communicated
+    through the MyADT customer portal, not a machine-readable status endpoint.
+sla:
+  published: false
+  note: >-
+    ADT's SLAs are alarm-monitoring service commitments in consumer and commercial
+    contracts, not API availability commitments. No API SLA is published.
+deprecated_operations: []
+note: >-
+  No operations are marked deprecated. This is an absence of evidence, not a clean bill of
+  health: there is no published ADT contract in which a deprecation could be marked.
