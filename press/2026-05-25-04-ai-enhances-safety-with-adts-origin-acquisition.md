@@ -1,7 +1,9 @@
 ---
 title: AI Enhances Safety with ADT's Origin Acquisition
 url: https://www.linkedin.com/posts/darrin-reilly-b0022b7_adt-acquires-origin-ai-to-power-ai-sensing-activity-7432567635315343360-5LtZ
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"ADT" press release artificial intelligence'
 position: 4
 source: serpapi-google

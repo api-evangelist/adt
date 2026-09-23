@@ -1,7 +1,9 @@
 ---
 title: ADT Invests in Percepta Labs, “Ethical AI” Security ...
 url: https://newsroom.adt.com/adt-commercial/adt-invests-percepta-labs-ethical-ai-security-technology-startup
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"ADT" press release artificial intelligence'
 position: 3
 source: serpapi-google

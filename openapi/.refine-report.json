@@ -1,34 +1,40 @@
 {
   "provider": "adt",
   "sources": [
-    "adt-access-codes-api-openapi.yml",
-    "adt-access-control-api-openapi.yml",
-    "adt-automation-api-openapi.yml",
-    "adt-devices-api-openapi.yml",
-    "adt-events-api-openapi.yml",
-    "adt-reports-api-openapi.yml",
-    "adt-security-systems-api-openapi.yml",
-    "adt-sites-api-openapi.yml",
-    "adt-users-api-openapi.yml",
-    "adt-video-api-openapi.yml"
+    "_ae-authored/adt-business-api-openapi.yml",
+    "_ae-authored/adt-platform-api-openapi.yml"
   ],
   "outputs": [
-    "adt-access-codes-api-openapi.yml",
     "adt-access-control-api-openapi.yml",
+    "adt-reports-api-openapi.yml",
+    "adt-sites-api-openapi.yml",
+    "adt-users-api-openapi.yml",
+    "adt-access-codes-api-openapi.yml",
     "adt-automation-api-openapi.yml",
     "adt-devices-api-openapi.yml",
     "adt-events-api-openapi.yml",
-    "adt-reports-api-openapi.yml",
     "adt-security-systems-api-openapi.yml",
-    "adt-sites-api-openapi.yml",
-    "adt-users-api-openapi.yml",
     "adt-video-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "adt-business-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "adt-platform-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "adt-access-codes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adt-access-control-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adt-automation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adt-devices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adt-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adt-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adt-security-systems-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adt-sites-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adt-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "adt-video-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

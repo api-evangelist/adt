@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: ADT Business Access Codes Sites API
+  title: ADT Business Sites API
   description: The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.
   version: '1'
   contact:
