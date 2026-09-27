@@ -76,6 +76,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    VideoClipList:
+      type: object
+      description: List of video clips.
+      properties:
+        clips:
+          type: array
+          description: Array of video clips.
+          items:
+            $ref: '#/components/schemas/VideoClip'
     VideoClip:
       type: object
       description: A recorded video clip from a security camera.
@@ -117,15 +126,6 @@ components:
           format: uri
           description: URL of the clip thumbnail image.
           example: https://media.adt.com/thumbnails/clip-001.jpg
-    VideoClipList:
-      type: object
-      description: List of video clips.
-      properties:
-        clips:
-          type: array
-          description: Array of video clips.
-          items:
-            $ref: '#/components/schemas/VideoClip'
   securitySchemes:
     oauth2:
       type: oauth2

@@ -56,15 +56,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    AutomationList:
-      type: object
-      description: List of automation rules.
-      properties:
-        automations:
-          type: array
-          description: Array of automation rules.
-          items:
-            $ref: '#/components/schemas/Automation'
     Automation:
       type: object
       description: An automation rule or smart home scene.
@@ -96,6 +87,15 @@ components:
           description: List of actions performed by this automation.
           items:
             type: object
+    AutomationList:
+      type: object
+      description: List of automation rules.
+      properties:
+        automations:
+          type: array
+          description: Array of automation rules.
+          items:
+            $ref: '#/components/schemas/Automation'
   securitySchemes:
     oauth2:
       type: oauth2
