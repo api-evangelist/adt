@@ -103,28 +103,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    CredentialInput:
-      type: object
-      description: Request to create an access credential.
-      required:
-      - userId
-      - type
-      properties:
-        userId:
-          type: string
-          description: ID of the user.
-          example: usr-001
-        type:
-          type: string
-          description: Credential type.
-          enum:
-          - badge
-          - pin
-          - mobile
-        cardNumber:
-          type: string
-          description: Card number for badge credentials.
-          example: '1234567890'
     Credential:
       type: object
       description: An access control credential.
@@ -162,6 +140,28 @@ components:
           type: string
           format: date-time
           description: End of credential validity period.
+    CredentialInput:
+      type: object
+      description: Request to create an access credential.
+      required:
+      - userId
+      - type
+      properties:
+        userId:
+          type: string
+          description: ID of the user.
+          example: usr-001
+        type:
+          type: string
+          description: Credential type.
+          enum:
+          - badge
+          - pin
+          - mobile
+        cardNumber:
+          type: string
+          description: Card number for badge credentials.
+          example: '1234567890'
     CredentialList:
       type: object
       description: List of access credentials.
