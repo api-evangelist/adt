@@ -121,6 +121,18 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        code:
+          type: string
+          description: Error code.
+          example: NOT_FOUND
+        message:
+          type: string
+          description: Error message.
+          example: The requested resource was not found.
     Site:
       type: object
       description: A business site with ADT security systems.
@@ -149,18 +161,6 @@ components:
           type: integer
           description: Number of security systems at this site.
           example: 3
-    ErrorResponse:
-      type: object
-      description: API error response.
-      properties:
-        code:
-          type: string
-          description: Error code.
-          example: NOT_FOUND
-        message:
-          type: string
-          description: Error message.
-          example: The requested resource was not found.
     SiteList:
       type: object
       description: List of business sites.

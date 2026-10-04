@@ -120,6 +120,27 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: NOT_FOUND
+        message:
+          type: string
+          description: Human-readable error message.
+          example: The requested resource was not found.
+    DeviceList:
+      type: object
+      description: List of security devices.
+      properties:
+        devices:
+          type: array
+          description: Array of devices.
+          items:
+            $ref: '#/components/schemas/Device'
     Device:
       type: object
       description: A security device (sensor, camera, lock, or smart home device).
@@ -162,27 +183,6 @@ components:
           format: date-time
           description: Timestamp of last device activity.
           example: '2025-03-15T14:30:00Z'
-    ErrorResponse:
-      type: object
-      description: API error response.
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-          example: NOT_FOUND
-        message:
-          type: string
-          description: Human-readable error message.
-          example: The requested resource was not found.
-    DeviceList:
-      type: object
-      description: List of security devices.
-      properties:
-        devices:
-          type: array
-          description: Array of devices.
-          items:
-            $ref: '#/components/schemas/Device'
   securitySchemes:
     oauth2:
       type: oauth2
