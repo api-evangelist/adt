@@ -121,18 +121,19 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
+    SiteList:
       type: object
-      description: API error response.
+      description: List of business sites.
       properties:
-        code:
-          type: string
-          description: Error code.
-          example: NOT_FOUND
-        message:
-          type: string
-          description: Error message.
-          example: The requested resource was not found.
+        sites:
+          type: array
+          description: Array of business sites.
+          items:
+            $ref: '#/components/schemas/Site'
+        total:
+          type: integer
+          description: Total number of sites.
+          example: 5
     Site:
       type: object
       description: A business site with ADT security systems.
@@ -161,19 +162,18 @@ components:
           type: integer
           description: Number of security systems at this site.
           example: 3
-    SiteList:
+    ErrorResponse:
       type: object
-      description: List of business sites.
+      description: API error response.
       properties:
-        sites:
-          type: array
-          description: Array of business sites.
-          items:
-            $ref: '#/components/schemas/Site'
-        total:
-          type: integer
-          description: Total number of sites.
-          example: 5
+        code:
+          type: string
+          description: Error code.
+          example: NOT_FOUND
+        message:
+          type: string
+          description: Error message.
+          example: The requested resource was not found.
   securitySchemes:
     oauth2:
       type: oauth2

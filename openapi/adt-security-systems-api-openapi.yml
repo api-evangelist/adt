@@ -212,6 +212,18 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: NOT_FOUND
+        message:
+          type: string
+          description: Human-readable error message.
+          example: The requested resource was not found.
     SystemStatusResponse:
       type: object
       description: Response to an arm or disarm command.
@@ -247,6 +259,25 @@ components:
           type: string
           description: Valid access code to authorize arming.
           example: '1234'
+    DisarmRequest:
+      type: object
+      description: Request to disarm a security system.
+      required:
+      - accessCode
+      properties:
+        accessCode:
+          type: string
+          description: Valid access code to authorize disarming.
+          example: '1234'
+    SystemList:
+      type: object
+      description: List of ADT security systems.
+      properties:
+        systems:
+          type: array
+          description: Array of security systems.
+          items:
+            $ref: '#/components/schemas/System'
     System:
       type: object
       description: An ADT security system.
@@ -285,37 +316,6 @@ components:
           format: date-time
           description: Timestamp of last status change.
           example: '2025-03-15T14:30:00Z'
-    DisarmRequest:
-      type: object
-      description: Request to disarm a security system.
-      required:
-      - accessCode
-      properties:
-        accessCode:
-          type: string
-          description: Valid access code to authorize disarming.
-          example: '1234'
-    ErrorResponse:
-      type: object
-      description: API error response.
-      properties:
-        code:
-          type: string
-          description: Machine-readable error code.
-          example: NOT_FOUND
-        message:
-          type: string
-          description: Human-readable error message.
-          example: The requested resource was not found.
-    SystemList:
-      type: object
-      description: List of ADT security systems.
-      properties:
-        systems:
-          type: array
-          description: Array of security systems.
-          items:
-            $ref: '#/components/schemas/System'
   securitySchemes:
     oauth2:
       type: oauth2

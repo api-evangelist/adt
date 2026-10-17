@@ -56,6 +56,15 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    UserList:
+      type: object
+      description: List of site users.
+      properties:
+        users:
+          type: array
+          description: Array of users.
+          items:
+            $ref: '#/components/schemas/User'
     User:
       type: object
       description: A user with access to a business site.
@@ -82,15 +91,6 @@ components:
           - employee
           - contractor
           example: employee
-    UserList:
-      type: object
-      description: List of site users.
-      properties:
-        users:
-          type: array
-          description: Array of users.
-          items:
-            $ref: '#/components/schemas/User'
   securitySchemes:
     oauth2:
       type: oauth2
