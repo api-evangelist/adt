@@ -292,6 +292,8 @@ apis:
   - type: JSONLD
     url: json-ld/adt-business-api-context.jsonld
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/adt/overview
   - type: Plans
     url: plans/adt-plans-pricing.yml
   - type: RateLimits
