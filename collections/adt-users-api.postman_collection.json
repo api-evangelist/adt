@@ -1,121 +1,131 @@
 {
+  "info": {
+    "_postman_id": "e76cb08e-6e69-4c95-93df-73f280e12537",
+    "name": "ADT Business Users API",
+    "description": "The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.\n\nContact Support:\n Name: ADT Business Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:29:46.000Z",
+    "updatedAt": "2026-10-22T01:29:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e76cb08e-6e69-4c95-93df-73f280e12537"
+  },
   "item": [
     {
-      "id": "bd62097d-3193-43d0-ab47-d1f0bbe43f99",
-      "name": "Users",
-      "description": {
-        "content": "Manage security system users and permissions",
-        "type": "text/plain"
-      },
+      "name": "sites",
       "item": [
         {
-          "id": "1eae36c3-42b9-4a14-bf4b-ee42f32acb7d",
-          "name": "ADT List Site Users",
-          "request": {
-            "name": "ADT List Site Users",
-            "description": {
-              "content": "Retrieve all users with access to a business site.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "sites",
-                ":siteId",
-                "users"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "siteId",
-                  "description": "(Required) Business site ID."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{siteId}",
+          "item": [
             {
-              "id": "fb0accd8-ccfd-483e-8573-9800d045e7f9",
-              "name": "List of site users.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sites",
-                    ":siteId",
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "siteId",
-                      "description": "(Required) Business site ID."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "users",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "ADT List Site Users",
+                  "id": "6359a148-430f-43ba-946b-b1946d53151d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:siteId/users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":siteId",
+                        "users"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a5e39f16-1d76-460d-be97-df8e299a5808",
+                          "key": "siteId",
+                          "value": "<string>",
+                          "description": "(Required) Business site ID."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve all users with access to a business site."
+                  },
+                  "response": [
+                    {
+                      "id": "887c1eea-fbf0-4b0d-950c-1f3e7ffd1f71",
+                      "name": "List of site users.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:siteId/users",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":siteId",
+                            "users"
+                          ],
+                          "variable": [
+                            {
+                              "key": "siteId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"users\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"contractor\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"email\": \"<email>\",\n      \"role\": \"contractor\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:29:46.000Z",
+                      "updatedAt": "2026-10-22T01:29:46.000Z",
+                      "uid": "35240-887c1eea-fbf0-4b0d-950c-1f3e7ffd1f71"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:29:46.000Z",
+                  "updatedAt": "2026-10-22T01:29:46.000Z",
+                  "uid": "35240-6359a148-430f-43ba-946b-b1946d53151d"
                 }
               ],
-              "body": "{\n  \"users\": [\n    {\n      \"id\": \"usr-001\",\n      \"name\": \"Jane Smith\",\n      \"email\": \"jsmith@example.com\",\n      \"role\": \"employee\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "9a902813-01d2-4c42-87ce-6349bac6c6cb",
+              "createdAt": "2026-10-22T01:29:46.000Z",
+              "updatedAt": "2026-10-22T01:29:46.000Z",
+              "uid": "35240-9a902813-01d2-4c42-87ce-6349bac6c6cb"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "c8763877-19ab-4fc8-831a-eb5de68f97a7",
+          "createdAt": "2026-10-22T01:29:46.000Z",
+          "updatedAt": "2026-10-22T01:29:46.000Z",
+          "uid": "35240-c8763877-19ab-4fc8-831a-eb5de68f97a7"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.adt.com/business/v1",
-      "key": "baseUrl"
+      "id": "f36a5b7c-5bf9-464f-892e-85aefa731de7",
+      "createdAt": "2026-10-22T01:29:46.000Z",
+      "updatedAt": "2026-10-22T01:29:46.000Z",
+      "uid": "35240-f36a5b7c-5bf9-464f-892e-85aefa731de7"
     }
   ],
   "auth": {
@@ -123,25 +133,25 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "business:read business:write access-control:manage reports:read"
+        "value": "business:read business:write access-control:manage reports:read",
+        "type": "string"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://auth.adt.com/oauth/token"
+        "value": "https://auth.adt.com/oauth/token",
+        "type": "string"
       },
       {
         "key": "grant_type",
-        "value": "client_credentials"
+        "value": "client_credentials",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "b2058dc5-1acb-494b-8e3f-405b49454af8",
-    "name": "ADT Business Access Codes Users API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.\n\nContact Support:\n Name: ADT Business Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.adt.com/business/v1"
     }
-  }
+  ]
 }

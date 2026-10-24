@@ -1,161 +1,186 @@
 {
+  "info": {
+    "_postman_id": "ae7786f3-94a7-4801-be3c-be272ddd82c4",
+    "name": "ADT+ Platform Video API",
+    "description": "The ADT+ Platform API provides programmatic access to ADT's smart home security platform for managing security systems, devices, sensors, cameras, locks, and automation rules. Supports remote arming/disarming, real-time device status monitoring, video clip retrieval, access code management, and security event notifications for residential and small business ADT customers.\n\nContact Support:\n Name: ADT Customer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:29:54.000Z",
+    "updatedAt": "2026-10-22T01:29:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ae7786f3-94a7-4801-be3c-be272ddd82c4"
+  },
   "item": [
     {
-      "id": "a14abad8-b244-4871-bbbc-b8270eef2d65",
-      "name": "Video",
-      "description": {
-        "content": "Manage camera recordings and live video",
-        "type": "text/plain"
-      },
+      "name": "systems",
       "item": [
         {
-          "id": "56954ca1-baf4-48ab-8e07-0b4e961d777c",
-          "name": "ADT List Video Clips",
-          "request": {
-            "name": "ADT List Video Clips",
-            "description": {
-              "content": "Retrieve recorded video clips from a camera with optional date and trigger filtering.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "systems",
-                ":systemId",
-                "cameras",
-                ":cameraId",
-                "clips"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "startDate",
-                  "value": "<dateTime>",
-                  "description": "Start date filter for clips (ISO 8601)."
-                },
-                {
-                  "disabled": false,
-                  "key": "endDate",
-                  "value": "<dateTime>",
-                  "description": "End date filter for clips (ISO 8601)."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "systemId",
-                  "description": "(Required) Security system ID."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "cameraId",
-                  "description": "(Required) Camera device ID."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{systemId}",
+          "item": [
             {
-              "id": "fb86420f-e386-4fd9-92b1-ffd1a76d8968",
-              "name": "List of video clips.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "systems",
-                    ":systemId",
-                    "cameras",
-                    ":cameraId",
-                    "clips"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "startDate",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "endDate",
-                      "value": "<dateTime>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "systemId",
-                      "description": "(Required) Security system ID."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "cameraId",
-                      "description": "(Required) Camera device ID."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "cameras",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "{cameraId}",
+                  "item": [
+                    {
+                      "name": "clips",
+                      "item": [
+                        {
+                          "name": "ADT List Video Clips",
+                          "id": "29def8dd-9140-4362-b370-90750a6e4be2",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/systems/:systemId/cameras/:cameraId/clips?startDate=<dateTime>&endDate=<dateTime>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "systems",
+                                ":systemId",
+                                "cameras",
+                                ":cameraId",
+                                "clips"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Start date filter for clips (ISO 8601).",
+                                  "key": "startDate",
+                                  "value": "<dateTime>"
+                                },
+                                {
+                                  "description": "End date filter for clips (ISO 8601).",
+                                  "key": "endDate",
+                                  "value": "<dateTime>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "f077832a-789d-4f95-97a9-f05d459342e3",
+                                  "key": "systemId",
+                                  "value": "<string>",
+                                  "description": "(Required) Security system ID."
+                                },
+                                {
+                                  "id": "d2bef373-8ed6-4c03-af26-1c67cc7d0837",
+                                  "key": "cameraId",
+                                  "value": "<string>",
+                                  "description": "(Required) Camera device ID."
+                                }
+                              ]
+                            },
+                            "description": "Retrieve recorded video clips from a camera with optional date and trigger filtering."
+                          },
+                          "response": [
+                            {
+                              "id": "247f06a6-bede-48ed-b158-279b1f71a79f",
+                              "name": "List of video clips.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: oauth2",
+                                    "key": "Authorization",
+                                    "value": "<token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/systems/:systemId/cameras/:cameraId/clips?startDate=<dateTime>&endDate=<dateTime>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "systems",
+                                    ":systemId",
+                                    "cameras",
+                                    ":cameraId",
+                                    "clips"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Start date filter for clips (ISO 8601).",
+                                      "key": "startDate",
+                                      "value": "<dateTime>"
+                                    },
+                                    {
+                                      "description": "End date filter for clips (ISO 8601).",
+                                      "key": "endDate",
+                                      "value": "<dateTime>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "systemId"
+                                    },
+                                    {
+                                      "key": "cameraId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"clips\": [\n    {\n      \"id\": \"<string>\",\n      \"cameraId\": \"<string>\",\n      \"startTime\": \"<dateTime>\",\n      \"endTime\": \"<dateTime>\",\n      \"trigger\": \"schedule\",\n      \"downloadUrl\": \"<uri>\",\n      \"thumbnailUrl\": \"<uri>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"cameraId\": \"<string>\",\n      \"startTime\": \"<dateTime>\",\n      \"endTime\": \"<dateTime>\",\n      \"trigger\": \"manual\",\n      \"downloadUrl\": \"<uri>\",\n      \"thumbnailUrl\": \"<uri>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-10-22T01:29:55.000Z",
+                              "updatedAt": "2026-10-22T01:29:55.000Z",
+                              "uid": "35240-247f06a6-bede-48ed-b158-279b1f71a79f"
+                            }
+                          ],
+                          "createdAt": "2026-10-22T01:29:55.000Z",
+                          "updatedAt": "2026-10-22T01:29:55.000Z",
+                          "uid": "35240-29def8dd-9140-4362-b370-90750a6e4be2"
+                        }
+                      ],
+                      "id": "5d7481e0-3904-4b54-9c31-ebabb99c0351",
+                      "createdAt": "2026-10-22T01:29:55.000Z",
+                      "updatedAt": "2026-10-22T01:29:55.000Z",
+                      "uid": "35240-5d7481e0-3904-4b54-9c31-ebabb99c0351"
+                    }
+                  ],
+                  "id": "a048d3d3-443b-4806-a4f8-a5fe6263c067",
+                  "createdAt": "2026-10-22T01:29:55.000Z",
+                  "updatedAt": "2026-10-22T01:29:55.000Z",
+                  "uid": "35240-a048d3d3-443b-4806-a4f8-a5fe6263c067"
                 }
               ],
-              "body": "{\n  \"clips\": [\n    {\n      \"id\": \"clip-001\",\n      \"cameraId\": \"dev-cam-001\",\n      \"startTime\": \"2025-03-15T14:30:00Z\",\n      \"endTime\": \"2025-03-15T14:31:00Z\",\n      \"trigger\": \"motion\",\n      \"downloadUrl\": \"https://media.adt.com/clips/clip-001.mp4\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "41290aac-3a6b-446a-8d9d-68874e502fb1",
+              "createdAt": "2026-10-22T01:29:55.000Z",
+              "updatedAt": "2026-10-22T01:29:55.000Z",
+              "uid": "35240-41290aac-3a6b-446a-8d9d-68874e502fb1"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "9ff104d4-cc0d-4752-9da8-67c75b3b7ad6",
+          "createdAt": "2026-10-22T01:29:55.000Z",
+          "updatedAt": "2026-10-22T01:29:55.000Z",
+          "uid": "35240-9ff104d4-cc0d-4752-9da8-67c75b3b7ad6"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.adt.com/business/v1",
-      "key": "baseUrl"
+      "id": "0d66f00f-2766-4408-a0d8-501f2a364141",
+      "createdAt": "2026-10-22T01:29:55.000Z",
+      "updatedAt": "2026-10-22T01:29:55.000Z",
+      "uid": "35240-0d66f00f-2766-4408-a0d8-501f2a364141"
     }
   ],
   "auth": {
@@ -163,25 +188,30 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "business:read business:write access-control:manage reports:read"
+        "value": "security:read security:write devices:read devices:write video:read access-codes:manage",
+        "type": "string"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://auth.adt.com/oauth/token"
+        "value": "https://auth.adt.com/oauth/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.adt.com/oauth/authorize",
+        "type": "string"
       },
       {
         "key": "grant_type",
-        "value": "client_credentials"
+        "value": "authorization_code",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "9dffc477-43e2-4915-ae93-8575e34b514d",
-    "name": "ADT Business Access Codes Video API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.\n\nContact Support:\n Name: ADT Business Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.adt.com/v1"
     }
-  }
+  ]
 }

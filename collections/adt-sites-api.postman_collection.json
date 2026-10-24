@@ -1,323 +1,319 @@
 {
+  "info": {
+    "_postman_id": "a3ac1b73-0613-424a-85b8-672f31bb9c1d",
+    "name": "ADT Business Sites API",
+    "description": "The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.\n\nContact Support:\n Name: ADT Business Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:29:40.000Z",
+    "updatedAt": "2026-10-22T01:29:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a3ac1b73-0613-424a-85b8-672f31bb9c1d"
+  },
   "item": [
     {
-      "id": "847e128b-17ea-4483-b76c-64d936955a39",
-      "name": "Sites",
-      "description": {
-        "content": "Manage business site security systems",
-        "type": "text/plain"
-      },
+      "name": "sites",
       "item": [
         {
-          "id": "62ad03cd-19b7-4149-b139-355e36fcaf72",
+          "name": "{siteId}",
+          "item": [
+            {
+              "name": "ADT Get a Business Site",
+              "id": "8f8c0048-4788-4ea2-9b26-4abf9dcb4a24",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sites/:siteId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sites",
+                    ":siteId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "1292ffb0-14d3-4afd-91f3-ebafa687bd5d",
+                      "key": "siteId",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier of the business site."
+                    }
+                  ]
+                },
+                "description": "Retrieve details of a specific business site including security status and device inventory."
+              },
+              "response": [
+                {
+                  "id": "9e77aae8-6dce-40c6-88c7-74c08c05a785",
+                  "name": "Site details.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:siteId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":siteId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "siteId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"status\": \"disarmed\",\n  \"systemCount\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-22T01:29:41.000Z",
+                  "updatedAt": "2026-10-22T01:29:41.000Z",
+                  "uid": "35240-9e77aae8-6dce-40c6-88c7-74c08c05a785"
+                },
+                {
+                  "id": "153def4f-aba1-4f82-b8cb-50783a7c9d61",
+                  "name": "Site not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: oauth2",
+                        "key": "Authorization",
+                        "value": "<token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:siteId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":siteId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "siteId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-22T01:29:41.000Z",
+                  "updatedAt": "2026-10-22T01:29:41.000Z",
+                  "uid": "35240-153def4f-aba1-4f82-b8cb-50783a7c9d61"
+                }
+              ],
+              "createdAt": "2026-10-22T01:29:41.000Z",
+              "updatedAt": "2026-10-22T01:29:41.000Z",
+              "uid": "35240-8f8c0048-4788-4ea2-9b26-4abf9dcb4a24"
+            }
+          ],
+          "id": "e1972877-8288-4069-86f4-1179b5697b2e",
+          "createdAt": "2026-10-22T01:29:41.000Z",
+          "updatedAt": "2026-10-22T01:29:41.000Z",
+          "uid": "35240-e1972877-8288-4069-86f4-1179b5697b2e"
+        },
+        {
           "name": "ADT List Business Sites",
+          "id": "8bd32cb1-9d8d-40b4-a1b5-6c911e854e48",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "ADT List Business Sites",
-            "description": {
-              "content": "Retrieve all business sites with security systems for the authenticated account.",
-              "type": "text/plain"
-            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/sites?limit=50&offset=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "sites"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "Maximum number of sites to return.",
                   "key": "limit",
-                  "value": "50",
-                  "description": "Maximum number of sites to return."
+                  "value": "50"
                 },
                 {
-                  "disabled": false,
+                  "description": "Pagination offset.",
                   "key": "offset",
-                  "value": "0",
-                  "description": "Pagination offset."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "e65e6b86-6e5f-45c2-954c-ef382e4fdadb",
-              "name": "List of business sites.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sites"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "50"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "0"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"sites\": [\n    {\n      \"id\": \"site-001\",\n      \"name\": \"Downtown Office\",\n      \"address\": \"456 Business Ave\",\n      \"status\": \"armed\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "49144192-1264-4ca3-a454-7ba434ca2118",
-              "name": "Unauthorized.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sites"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "50"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "0"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"code\": \"UNAUTHORIZED\",\n  \"message\": \"Invalid credentials\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "7e1fc521-37ee-484a-adf2-2e21afaff234",
-          "name": "ADT Get a Business Site",
-          "request": {
-            "name": "ADT Get a Business Site",
-            "description": {
-              "content": "Retrieve details of a specific business site including security status and device inventory.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "sites",
-                ":siteId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "siteId",
-                  "description": "(Required) Unique identifier of the business site."
+                  "value": "0"
                 }
               ]
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+            "description": "Retrieve all business sites with security systems for the authenticated account."
           },
           "response": [
             {
-              "id": "b5ab64fa-9cb0-43c2-9ba6-050b8e9a92fa",
-              "name": "Site details.",
+              "id": "e3dd0c2e-01e3-47d4-92c8-f8b2ff4730d6",
+              "name": "List of business sites.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "sites",
-                    ":siteId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "siteId",
-                      "description": "(Required) Unique identifier of the business site."
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/sites?limit=50&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sites"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of sites to return.",
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Pagination offset.",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"site-001\",\n  \"name\": \"Downtown Office\",\n  \"address\": \"456 Business Ave\",\n  \"status\": \"armed\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"sites\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"address\": \"<string>\",\n      \"status\": \"armed\",\n      \"systemCount\": \"<integer>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"address\": \"<string>\",\n      \"status\": \"disarmed\",\n      \"systemCount\": \"<integer>\"\n    }\n  ],\n  \"total\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T01:29:41.000Z",
+              "updatedAt": "2026-10-22T01:29:41.000Z",
+              "uid": "35240-e3dd0c2e-01e3-47d4-92c8-f8b2ff4730d6"
             },
             {
-              "id": "bec8c108-fc22-4813-951e-02e40ad17533",
-              "name": "Site not found.",
+              "id": "6311bbdf-610b-4da1-a029-d52a540f2e4c",
+              "name": "Unauthorized.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "sites",
-                    ":siteId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "siteId",
-                      "description": "(Required) Unique identifier of the business site."
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/sites?limit=50&offset=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sites"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of sites to return.",
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Pagination offset.",
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ]
+                }
               },
-              "status": "Not Found",
-              "code": 404,
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"Site not found\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T01:29:41.000Z",
+              "updatedAt": "2026-10-22T01:29:41.000Z",
+              "uid": "35240-6311bbdf-610b-4da1-a029-d52a540f2e4c"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T01:29:41.000Z",
+          "updatedAt": "2026-10-22T01:29:41.000Z",
+          "uid": "35240-8bd32cb1-9d8d-40b4-a1b5-6c911e854e48"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.adt.com/business/v1",
-      "key": "baseUrl"
+      "id": "1999a0e8-e195-4927-b55e-8e8895350842",
+      "createdAt": "2026-10-22T01:29:41.000Z",
+      "updatedAt": "2026-10-22T01:29:41.000Z",
+      "uid": "35240-1999a0e8-e195-4927-b55e-8e8895350842"
     }
   ],
   "auth": {
@@ -325,25 +321,25 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "business:read business:write access-control:manage reports:read"
+        "value": "business:read business:write access-control:manage reports:read",
+        "type": "string"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://auth.adt.com/oauth/token"
+        "value": "https://auth.adt.com/oauth/token",
+        "type": "string"
       },
       {
         "key": "grant_type",
-        "value": "client_credentials"
+        "value": "client_credentials",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "1532fc17-e16e-4af5-81c2-c18b16c927b9",
-    "name": "ADT Business Access Codes Sites API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.\n\nContact Support:\n Name: ADT Business Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.adt.com/business/v1"
     }
-  }
+  ]
 }

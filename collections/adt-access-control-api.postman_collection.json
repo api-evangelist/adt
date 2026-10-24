@@ -1,244 +1,262 @@
 {
+  "info": {
+    "_postman_id": "350460b6-e766-4837-8670-386741ca5df1",
+    "name": "ADT Business Access Control API",
+    "description": "The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.\n\nContact Support:\n Name: ADT Business Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:28:59.000Z",
+    "updatedAt": "2026-10-22T01:28:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-350460b6-e766-4837-8670-386741ca5df1"
+  },
   "item": [
     {
-      "id": "e0c022a6-80f5-46bc-a7b4-b0f9c16b0bcf",
-      "name": "Access Control",
-      "description": {
-        "content": "Manage access control panels, credentials, and schedules",
-        "type": "text/plain"
-      },
+      "name": "sites",
       "item": [
         {
-          "id": "407106c2-8125-4381-a412-037f42370de5",
-          "name": "ADT List Access Control Credentials",
-          "request": {
-            "name": "ADT List Access Control Credentials",
-            "description": {
-              "content": "Retrieve all access control credentials (badges, PINs, biometric) assigned at a business site.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "sites",
-                ":siteId",
-                "access-control",
-                "credentials"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "siteId",
-                  "description": "(Required) Business site ID."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{siteId}",
+          "item": [
             {
-              "id": "a0a6de40-96ae-4d37-8bb7-cffc5629473f",
-              "name": "List of access credentials.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sites",
-                    ":siteId",
-                    "access-control",
-                    "credentials"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "siteId",
-                      "description": "(Required) Business site ID."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "access-control",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "credentials",
+                  "item": [
+                    {
+                      "name": "ADT List Access Control Credentials",
+                      "id": "194048a1-f89e-4913-93f1-bacae2022bec",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:siteId/access-control/credentials",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":siteId",
+                            "access-control",
+                            "credentials"
+                          ],
+                          "variable": [
+                            {
+                              "id": "95b30e7c-2cb9-4800-b1d8-42cd12dbaa3d",
+                              "key": "siteId",
+                              "value": "<string>",
+                              "description": "(Required) Business site ID."
+                            }
+                          ]
+                        },
+                        "description": "Retrieve all access control credentials (badges, PINs, biometric) assigned at a business site."
+                      },
+                      "response": [
+                        {
+                          "id": "e77044ba-fe70-4934-90b4-bc83b46cc7ad",
+                          "name": "List of access credentials.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:siteId/access-control/credentials",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":siteId",
+                                "access-control",
+                                "credentials"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "siteId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"credentials\": [\n    {\n      \"id\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"type\": \"badge\",\n      \"status\": \"expired\",\n      \"validFrom\": \"<dateTime>\",\n      \"validTo\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"type\": \"biometric\",\n      \"status\": \"active\",\n      \"validFrom\": \"<dateTime>\",\n      \"validTo\": \"<dateTime>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-22T01:29:00.000Z",
+                          "updatedAt": "2026-10-22T01:29:00.000Z",
+                          "uid": "35240-e77044ba-fe70-4934-90b4-bc83b46cc7ad"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:29:00.000Z",
+                      "updatedAt": "2026-10-22T01:29:00.000Z",
+                      "uid": "35240-194048a1-f89e-4913-93f1-bacae2022bec"
+                    },
+                    {
+                      "name": "ADT Create an Access Credential",
+                      "id": "7409a493-7c85-4c6a-8447-51a5addcd87b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"userId\": \"<string>\",\n  \"type\": \"pin\",\n  \"cardNumber\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:siteId/access-control/credentials",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":siteId",
+                            "access-control",
+                            "credentials"
+                          ],
+                          "variable": [
+                            {
+                              "id": "54715a43-9cbc-418d-8870-82632fa68fcc",
+                              "key": "siteId",
+                              "value": "<string>",
+                              "description": "(Required) Business site ID."
+                            }
+                          ]
+                        },
+                        "description": "Create a new access credential for a user at a business site."
+                      },
+                      "response": [
+                        {
+                          "id": "880a5858-601d-4c85-adfe-84f9817c1d0f",
+                          "name": "Credential created.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"userId\": \"<string>\",\n  \"type\": \"pin\",\n  \"cardNumber\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:siteId/access-control/credentials",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":siteId",
+                                "access-control",
+                                "credentials"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "siteId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"userId\": \"<string>\",\n  \"type\": \"badge\",\n  \"status\": \"active\",\n  \"validFrom\": \"<dateTime>\",\n  \"validTo\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-10-22T01:29:00.000Z",
+                          "updatedAt": "2026-10-22T01:29:00.000Z",
+                          "uid": "35240-880a5858-601d-4c85-adfe-84f9817c1d0f"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:29:00.000Z",
+                      "updatedAt": "2026-10-22T01:29:00.000Z",
+                      "uid": "35240-7409a493-7c85-4c6a-8447-51a5addcd87b"
+                    }
+                  ],
+                  "id": "0aa343fa-2a92-485a-8ef0-9aa85fe6b97c",
+                  "createdAt": "2026-10-22T01:28:59.000Z",
+                  "updatedAt": "2026-10-22T01:28:59.000Z",
+                  "uid": "35240-0aa343fa-2a92-485a-8ef0-9aa85fe6b97c"
                 }
               ],
-              "body": "{\n  \"credentials\": [\n    {\n      \"id\": \"cred-001\",\n      \"userId\": \"usr-001\",\n      \"type\": \"badge\",\n      \"status\": \"active\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "044765b9-c6c7-4b8b-b5e1-c9776a6e8dd6",
+              "createdAt": "2026-10-22T01:28:59.000Z",
+              "updatedAt": "2026-10-22T01:28:59.000Z",
+              "uid": "35240-044765b9-c6c7-4b8b-b5e1-c9776a6e8dd6"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d35b223b-404a-4222-b90d-8c6133c123cb",
-          "name": "ADT Create an Access Credential",
-          "request": {
-            "name": "ADT Create an Access Credential",
-            "description": {
-              "content": "Create a new access credential for a user at a business site.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "sites",
-                ":siteId",
-                "access-control",
-                "credentials"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "siteId",
-                  "description": "(Required) Business site ID."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"userId\": \"<string>\",\n  \"type\": \"<string>\",\n  \"cardNumber\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "7950a439-81b0-4a29-bfc4-281350dc67ed",
-              "name": "Credential created.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sites",
-                    ":siteId",
-                    "access-control",
-                    "credentials"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "siteId",
-                      "description": "(Required) Business site ID."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"userId\": \"usr-001\",\n  \"type\": \"badge\",\n  \"cardNumber\": \"1234567890\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"cred-002\",\n  \"userId\": \"usr-001\",\n  \"type\": \"badge\",\n  \"status\": \"active\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "4f428309-4fb0-4d11-b1aa-1ca97c8b1aba",
+          "createdAt": "2026-10-22T01:28:59.000Z",
+          "updatedAt": "2026-10-22T01:28:59.000Z",
+          "uid": "35240-4f428309-4fb0-4d11-b1aa-1ca97c8b1aba"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.adt.com/business/v1",
-      "key": "baseUrl"
+      "id": "f0996bdc-7fe5-4e12-8cec-641272be35f2",
+      "createdAt": "2026-10-22T01:28:59.000Z",
+      "updatedAt": "2026-10-22T01:28:59.000Z",
+      "uid": "35240-f0996bdc-7fe5-4e12-8cec-641272be35f2"
     }
   ],
   "auth": {
@@ -246,25 +264,25 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "business:read business:write access-control:manage reports:read"
+        "value": "business:read business:write access-control:manage reports:read",
+        "type": "string"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://auth.adt.com/oauth/token"
+        "value": "https://auth.adt.com/oauth/token",
+        "type": "string"
       },
       {
         "key": "grant_type",
-        "value": "client_credentials"
+        "value": "client_credentials",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "2f202623-84e7-4bf3-8fd9-af6f8b95042c",
-    "name": "ADT Business Access Codes Access Control API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.\n\nContact Support:\n Name: ADT Business Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.adt.com/business/v1"
     }
-  }
+  ]
 }

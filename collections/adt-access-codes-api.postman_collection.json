@@ -1,411 +1,403 @@
 {
+  "info": {
+    "_postman_id": "0f51b925-bd07-435b-a3f3-f67ff65a620d",
+    "name": "ADT+ Platform Access Codes API",
+    "description": "The ADT+ Platform API provides programmatic access to ADT's smart home security platform for managing security systems, devices, sensors, cameras, locks, and automation rules. Supports remote arming/disarming, real-time device status monitoring, video clip retrieval, access code management, and security event notifications for residential and small business ADT customers.\n\nContact Support:\n Name: ADT Customer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:28:52.000Z",
+    "updatedAt": "2026-10-22T01:28:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0f51b925-bd07-435b-a3f3-f67ff65a620d"
+  },
   "item": [
     {
-      "id": "751e6256-6c3d-41c3-b06c-6aef10c67246",
-      "name": "Access Codes",
-      "description": {
-        "content": "Manage access codes and user permissions",
-        "type": "text/plain"
-      },
+      "name": "systems",
       "item": [
         {
-          "id": "ef46ca53-1d95-4c96-8d88-9a59e9e13897",
-          "name": "ADT List Access Codes",
-          "request": {
-            "name": "ADT List Access Codes",
-            "description": {
-              "content": "Retrieve all access codes configured for a security system.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "systems",
-                ":systemId",
-                "access-codes"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "systemId",
-                  "description": "(Required) Security system ID."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{systemId}",
+          "item": [
             {
-              "id": "d80a587f-6a33-46cb-ba8e-08aed722e058",
-              "name": "List of access codes.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "systems",
-                    ":systemId",
-                    "access-codes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "systemId",
-                      "description": "(Required) Security system ID."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "access-codes",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "{codeId}",
+                  "item": [
+                    {
+                      "name": "ADT Delete an Access Code",
+                      "id": "6f330680-5e0d-4b75-bfba-c2c0e412515d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/systems/:systemId/access-codes/:codeId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "systems",
+                            ":systemId",
+                            "access-codes",
+                            ":codeId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0e91c97c-f4dc-4f5a-9d6b-591dc8b89152",
+                              "key": "systemId",
+                              "value": "<string>",
+                              "description": "(Required) Security system ID."
+                            },
+                            {
+                              "id": "e5caab76-1fdc-4ea6-87ee-59c1e285460b",
+                              "key": "codeId",
+                              "value": "<string>",
+                              "description": "(Required) Access code ID."
+                            }
+                          ]
+                        },
+                        "description": "Delete an access code from a security system."
+                      },
+                      "response": [
+                        {
+                          "id": "f3d8ee0f-33be-4441-971c-5ce147703cdc",
+                          "name": "Access code deleted.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/systems/:systemId/access-codes/:codeId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "systems",
+                                ":systemId",
+                                "access-codes",
+                                ":codeId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "systemId"
+                                },
+                                {
+                                  "key": "codeId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-22T01:28:53.000Z",
+                          "updatedAt": "2026-10-22T01:28:53.000Z",
+                          "uid": "35240-f3d8ee0f-33be-4441-971c-5ce147703cdc"
+                        },
+                        {
+                          "id": "39925721-4227-41aa-840e-b31356bcd955",
+                          "name": "Access code not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/systems/:systemId/access-codes/:codeId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "systems",
+                                ":systemId",
+                                "access-codes",
+                                ":codeId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "systemId"
+                                },
+                                {
+                                  "key": "codeId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"code\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-10-22T01:28:53.000Z",
+                          "updatedAt": "2026-10-22T01:28:53.000Z",
+                          "uid": "35240-39925721-4227-41aa-840e-b31356bcd955"
+                        }
+                      ],
+                      "createdAt": "2026-10-22T01:28:53.000Z",
+                      "updatedAt": "2026-10-22T01:28:53.000Z",
+                      "uid": "35240-6f330680-5e0d-4b75-bfba-c2c0e412515d"
+                    }
+                  ],
+                  "id": "5275d7ed-0ed3-4351-a3e4-5be01d34da1a",
+                  "createdAt": "2026-10-22T01:28:53.000Z",
+                  "updatedAt": "2026-10-22T01:28:53.000Z",
+                  "uid": "35240-5275d7ed-0ed3-4351-a3e4-5be01d34da1a"
+                },
+                {
+                  "name": "ADT List Access Codes",
+                  "id": "19a462f8-983f-472b-ad15-92f4f4303dc6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/systems/:systemId/access-codes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "systems",
+                        ":systemId",
+                        "access-codes"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4849a626-4f64-4748-b18a-f3be39b81cfa",
+                          "key": "systemId",
+                          "value": "<string>",
+                          "description": "(Required) Security system ID."
+                        }
+                      ]
+                    },
+                    "description": "Retrieve all access codes configured for a security system."
+                  },
+                  "response": [
+                    {
+                      "id": "dab5c18d-505e-4afe-bbe7-8adca0bdad9d",
+                      "name": "List of access codes.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/systems/:systemId/access-codes",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "systems",
+                            ":systemId",
+                            "access-codes"
+                          ],
+                          "variable": [
+                            {
+                              "key": "systemId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"accessCodes\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"temporary\",\n      \"expiresAt\": \"<dateTime>\",\n      \"permissions\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"type\": \"master\",\n      \"expiresAt\": \"<dateTime>\",\n      \"permissions\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                      "createdAt": "2026-10-22T01:28:53.000Z",
+                      "updatedAt": "2026-10-22T01:28:53.000Z",
+                      "uid": "35240-dab5c18d-505e-4afe-bbe7-8adca0bdad9d"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:28:53.000Z",
+                  "updatedAt": "2026-10-22T01:28:53.000Z",
+                  "uid": "35240-19a462f8-983f-472b-ad15-92f4f4303dc6"
+                },
+                {
+                  "name": "ADT Create an Access Code",
+                  "id": "fcee9744-f767-4d38-a7c6-72ab370cac03",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"type\": \"temporary\",\n  \"expiresAt\": \"<dateTime>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/systems/:systemId/access-codes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "systems",
+                        ":systemId",
+                        "access-codes"
+                      ],
+                      "variable": [
+                        {
+                          "id": "10cbec84-fcc0-4fda-975b-6e998faf9b84",
+                          "key": "systemId",
+                          "value": "<string>",
+                          "description": "(Required) Security system ID."
+                        }
+                      ]
+                    },
+                    "description": "Create a new access code for a security system with optional schedule and permission restrictions."
+                  },
+                  "response": [
+                    {
+                      "id": "401344a8-6434-4f12-b497-430b9dbd90d0",
+                      "name": "Access code created.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: oauth2",
+                            "key": "Authorization",
+                            "value": "<token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"type\": \"temporary\",\n  \"expiresAt\": \"<dateTime>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/systems/:systemId/access-codes",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "systems",
+                            ":systemId",
+                            "access-codes"
+                          ],
+                          "variable": [
+                            {
+                              "key": "systemId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"type\": \"duress\",\n  \"expiresAt\": \"<dateTime>\",\n  \"permissions\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-22T01:28:53.000Z",
+                      "updatedAt": "2026-10-22T01:28:53.000Z",
+                      "uid": "35240-401344a8-6434-4f12-b497-430b9dbd90d0"
+                    }
+                  ],
+                  "createdAt": "2026-10-22T01:28:53.000Z",
+                  "updatedAt": "2026-10-22T01:28:53.000Z",
+                  "uid": "35240-fcee9744-f767-4d38-a7c6-72ab370cac03"
                 }
               ],
-              "body": "{\n  \"accessCodes\": [\n    {\n      \"id\": \"code-001\",\n      \"name\": \"Master Code\",\n      \"type\": \"master\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "a3054304-2ba5-4d04-a29b-a021616cc63d",
+              "createdAt": "2026-10-22T01:28:53.000Z",
+              "updatedAt": "2026-10-22T01:28:53.000Z",
+              "uid": "35240-a3054304-2ba5-4d04-a29b-a021616cc63d"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "dd8a5c14-1e42-4d8b-9b35-0f623fbf995d",
-          "name": "ADT Create an Access Code",
-          "request": {
-            "name": "ADT Create an Access Code",
-            "description": {
-              "content": "Create a new access code for a security system with optional schedule and permission restrictions.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "systems",
-                ":systemId",
-                "access-codes"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "systemId",
-                  "description": "(Required) Security system ID."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"<string>\",\n  \"code\": \"<string>\",\n  \"type\": \"<string>\",\n  \"expiresAt\": \"<dateTime>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "bf5aa964-3b80-4fc9-9434-374ec1bbde64",
-              "name": "Access code created.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "systems",
-                    ":systemId",
-                    "access-codes"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "systemId",
-                      "description": "(Required) Security system ID."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"Contractor Code\",\n  \"code\": \"5678\",\n  \"type\": \"temporary\",\n  \"expiresAt\": \"2025-03-20T23:59:59Z\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"code-002\",\n  \"name\": \"Contractor Code\",\n  \"type\": \"temporary\",\n  \"expiresAt\": \"2025-03-20T23:59:59Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "815d2cd9-dde5-4d3c-a811-808b06122119",
-          "name": "ADT Delete an Access Code",
-          "request": {
-            "name": "ADT Delete an Access Code",
-            "description": {
-              "content": "Delete an access code from a security system.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "systems",
-                ":systemId",
-                "access-codes",
-                ":codeId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "systemId",
-                  "description": "(Required) Security system ID."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "codeId",
-                  "description": "(Required) Access code ID."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "8a305bab-478b-4c86-b5b1-033b30bb1717",
-              "name": "Access code deleted.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "systems",
-                    ":systemId",
-                    "access-codes",
-                    ":codeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "systemId",
-                      "description": "(Required) Security system ID."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "codeId",
-                      "description": "(Required) Access code ID."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "b1bc16c0-32a5-43f2-b1c1-fb8623445714",
-              "name": "Access code not found.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "systems",
-                    ":systemId",
-                    "access-codes",
-                    ":codeId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "systemId",
-                      "description": "(Required) Security system ID."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "codeId",
-                      "description": "(Required) Access code ID."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"code\": \"NOT_FOUND\",\n  \"message\": \"Access code not found\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "89699c72-b2bf-437d-9658-8386981df2d0",
+          "createdAt": "2026-10-22T01:28:53.000Z",
+          "updatedAt": "2026-10-22T01:28:53.000Z",
+          "uid": "35240-89699c72-b2bf-437d-9658-8386981df2d0"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.adt.com/business/v1",
-      "key": "baseUrl"
+      "id": "1b41cc51-8f6d-48d0-aa5d-10fb07bf5015",
+      "createdAt": "2026-10-22T01:28:53.000Z",
+      "updatedAt": "2026-10-22T01:28:53.000Z",
+      "uid": "35240-1b41cc51-8f6d-48d0-aa5d-10fb07bf5015"
     }
   ],
   "auth": {
@@ -413,25 +405,30 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "business:read business:write access-control:manage reports:read"
+        "value": "security:read security:write devices:read devices:write video:read access-codes:manage",
+        "type": "string"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://auth.adt.com/oauth/token"
+        "value": "https://auth.adt.com/oauth/token",
+        "type": "string"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://auth.adt.com/oauth/authorize",
+        "type": "string"
       },
       {
         "key": "grant_type",
-        "value": "client_credentials"
+        "value": "authorization_code",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "2aaf15ca-e45a-4e2b-8369-2daa33bd3355",
-    "name": "ADT Business Access Codes API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The ADT Business API provides commercial security management capabilities for managing multi-site security systems, access control, video surveillance, alarm monitoring, and security personnel management for small to enterprise business customers.\n\nContact Support:\n Name: ADT Business Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.adt.com/v1"
     }
-  }
+  ]
 }
