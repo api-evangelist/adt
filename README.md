@@ -93,7 +93,7 @@ Each property below is a page on APIs.io carrying the machine-readable artifact 
 
 Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Adt Agentic Access](https://apis.io/agentic-access/adt/adt-agentic-access/)
+- [ADT Agentic Access](https://apis.io/agentic-access/adt/adt-agentic-access/)
 
 #### JSON Schema (24)
 
@@ -223,32 +223,32 @@ Spectral rulesets for the provider's contracts.
 
 Authentication, trust centre, and vulnerability disclosure.
 
-- [Adt Authentication](https://apis.io/security/adt/adt-authentication/)
-- [Adt Domain Security](https://apis.io/security/adt/adt-domain-security/)
+- [ADT Authentication](https://apis.io/security/adt/adt-authentication/)
+- [ADT Domain Security](https://apis.io/security/adt/adt-domain-security/)
 
 #### OAuth scopes (1)
 
 The permissions the API asks for.
 
-- [Adt Scopes](https://apis.io/scopes/adt/adt-scopes/)
+- [ADT Scopes](https://apis.io/scopes/adt/adt-scopes/)
 
 #### Plans and pricing (1)
 
 Published plans, tiers and prices.
 
-- [Adt Plans Pricing](https://apis.io/plans/adt/adt-plans-pricing/)
+- [ADT Plans Pricing](https://apis.io/plans/adt/adt-plans-pricing/)
 
 #### Rate limits (1)
 
 Published request limits.
 
-- [Adt Rate Limits](https://apis.io/rate-limits/adt/adt-rate-limits/)
+- [ADT Rate Limits](https://apis.io/rate-limits/adt/adt-rate-limits/)
 
 #### FinOps (1)
 
 What the API costs to run, by operation.
 
-- [Adt Finops](https://apis.io/finops/adt/adt-finops/)
+- [ADT Finops](https://apis.io/finops/adt/adt-finops/)
 
 ## Where to find this API
 
@@ -262,7 +262,7 @@ Links to the company's own pages. This repository publishes no copy of their spe
 
 ## API Evangelist rating
 
-**Kin Score 34.3** — thin · rubric 0.24.0 · scored 2026-10-17
+**Kin Score 33.7** — thin · rubric 0.28.1 · scored 2026-11-21
 
 | Facet | Score |
 |---|---|
@@ -270,10 +270,10 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Contract quality | 25.7 |
 | Contract governance | 45.5 |
 | Operational transparency | 0.0 |
-| Developer ergonomics | 38.1 |
-| Access clarity | 27.6 |
+| Developer ergonomics | 39.3 |
+| Access clarity | 27.7 |
 
-**Agent readiness 41.0** — agent-ready (gated down from agent-native)
+**Agent readiness 36.6** — agent-ready
 
 | Agent-readiness dimension | Result |
 |---|---|
@@ -283,7 +283,7 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | MCP Server | — |
 | Auth Clarity | served (partial credit) |
 | Idempotency | — |
-| Error Semantics | verified |
+| Error Semantics | derived (partial credit) |
 | OpenAPI Examples | verified |
 | Rate Limit Signal | documented (partial credit) |
 | Event Surface Described | — |
@@ -296,8 +296,14 @@ Links to the company's own pages. This repository publishes no copy of their spe
 | Protected Resource Metadata | — |
 | Dynamic Client Registration | yes |
 | Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+| MCP Tool Quality | na |
+| Onboarding Descriptor | — |
+| Dns Aid Index | na |
+| Markdown Negotiation | na |
 
-**Regulatory alignment 34.3** — Horizontal (data, software, accessibility, platform)
+**Regulatory alignment 28.4** — Horizontal (data, software, accessibility, platform)
 
 The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/adt/](https://apis.io/providers/adt/).
 
